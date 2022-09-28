@@ -1,0 +1,10 @@
+{
+    "errors":
+    [
+        {
+            "category": "AUTHENTICATION_ERROR",
+            "code": "UNAUTHORIZED",
+            "detail": "The request specified a client ID of 'FAKE_CLIENT_ID', but a client with that ID does not exist. Please ensure the client ID being passed is correct and contact Cash App API support if you are unable to resolve this issue."
+        }
+    ]
+}

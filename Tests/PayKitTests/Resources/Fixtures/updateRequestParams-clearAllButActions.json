@@ -1,0 +1,13 @@
+{
+     "request": {
+          "actions": [
+               {
+                    "type": "ON_FILE_PAYMENT",
+                    "scope_id": "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+                    "account_reference_id": null
+               }
+          ],
+          "metadata": null,
+          "reference_id": null
+     }
+}

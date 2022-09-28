@@ -1,0 +1,16 @@
+input_dir: Shared/Assets/Resources
+output_dir: Shared/Generated
+
+strings:
+  inputs:
+    - en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: Strings.generated.swift
+xcassets:
+  inputs:
+    - Colors.xcassets
+    - Images.xcassets
+  outputs:
+    templatePath: custom-xcassets-template.stencil
+    output: Assets.swift

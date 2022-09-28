@@ -1,0 +1,14 @@
+{
+     "request": {
+          "actions": [
+               {
+                    "type": "ONE_TIME_PAYMENT",
+                    "scope_id": "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+                    "amount": null,
+                    "currency": null
+               }
+          ],
+          "metadata": null,
+          "reference_id": null
+     }
+}

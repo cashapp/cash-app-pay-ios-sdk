@@ -1,0 +1,10 @@
+{
+    "errors":
+    [
+        {
+            "category": "API_ERROR",
+            "code": "INTERNAL_SERVER_ERROR",
+            "detail": "An internal server error has occurred."
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+
+# For a list of available rules, see:
+# https://github.com/realm/SwiftLint/blob/master/Rules.md
+
+disabled_rules:
+    - file_length
+    - identifier_name
+    - nesting
+    - notification_center_detachment
+    - shorthand_operator
+    - todo
+    - type_body_length
+    - type_name
+    - unused_setter_value
+
+opt_in_rules:
+    - modifier_order
+    - multiline_arguments
+    - multiline_arguments_brackets
+    - multiline_literal_brackets
+    - prefer_self_type_over_type_of_self
+    - shorthand_optional_binding
+    - sorted_imports
+    - unavailable_function
+    - file_header
+
+excluded:
+    - Package.swift
+
+trailing_comma:
+    mandatory_comma: true
+
+trailing_whitespace:
+    ignores_comments: false
+
+modifier_order:
+    preferred_modifier_order:
+        - acl
+        - setterACL
+        - override
+        - dynamic
+        - mutators
+        - lazy
+        - final
+        - required
+        - convenience
+        - typeMethods
+        - owned
+
+file_header:
+  severity: error
+  required_pattern: |
+                    \/\/
+                    \/\/  .*?\.swift
+                    \/\/
+                    \/\/  Licensed under the Apache License, Version 2\.0 \(the "License"\);
+                    \/\/  you may not use this file except in compliance with the License\.
+                    \/\/  You may obtain a copy of the License at
+                    \/\/
+                    \/\/  http:\/\/www\.apache\.org\/licenses/LICENSE-2\.0
+                    \/\/
+                    \/\/  Unless required by applicable law or agreed to in writing, software
+                    \/\/  distributed under the License is distributed on an "AS IS" BASIS,
+                    \/\/  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied\.

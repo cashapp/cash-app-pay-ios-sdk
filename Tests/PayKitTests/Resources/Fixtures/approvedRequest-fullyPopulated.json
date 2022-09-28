@@ -1,0 +1,60 @@
+{
+    "request":
+    {
+        "id": "GRR_mg3saamyqdm29jj9pqjqkedm",
+        "status": "APPROVED",
+        "actions":
+        [
+            {
+                "type": "ON_FILE_PAYMENT",
+                "scope_id": "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+                "account_reference_id": "account4"
+            }
+        ],
+        "origin":
+        {
+            "type": "DIRECT"
+        },
+        "grants":
+        [
+            {
+                "id": "GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g",
+                "status": "ACTIVE",
+                "type": "EXTENDED",
+                "action":
+                {
+                    "type": "ON_FILE_PAYMENT",
+                    "scope_id": "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+                    "account_reference_id": "account4"
+                },
+                "channel": "IN_APP",
+                "customer_id": "CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc",
+                "expires_at": "2027-10-19T21:03:43.159Z",
+                "created_at": "2022-10-20T21:03:43.249Z",
+                "updated_at": "2022-10-20T21:03:43.249Z"
+            }
+        ],
+        "reference_id": "refer_to_me",
+        "created_at": "2022-10-20T20:16:18.051Z",
+        "updated_at": "2022-10-20T21:04:10.701Z",
+        "expires_at": "2022-10-20T22:03:43.113Z",
+        "requester_profile":
+        {
+            "name": "SDK Hacking: The Brand",
+            "logo_url": "https://franklin-assets.s3.amazonaws.com/merchants/assets/v3/generic/m_category_shopping.png"
+        },
+        "customer_profile":
+        {
+            "id": "CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc",
+            "cashtag": "$CASHTAG_C_TOKEN"
+        },
+        "metadata":
+        {
+            "key1": "Valuation",
+            "key2": "ValuWorld",
+            "key3": "Valuminous"
+        },
+        "redirect_url": "paykitdemo://callback",
+        "channel": "IN_APP"
+    }
+}

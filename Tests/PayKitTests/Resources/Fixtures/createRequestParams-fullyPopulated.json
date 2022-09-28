@@ -1,0 +1,20 @@
+{
+     "request": {
+          "actions": [
+               {
+                    "type": "ON_FILE_PAYMENT",
+                    "scope_id": "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+                    "account_reference_id": "account4"
+               }
+          ],
+          "metadata": {
+               "key1": "Valuation",
+               "key2": "ValuWorld",
+               "key3": "Valuminous"
+          },
+          "channel": "IN_APP",
+          "redirect_url": "paykitdemo://callback",
+          "reference_id": "refer_to_me"
+     },
+     "idempotency_key": "e345c3fb-1caa-46fd-b0d3-aa6c7b00ab19"
+}

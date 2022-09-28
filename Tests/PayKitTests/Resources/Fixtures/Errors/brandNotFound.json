@@ -1,0 +1,10 @@
+{
+    "errors":
+    [
+        {
+            "category": "INVALID_REQUEST_ERROR",
+            "code": "BRAND_NOT_FOUND",
+            "detail": "The requested brand could not be found."
+        }
+    ]
+}

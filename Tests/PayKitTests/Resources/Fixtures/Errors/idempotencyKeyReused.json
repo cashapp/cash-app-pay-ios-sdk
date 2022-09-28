@@ -1,0 +1,10 @@
+{
+    "errors":
+    [
+        {
+            "category": "INVALID_REQUEST_ERROR",
+            "code": "IDEMPOTENCY_KEY_REUSED",
+            "detail": "Idempotency key already in use, request body checksum does not match"
+        }
+    ]
+}

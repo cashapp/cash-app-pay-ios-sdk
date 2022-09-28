@@ -1,0 +1,57 @@
+# Xcode
+.DS_Store
+build/
+.build/
+.swiftpm/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.moved-aside
+DerivedData
+.idea/
+*.gcno
+*.gcda
+*.iml
+Package.resolved
+
+# Gradle
+.gradle
+local.properties
+
+Code/SquareShared/build
+
+# Cocoapods
+Pods
+Podfile.local
+
+!Pods/Pods.xcodeproj/xcshareddata/xcschemes/CommonCashUI-Unit-SnapshotTests.xcscheme
+
+# cocoapods-dependencies
+Podfile.gv
+Podfile.png
+
+# cocoapods-generate
+gen
+
+# Fastlane
+Fastlane/.env
+Fastlane/Preview.html
+Fastlane/README.md
+Fastlane/report.xml
+Fastlane/bin
+
+# ios-builder
+.bin
+.bundle
+
+# Bazel
+bazel-*
+user.bazelrc
+Code/*/BUILD.bazel
+Pods/*/BUILD.bazel
