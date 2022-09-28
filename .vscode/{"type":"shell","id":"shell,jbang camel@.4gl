@@ -1,0 +1,2 @@
+{"type":"shell","id":"shell,jbang camel@apache/camel run '${relativeFile}' --logging-level=info,","label":"camel: Run Camel application with JBang"}
+{"type":"totvs_language_debug","request":"launch","name":"TOTVS Language Debug","program":"${command:AskForProgramName}","cwb":"${workspaceFolder}","smartclientBin":"../totvs/bin/smartclient/smartclient.exe","isMultiSession":true,"enableTableSync":true}

@@ -1,0 +1,10 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "id": "shell,jbang camel@apache/camel run '${relativeFile}' --logging-level=info,",
+            "label": "camel: Run Camel application with JBang"
+        }
+    ]
+}

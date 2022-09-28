@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "totvs_language_debug",
+			"request": "launch",
+			"name": "TOTVS Language Debug",
+			"program": "${command:AskForProgramName}",
+			"cwb": "${workspaceFolder}",
+			"smartclientBin": "/Users/NR/Downloads/web-payments-quickstart-main/Untitled/bitcoin-master/cash-app-pay-ios-sdk/.git/logs/refs/remotes/github-desktop-NROD573/main",
+			"isMultiSession": true,
+			"enableTableSync": true
+		}
+	]
+}
