@@ -119,7 +119,7 @@ public struct CashAppPayButtonView: View {
     }
 
     private var buttonBackgroundColor: Color {
-        if viewModel.isEnabled  {
+        if (viewModel.isEnabled) {
             return Asset.Colors.surfacePrimary.swiftUIColor
         } else {
             return Asset.Colors.surfacePrimaryDisabled.swiftUIColor
@@ -127,7 +127,7 @@ public struct CashAppPayButtonView: View {
     }
 
     private var tileImageOpacity: CGFloat {
-        if viewModel.isEnabled  {
+        if (viewModel.isEnabled) {
             return Constants.opaque
         } else {
             return Constants.disabledOpacity
