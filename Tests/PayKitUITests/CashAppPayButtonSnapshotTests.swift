@@ -33,6 +33,18 @@ class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
         assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8))
     }
 
+    func test_button_disabled_light_mode() {
+        let button = CashAppPayButton(size: .large, onClickHandler: {})
+        button.isEnabled = false
+        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light))
+    }
+
+    func test_button_disabled_dark_mode() {
+        let button = CashAppPayButton(size: .large, onClickHandler: {})
+        button.isEnabled = false
+        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
+    }
+
     func test_dark_mode() {
         assertSnapshot(
             matching: CashAppPayButton(onClickHandler: {}),

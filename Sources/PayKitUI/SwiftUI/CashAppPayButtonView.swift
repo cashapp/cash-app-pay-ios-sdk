@@ -62,6 +62,7 @@ public struct CashAppPayButtonView: View {
                         trailing: horizontalPadding
                     )
                 )
+                .opacity(tileImageOpacity)
         }.disabled(!viewModel.isEnabled)
             .frame(
                 minWidth: minButtonWidth,
@@ -71,7 +72,7 @@ public struct CashAppPayButtonView: View {
             )
             .background(
                 RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                    .fill(Asset.Colors.surfacePrimary.swiftUIColor)
+                    .fill(buttonBackgroundColor)
             )
     }
 
@@ -117,6 +118,22 @@ public struct CashAppPayButtonView: View {
         }
     }
 
+    private var buttonBackgroundColor: Color {
+        if viewModel.isEnabled  {
+            return Asset.Colors.surfacePrimary.swiftUIColor
+        } else {
+            return Asset.Colors.surfacePrimaryDisabled.swiftUIColor
+        }
+    }
+
+    private var tileImageOpacity: CGFloat {
+        if viewModel.isEnabled  {
+            return Constants.opaque
+        } else {
+            return Constants.disabledOpacity
+        }
+    }
+
     private enum Constants {
         static let cornerRadius: CGFloat = 150
 
@@ -141,6 +158,9 @@ public struct CashAppPayButtonView: View {
 
         static let iconTopPaddingLarge: CGFloat = 6
         static let iconTopPaddingSmall: CGFloat = 4
+
+        static let opaque: CGFloat = 1
+        static let disabledOpacity: CGFloat = 0.6
     }
 }
 
@@ -161,6 +181,7 @@ extension CashAppPayButtonView {
 struct CashButtonView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
+            CashAppPayButtonView(isEnabled: false, onClickHandler: {})
             HStack {
                 Spacer().frame(width: .infinity)
                 CashAppPayButtonView(size: .large, onClickHandler: {})
