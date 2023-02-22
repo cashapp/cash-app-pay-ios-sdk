@@ -28,21 +28,13 @@ class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
     }
 
     func test_button_disabled() {
-        let button = CashAppPayButton(size: .large, onClickHandler: {})
-        button.isEnabled = false
-        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8))
-    }
+        let lightButton = CashAppPayButton(size: .large, onClickHandler: {})
+        lightButton.isEnabled = false
+        assertSnapshot(matching: lightButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light))
 
-    func test_button_disabled_light_mode() {
-        let button = CashAppPayButton(size: .large, onClickHandler: {})
-        button.isEnabled = false
-        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light))
-    }
-
-    func test_button_disabled_dark_mode() {
-        let button = CashAppPayButton(size: .large, onClickHandler: {})
-        button.isEnabled = false
-        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
+        let darkButton = CashAppPayButton(size: .large, onClickHandler: {})
+        darkButton.isEnabled = false
+        assertSnapshot(matching: darkButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
     }
 
     func test_dark_mode() {

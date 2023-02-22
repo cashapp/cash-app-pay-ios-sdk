@@ -160,7 +160,7 @@ public struct CashAppPayButtonView: View {
         static let iconTopPaddingSmall: CGFloat = 4
 
         static let opaque: CGFloat = 1
-        static let disabledOpacity: CGFloat = 0.6
+        static let disabledOpacity: CGFloat = 0.4
     }
 }
 
