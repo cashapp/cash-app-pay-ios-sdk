@@ -16,6 +16,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public class CashAppPaymentMethod: UIView {
 
     // MARK: - Private Properties
@@ -79,6 +80,7 @@ public class CashAppPaymentMethod: UIView {
 
 // MARK: - View Building
 
+@available(iOS 13.0, *)
 private extension CashAppPaymentMethod {
     private func makeView() -> UIView? {
         guard let view = UIHostingController(rootView: paymentMethodView).view else {

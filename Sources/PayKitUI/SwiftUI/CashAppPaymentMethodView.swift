@@ -17,6 +17,7 @@
 import Foundation
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct CashAppPaymentMethodView: View {
 
     // MARK: - Public Properties
@@ -123,6 +124,7 @@ public struct CashAppPaymentMethodView: View {
 
 // MARK: - View Model
 
+@available(iOS 13.0, *)
 extension CashAppPaymentMethodView {
     public class ViewModel: ObservableObject {
         @Published var size: SizingCategory
@@ -141,6 +143,7 @@ extension CashAppPaymentMethodView {
 
 // MARK: - Preview
 
+@available(iOS 13.0, *)
 struct CashAppPaymentMethodView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading, spacing: 10) {

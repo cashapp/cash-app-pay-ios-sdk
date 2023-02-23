@@ -18,6 +18,7 @@ import PayKitUI
 import SnapshotTesting
 import SwiftUI
 
+@available(iOS 13.0, *)
 class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
@@ -36,7 +37,12 @@ class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
     func test_button_disabled() {
         assertSnapshot(
             matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
-            as: .image(on: .iPhone8)
+            as: .image(on: .iPhone8, userInterfaceStyle: .light)
+        )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
 
