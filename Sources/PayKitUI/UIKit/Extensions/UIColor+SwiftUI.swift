@@ -16,6 +16,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 extension UIColor {
     var swiftUIColor: Color? {
         guard let rgb = cgColor.components, rgb.count >= 3 else {

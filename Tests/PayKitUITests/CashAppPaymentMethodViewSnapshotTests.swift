@@ -18,6 +18,7 @@ import PayKitUI
 import SnapshotTesting
 import SwiftUI
 
+@available(iOS 13.0, *)
 class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(

@@ -18,6 +18,7 @@ import PayKitUI
 import SnapshotTesting
 import UIKit
 
+@available(iOS 13.0, *)
 class CashAppPaymentMethodSnapshotTests: BaseSnapshotTestCase {
     func test_small_payment_method() {
         let paymentMethod = CashAppPaymentMethod(size: .small)

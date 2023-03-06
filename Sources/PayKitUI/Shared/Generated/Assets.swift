@@ -27,6 +27,7 @@ internal enum Asset {
   internal enum Colors {
     internal static let buttonTextPrimary = ColorAsset(name: "ButtonTextPrimary")
     internal static let surfacePrimary = ColorAsset(name: "SurfacePrimary")
+    internal static let surfacePrimaryDisabled = ColorAsset(name: "SurfacePrimaryDisabled")
     internal static let surfaceSecondary = ColorAsset(name: "SurfaceSecondary")
     internal static let textPrimary = ColorAsset(name: "TextPrimary")
     internal static let textSecondary = ColorAsset(name: "TextSecondary")

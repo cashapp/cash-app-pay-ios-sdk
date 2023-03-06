@@ -30,6 +30,7 @@ class BaseSnapshotTestCase: XCTestCase {
 private let lowPrecision: Float = 0.95
 private let viewBackground: UIColor = .darkGray
 
+@available(iOS 13.0, *)
 extension Snapshotting where Value: UIView, Format ==  UIImage {
     public static func image(
         filling config: ViewImageConfig,
@@ -78,6 +79,7 @@ extension Snapshotting where Value: UIView, Format ==  UIImage {
     }
 }
 
+@available(iOS 13.0, *)
 extension Snapshotting where Value: View, Format ==  UIImage {
     public static func image(
         on config: ViewImageConfig,

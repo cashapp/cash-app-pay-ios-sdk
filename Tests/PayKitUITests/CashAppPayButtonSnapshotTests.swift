@@ -18,6 +18,7 @@ import PayKitUI
 import SnapshotTesting
 import XCTest
 
+@available(iOS 13.0, *)
 class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(matching: CashAppPayButton(size: .small, onClickHandler: {}), as: .image(centeredIn: .iPhone8))
@@ -28,9 +29,13 @@ class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
     }
 
     func test_button_disabled() {
-        let button = CashAppPayButton(size: .large, onClickHandler: {})
-        button.isEnabled = false
-        assertSnapshot(matching: button, as: .image(centeredIn: .iPhone8))
+        let lightButton = CashAppPayButton(size: .large, onClickHandler: {})
+         lightButton.isEnabled = false
+         assertSnapshot(matching: lightButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light))
+
+         let darkButton = CashAppPayButton(size: .large, onClickHandler: {})
+         darkButton.isEnabled = false
+         assertSnapshot(matching: darkButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
     }
 
     func test_dark_mode() {

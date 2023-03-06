@@ -16,6 +16,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public class CashAppPayButton: UIView {
 
     // MARK: - Public Properties
@@ -68,6 +69,7 @@ public class CashAppPayButton: UIView {
 
 // MARK: - View Building
 
+@available(iOS 13.0, *)
 private extension CashAppPayButton {
     private func makeView() -> UIView? {
         guard let view = UIHostingController(rootView: cashAppButton).view else {
