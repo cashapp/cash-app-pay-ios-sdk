@@ -17,6 +17,8 @@ let package = Package(
             name: "PayKitUI",
             targets: ["PayKitUI"]
         ),
+        .library(name: "PayKit-Dynamic", type: .dynamic, targets: ["PayKit"]),
+        .library(name: "PayKitUI-Dynamic", type: .dynamic, targets: ["PayKitUI"])
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"),
