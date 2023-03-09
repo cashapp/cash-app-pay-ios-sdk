@@ -17,9 +17,9 @@
 import Foundation
 import UIKit
 
-public class PayKit {
+public class CashAppPay {
 
-    public static let version = "0.2.0"
+    public static let version = "0.3.0"
 
     public static let RedirectNotification: Notification.Name = Notification.Name("CashAppPayRedirect")
 
@@ -32,8 +32,9 @@ public class PayKit {
             commonParameters: [
                 EventStream2.CommonFields.clientID.rawValue: clientID,
                 EventStream2.CommonFields.platform.rawValue: "iOS",
-                EventStream2.CommonFields.sdkVersion.rawValue: PayKit.version,
+                EventStream2.CommonFields.sdkVersion.rawValue: CashAppPay.version,
                 EventStream2.CommonFields.clientUA.rawValue: UserAgent.userAgent,
+                EventStream2.CommonFields.isSandbox.rawValue: (endpoint == .sandbox),
             ],
             store: AnalyticsDataSource(),
             client: AnalyticsClient(restService: ResilientRESTService())
@@ -96,7 +97,7 @@ public class PayKit {
     }
 }
 
-public enum PayKitState: Equatable {
+public enum CashAppPayState: Equatable {
     /// Ready for a Create Customer Request to be initiated.
     case notStarted
     /// CustomerRequest is being created. For information only.
@@ -126,16 +127,16 @@ public enum PayKitState: Equatable {
     case unexpectedError(UnexpectedError)
 }
 
-public protocol PayKitObserver: AnyObject {
-    func stateDidChange(to state: PayKitState)
+public protocol CashAppPayObserver: AnyObject {
+    func stateDidChange(to state: CashAppPayState)
 }
 
-public extension PayKit {
-    func addObserver(_ observer: PayKitObserver) {
+public extension CashAppPay {
+    func addObserver(_ observer: CashAppPayObserver) {
         stateMachine.addObserver(observer)
     }
 
-    func removeObserver(_ observer: PayKitObserver) {
+    func removeObserver(_ observer: CashAppPayObserver) {
         stateMachine.removeObserver(observer)
     }
 }

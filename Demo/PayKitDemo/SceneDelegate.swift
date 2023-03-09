@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             NotificationCenter.default.post(
-                name: PayKit.RedirectNotification,
+                name: CashAppPay.RedirectNotification,
                 object: nil,
                 userInfo: [UIApplication.LaunchOptionsKey.url: url]
             )

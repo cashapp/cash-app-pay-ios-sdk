@@ -19,12 +19,12 @@ import XCTest
 
 class PayKitTests: XCTestCase {
 
-    private var payKit: PayKit!
+    private var payKit: CashAppPay!
 
     override func setUp() {
         super.setUp()
         let stateMachine = StateMachine(networkManager: MockNetworkManager(), analyticsService: MockAnalytics())
-        self.payKit = PayKit(stateMachine: stateMachine, endpoint: .production)
+        self.payKit = CashAppPay(stateMachine: stateMachine, endpoint: .production)
     }
 
     override func tearDown() {
@@ -165,14 +165,14 @@ class PayKitTests: XCTestCase {
     }
 }
 
-private class TestObserver: PayKitObserver {
-    var stateDidChangeStub: (PayKitState) -> Void
+private class TestObserver: CashAppPayObserver {
+    var stateDidChangeStub: (CashAppPayState) -> Void
 
-    init(stateDidChangeStub: @escaping (PayKitState) -> Void) {
+    init(stateDidChangeStub: @escaping (CashAppPayState) -> Void) {
         self.stateDidChangeStub = stateDidChangeStub
     }
 
-    func stateDidChange(to state: PayKitState) {
+    func stateDidChange(to state: CashAppPayState) {
         stateDidChangeStub(state)
     }
 }

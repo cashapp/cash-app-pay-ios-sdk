@@ -17,9 +17,9 @@
 @testable import PayKit
 import XCTest
 
-class PayKit_EndpointTest: XCTestCase {
+class CashAppPay_EndpointTest: XCTestCase {
     func test_endpoint_url() {
-        XCTAssertEqual(PayKit.Endpoint.sandbox.baseURL.absoluteString, "https://sandbox.api.cash.app/")
-        XCTAssertEqual(PayKit.Endpoint.production.baseURL.absoluteString, "https://api.cash.app/")
+        XCTAssertEqual(CashAppPay.Endpoint.sandbox.baseURL.absoluteString, "https://sandbox.api.cash.app/")
+        XCTAssertEqual(CashAppPay.Endpoint.production.baseURL.absoluteString, "https://api.cash.app/")
     }
 }

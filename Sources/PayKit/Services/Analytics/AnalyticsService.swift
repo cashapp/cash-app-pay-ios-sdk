@@ -90,7 +90,7 @@ class EventStream2: AnalyticsService {
                 self?.enqueueUpload()
             }
 
-            RunLoop.current.add(timer, forMode: .common)
+            RunLoop.main.add(timer, forMode: .common)
         }
 
     // MARK: - Public
@@ -137,5 +137,6 @@ extension EventStream2 {
         case platform = "platform"
         case sdkVersion = "sdk_version"
         case clientUA = "client_ua"
+        case isSandbox = "is_sandbox"
     }
 }

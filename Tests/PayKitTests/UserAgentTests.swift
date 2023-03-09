@@ -21,7 +21,7 @@ class UserAgentTests: XCTestCase {
     func test_user_agent() {
         let appIdentifier = infoDictionaryString(forKey: kCFBundleIdentifierKey as String)
         let appVersion = infoDictionaryString(forKey: kCFBundleVersionKey as String)
-        let payKitVersion = PayKit.version
+        let payKitVersion = CashAppPay.version
 
         let model = UIDevice.current.deviceModel ?? UserAgent.unknownValue
         let language = Locale.current.languageCode?.lowercased() ?? UserAgent.unknownValue

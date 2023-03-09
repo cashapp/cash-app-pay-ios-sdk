@@ -33,7 +33,7 @@ enum UserAgent {
         }
         let appIdentifier = infoDictionaryString(forKey: kCFBundleIdentifierKey as String)
         let appVersion = infoDictionaryString(forKey: kCFBundleVersionKey as String)
-        var payKitVersion = PayKit.version
+        var payKitVersion = CashAppPay.version
 
         let model = UIDevice.current.deviceModel ?? unknownValue
         let language = Locale.current.languageCode?.lowercased() ?? unknownValue

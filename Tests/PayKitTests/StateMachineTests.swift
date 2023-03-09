@@ -79,22 +79,22 @@ class StateMachineTests: XCTestCase {
 
         // The state machine should advance to .polling if we're in .redirecting.
         stateMachine.state = .redirecting(customerRequest)
-        NotificationCenter.default.post(name: PayKit.RedirectNotification, object: nil)
+        NotificationCenter.default.post(name: CashAppPay.RedirectNotification, object: nil)
         XCTAssertEqual(stateMachine.state, .polling(customerRequest))
 
         // The state machine should also advance to .polling if we're in .readyToAuthorize;
         // it's unexpected, but we can continue.
         stateMachine.state = .readyToAuthorize(customerRequest)
-        NotificationCenter.default.post(name: PayKit.RedirectNotification, object: nil)
+        NotificationCenter.default.post(name: CashAppPay.RedirectNotification, object: nil)
         XCTAssertEqual(stateMachine.state, .polling(customerRequest))
 
         // If we're in any other state, we shouldn't advance.
         stateMachine.state = .notStarted
-        NotificationCenter.default.post(name: PayKit.RedirectNotification, object: nil)
+        NotificationCenter.default.post(name: CashAppPay.RedirectNotification, object: nil)
         XCTAssertEqual(stateMachine.state, .notStarted)
 
         stateMachine.state = .creatingCustomerRequest(TestValues.createCustomerRequestParams)
-        NotificationCenter.default.post(name: PayKit.RedirectNotification, object: nil)
+        NotificationCenter.default.post(name: CashAppPay.RedirectNotification, object: nil)
         XCTAssertEqual(stateMachine.state, .creatingCustomerRequest(TestValues.createCustomerRequestParams))
     }
 
