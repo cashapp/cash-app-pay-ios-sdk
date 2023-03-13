@@ -248,6 +248,6 @@ class StateMachineAnalyticsTests: XCTestCase {
     }
 }
 
-private class TestObserver: PayKitObserver {
-    func stateDidChange(to state: PayKitState) {}
+private class TestObserver: CashAppPayObserver {
+    func stateDidChange(to state: CashAppPayState) {}
 }

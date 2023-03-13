@@ -1,10 +1,10 @@
 # PayKit for iOS
 
-[![License](https://img.shields.io/badge/license-Apache2-green.svg?style=flat)](LICENSE) ![Swift](https://img.shields.io/badge/swift-5.0-brightgreen.svg) ![Xcode 11.0+](https://img.shields.io/badge/Xcode-11.0%2B-blue.svg) ![iOS 13.0+](https://img.shields.io/badge/iOS-13.0%2B-blue.svg) [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![License](https://img.shields.io/badge/license-Apache2-green.svg?style=flat)](LICENSE) ![Swift](https://img.shields.io/badge/swift-5.0-brightgreen.svg) ![Xcode 11.0+](https://img.shields.io/badge/Xcode-11.0%2B-blue.svg) ![iOS 11.0+](https://img.shields.io/badge/iOS-13.0%2B-blue.svg) [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 Pay Kit is an open source software framework that allows you to accept Cash App Pay in your App. The framework provides a modules that can be used out of the box where the customer will be redirected from your checkout experience to Cash App to approve the payment before being redirected back to your App. It is composed of two SPM packages which can each be imported separately.
 
-* **`PayKit`:** This is the best place to start building your app. `PayKit` provides a protocol called `PayKitObserver` that receives updates from Pay Kit. Your checkout view controller can conform to this protocol, or you can create a dedicated observer class.
+* **`PayKit`:** This is the best place to start building your app. `PayKit` provides a protocol called `CashAppPayObserver` that receives updates from Pay Kit. Your checkout view controller can conform to this protocol, or you can create a dedicated observer class.
 
 * **`PayKitUI`:** Provides the views used across the framework. The views are provided to the user to launch a Pay Kit payment and to present the Cashtag but do not prescribe how they must be used.
 
@@ -14,9 +14,9 @@ Pay Kit is an open source software framework that allows you to accept Cash App 
     * [SPM](#spm)
     * [Cocoapods](#cocoapods)
 * [`PayKit`](#paykit)
-    * [`PayKitObserver`](#pay-kit-observer)
+    * [`CashAppPayObserver`](#cash-app-pay-observer)
     * [Implement URL handling](#implement-url-handling)
-    * [Instantiate PayKit](#instantiate-paykit)
+    * [Instantiate CashAppPay](#instantiate-CashAppPay)
     * [Create a Customer Request](#create-a-customer-request)
     * [Authorize the Customer Request](#authorize-the-customer-request)
     * [Pass Grants to the Backend and Create Payment](#grants)
@@ -45,12 +45,12 @@ Add Cocoapods to your to your project. Open the `Podfile` and add `pod 'CashAppP
 
 # PayKit <a name="paykit"></a>
 
-### `PayKitObserver` <a name="pay-kit-observer"></a>
+### `CashAppPayObserver` <a name="cash-app-pay-observer"></a>
 
-The `PayKitObserver` protocol contains only one method:
+The `CashAppPayObserver` protocol contains only one method:
 
 ```swift
-func stateDidChange(to state: CashAppPaySDKState) {
+func stateDidChange(to state: CashAppPayState) {
     // handle state changes
 }
 ```
@@ -76,7 +76,7 @@ Choose a unique scheme for your application and register it in Xcode from the In
 
 You will pass a URL that uses this scheme (or a Universal Link your app handles) into the `createCustomerRequest()` method that starts the authorization process.
 
-When your app is called back by Cash App, simply post the `PayKit.RedirectNotification` from your `AppDelegate` or `SceneDelegate`, and the SDK will handle the rest:
+When your app is called back by Cash App, simply post the `CashAppPay.RedirectNotification` from your `AppDelegate` or `SceneDelegate`, and the SDK will handle the rest:
 
 ```swift
 import UIKit
@@ -86,7 +86,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
                 if let url = URLContexts.first?.url {
                     NotificationCenter.default.post(
-                        name: PayKit.RedirectNotification,
+                        name: CashAppPay.RedirectNotification,
                         object: nil,
                         userInfo: [UIApplication.LaunchOptionsKey.url : url]
                     )
@@ -96,7 +96,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 ```
 
-### Instantiate `PayKit` <a name="instantiate-paykit"></a>
+### Instantiate `CashAppPay` <a name="instantiate-CashAppPay"></a>
 
 When you are ready to authorize a payment using Cash App Pay,
 
@@ -104,12 +104,12 @@ When you are ready to authorize a payment using Cash App Pay,
 2. The SDK defaults to point to the `production` endpoint; for development, set the endpoint to `sandbox`
 3. Add your observer to the SDK
 
-For example, from your checkout view controller that implements the `PayKitObserver` protocol, you can instantiate the SDK to be:
+For example, from your checkout view controller that implements the `CashAppPayObserver` protocol, you can instantiate the SDK to be:
 
 ```swift
 private let sandboxClientID = "YOUR_CLIENT_ID"
-private lazy var sdk: PayKit = {
-    let sdk = PayKit(clientID: sandboxClientID, endpoint: .sandbox)
+private lazy var sdk: CashAppPay = {
+    let sdk = CashAppPay(clientID: sandboxClientID, endpoint: .sandbox)
     sdk.addObserver(self)
     return sdk
 }()

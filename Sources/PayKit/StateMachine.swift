@@ -27,7 +27,7 @@ class StateMachine {
     var notificationObserver: NSObjectProtocol?
     var pollingTimer: Timer?
 
-    var state: PayKitState = .notStarted {
+    var state: CashAppPayState = .notStarted {
         didSet {
             stateDidChange(to: state, from: oldValue)
         }
@@ -37,7 +37,7 @@ class StateMachine {
         self.networkManager = networkManager
         self.analyticsService = analyticsService
         NotificationCenter.default.addObserver(
-            forName: PayKit.RedirectNotification,
+            forName: CashAppPay.RedirectNotification,
             object: nil,
             queue: nil
         ) { [weak self] _ in
@@ -59,7 +59,7 @@ class StateMachine {
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    func stateDidChange(to state: PayKitState, from oldState: PayKitState) {
+    func stateDidChange(to state: CashAppPayState, from oldState: CashAppPayState) {
         // Clear polling timer and observer if necessary.
         cleanUpSideEffectsFor(state: state)
 
@@ -174,7 +174,7 @@ class StateMachine {
         }
     }
 
-    func cleanUpSideEffectsFor(state: PayKitState) {
+    func cleanUpSideEffectsFor(state: CashAppPayState) {
         // If we're in any state other than .polling, invalidate the timer.
         if case .polling = state {
             // do nothing
@@ -198,16 +198,16 @@ class StateMachine {
 
 extension StateMachine {
     struct Observation {
-        weak var observer: PayKitObserver?
+        weak var observer: CashAppPayObserver?
     }
 
-    func addObserver(_ observer: PayKitObserver) {
+    func addObserver(_ observer: CashAppPayObserver) {
         let id = ObjectIdentifier(observer)
         observations[id] = Observation(observer: observer)
         analyticsService.track(ListenerEvent(listenerUID: id.debugDescription, isAdded: true))
     }
 
-    func removeObserver(_ observer: PayKitObserver) {
+    func removeObserver(_ observer: CashAppPayObserver) {
         let id = ObjectIdentifier(observer)
         observations.removeValue(forKey: id)
         analyticsService.track(ListenerEvent(listenerUID: id.debugDescription, isAdded: false))

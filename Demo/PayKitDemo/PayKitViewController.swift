@@ -45,8 +45,8 @@ class PayKitViewController: UIViewController {
         }
     }
 
-    private lazy var sdk: PayKit = {
-        let sdk = PayKit(clientID: sandboxClientID, endpoint: .sandbox)
+    private lazy var sdk: CashAppPay = {
+        let sdk = CashAppPay(clientID: sandboxClientID, endpoint: .sandbox)
         sdk.addObserver(self)
         return sdk
     }()
@@ -307,11 +307,11 @@ extension PayKitViewController {
     }
 }
 
-// MARK: - PayKitObserver
+// MARK: - CashAppPayObserver
 
-extension PayKitViewController: PayKitObserver {
+extension PayKitViewController: CashAppPayObserver {
     // swiftlint:disable:next cyclomatic_complexity
-    func stateDidChange(to state: PayKitState) {
+    func stateDidChange(to state: CashAppPayState) {
         switch state {
         case .notStarted:
             statusTextView.text = "Hit that button!"

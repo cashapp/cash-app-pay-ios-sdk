@@ -1,3 +1,13 @@
+## PayKit 0.3.0 Release Notes
+
+*PayKit 0.3.0* supports *iOS* and requires *Xcode 9* or later. The minimum supported *Base SDK* is *11.0*.
+
+*PayKit 0.3.0* includes the following new features and enhancements.
+
+- **Name changes**
+
+   *PayKit* class has been renamed to *CashAppPay*.
+
 ## PayKit 0.2.0 Release Notes
 
 *PayKit 0.2.0* supports *iOS* and requires *Xcode 9* or later. The minimum supported *Base SDK* is *11.0*.

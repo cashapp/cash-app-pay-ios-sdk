@@ -41,13 +41,13 @@ class NetworkManager {
 
     // MARK: - Visible API
 
-    init(clientID: String, endpoint: PayKit.Endpoint) {
+    init(clientID: String, endpoint: CashAppPay.Endpoint) {
         self.clientID = clientID
         self.endpoint = endpoint
         self.restService = ResilientRESTService()
     }
 
-    let endpoint: PayKit.Endpoint
+    let endpoint: CashAppPay.Endpoint
 
     func createCustomerRequest(
         params: CreateCustomerRequestParams,
@@ -152,7 +152,7 @@ enum DebugError: Error {
     case noRedirectURL(CustomerRequest)
 }
 
-extension PayKit.Endpoint {
+extension CashAppPay.Endpoint {
     var baseURL: URL {
         switch self {
         case .production:
