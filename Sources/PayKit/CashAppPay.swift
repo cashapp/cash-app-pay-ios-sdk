@@ -19,7 +19,7 @@ import UIKit
 
 public class CashAppPay {
 
-    public static let version = "0.3.0"
+    public static let version = "0.3.1"
 
     public static let RedirectNotification: Notification.Name = Notification.Name("CashAppPayRedirect")
 
@@ -34,10 +34,10 @@ public class CashAppPay {
                 EventStream2.CommonFields.platform.rawValue: "iOS",
                 EventStream2.CommonFields.sdkVersion.rawValue: CashAppPay.version,
                 EventStream2.CommonFields.clientUA.rawValue: UserAgent.userAgent,
-                EventStream2.CommonFields.isSandbox.rawValue: (endpoint == .sandbox),
+                EventStream2.CommonFields.environment.rawValue: endpoint.analyticsField,
             ],
             store: AnalyticsDataSource(),
-            client: AnalyticsClient(restService: ResilientRESTService())
+            client: AnalyticsClient(restService: ResilientRESTService(), endpoint: endpoint.analyticsEndpoint)
         )
 
         let stateMachine = StateMachine(networkManager: networkManager, analyticsService: analytics)
@@ -52,6 +52,7 @@ public class CashAppPay {
     public enum Endpoint {
         case production
         case sandbox
+        case staging
     }
 
     /// The endpoint that the requests are routed to

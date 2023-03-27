@@ -1,3 +1,13 @@
+## PayKit 0.3.1 Release Notes
+
+*PayKit 0.3.1* supports *iOS* and requires *Xcode 9* or later. The minimum supported *Base SDK* is *11.0*.
+
+*PayKit 0.3.1* includes the following new features and enhancements.
+
+- **PayKit Demo**
+
+   The *PayKitDemo App* now includes a toggle to test in the staging environment.
+
 ## PayKit 0.3.0 Release Notes
 
 *PayKit 0.3.0* supports *iOS* and requires *Xcode 9* or later. The minimum supported *Base SDK* is *11.0*.

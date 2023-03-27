@@ -159,6 +159,8 @@ extension CashAppPay.Endpoint {
             return URL(string: "https://api.cash.app/")!
         case .sandbox:
             return URL(string: "https://sandbox.api.cash.app/")!
+        case .staging:
+            return URL(string: "https://api.cashstaging.app/")!
         }
     }
 }

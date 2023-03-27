@@ -22,10 +22,9 @@ class AnalyticsClient {
 
     private let restService: RESTService
 
-    private let endpointURL = URL(string: "https://api.squareup.com/")!
     private let apiPath = "2.0/log/eventstream"
     private var baseURL: URL {
-        URL(string: apiPath, relativeTo: endpointURL)!
+        URL(string: apiPath, relativeTo: endpoint.baseURL)!
     }
 
     private var requestHeaders: [String: String] {
@@ -37,10 +36,15 @@ class AnalyticsClient {
 
     private let encoder: JSONEncoder = .eventStream2Encoder()
 
+    // MARK: - Public Properties
+
+    private let endpoint: Endpoint
+
     // MARK: - Lifecycle
 
-    init(restService: RESTService) {
+    init(restService: RESTService, endpoint: Endpoint) {
         self.restService = restService
+        self.endpoint = endpoint
     }
 
     // MARK: - Public
@@ -77,6 +81,24 @@ class AnalyticsClient {
             }
             DispatchQueue.main.async {
                 completion(.success(()))
+            }
+        }
+    }
+}
+
+// MARK: - Endpoint
+
+extension AnalyticsClient {
+    enum Endpoint {
+        case production
+        case staging
+
+        var baseURL: URL {
+            switch self {
+            case .production:
+                return URL(string: "https://api.squareup.com/")!
+            case .staging:
+                return URL(string: "https://api.squareupstaging.com/")!
             }
         }
     }

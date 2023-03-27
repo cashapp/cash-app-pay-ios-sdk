@@ -137,6 +137,6 @@ extension EventStream2 {
         case platform = "platform"
         case sdkVersion = "sdk_version"
         case clientUA = "client_ua"
-        case isSandbox = "is_sandbox"
+        case environment = "environment"
     }
 }

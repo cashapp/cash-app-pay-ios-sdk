@@ -253,7 +253,7 @@ private class MockAnalyticsClient: AnalyticsClient {
 
     init(uploadStub: @escaping ((String, [AnalyticsEvent], (Result<Void, Error>) -> Void) -> Void) = { _, _, _ in }) {
         self.uploadStub = uploadStub
-        super.init(restService: ResilientRESTService())
+        super.init(restService: ResilientRESTService(), endpoint: .production)
     }
 
     override func upload(

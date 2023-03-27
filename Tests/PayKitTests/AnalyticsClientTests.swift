@@ -28,6 +28,11 @@ class AnalyticsClientTests: XCTestCase {
         XCTAssertEqual(try param.event.jsonString(), try event.jsonString())
     }
 
+    func test_endpoint() {
+        XCTAssertEqual(AnalyticsClient.Endpoint.staging.baseURL.absoluteString, "https://api.squareupstaging.com/")
+        XCTAssertEqual(AnalyticsClient.Endpoint.production.baseURL.absoluteString, "https://api.squareup.com/")
+    }
+
     func test_request_body() {
         let expectation = self.expectation(description: "Uploaded")
         let mock = MockRestService { request, retry, _ in
@@ -38,7 +43,7 @@ class AnalyticsClientTests: XCTestCase {
             expectation.fulfill()
         }
 
-        let client = AnalyticsClient(restService: mock)
+        let client = AnalyticsClient(restService: mock, endpoint: .production)
         client.upload(appName: "app", events: [event]) { _ in }
 
         waitForExpectations(timeout: 0.5)
