@@ -20,11 +20,10 @@ import UIKit
 // swiftlint:disable file_length
 class PayKitViewController: UIViewController {
 
-    private let sandboxClientID = "CAS-CI_PAYKIT_MOBILE_DEMO"
-    private let sandboxBrandID = "BRAND_9t4pg7c16v4lukc98bm9jxyse"
-
     private lazy var stackView = makeStackView()
 
+    private lazy var endpointLabel = makeLabel(text: environment.title)
+    private lazy var endpointToggle = makeEndpointToggle()
     private lazy var paymentTypeControlLabel = makeLabel(text: "Payment Type")
     private lazy var paymentTypeControl = makePaymentTypeControl()
 
@@ -39,6 +38,12 @@ class PayKitViewController: UIViewController {
     private lazy var authorizeRequestButton = makeAuthorizeRequestButton()
     private lazy var statusTextView = makeStatusTextView()
 
+    var environment: Environment = .sandbox {
+        didSet {
+            updateViewState()
+        }
+    }
+
     var pendingRequest: CustomerRequest? {
         didSet {
             updateViewState()
@@ -46,13 +51,13 @@ class PayKitViewController: UIViewController {
     }
 
     private lazy var sdk: CashAppPay = {
-        let sdk = CashAppPay(clientID: sandboxClientID, endpoint: .sandbox)
+        let sdk = CashAppPay(clientID: environment.clientID, endpoint: environment.endpoint)
         sdk.addObserver(self)
         return sdk
     }()
 
     private var brandID: String {
-        sandboxBrandID
+        environment.brandID
     }
 
     override func viewDidLoad() {
@@ -75,6 +80,10 @@ class PayKitViewController: UIViewController {
 
         stackView.setCustomSpacing(20, after: accountReferenceIDTextField)
 
+        stackView.addArrangedSubview(endpointToggle)
+
+        stackView.setCustomSpacing(20, after: endpointToggle)
+
         stackView.addArrangedSubview(createRequestButton)
         stackView.addArrangedSubview(updateRequestButton)
         stackView.addArrangedSubview(authorizeRequestButton)
@@ -86,6 +95,8 @@ class PayKitViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.readableContentGuide.centerYAnchor),
+
+            endpointToggle.widthAnchor.constraint(equalTo: stackView.widthAnchor),
 
             paymentTypeControlLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor),
             paymentTypeControl.widthAnchor.constraint(equalTo: stackView.widthAnchor),
@@ -111,6 +122,7 @@ class PayKitViewController: UIViewController {
         authorizeRequestButton.isEnabled = (pendingRequest != nil)
         amountTextField.isEnabled = (paymentType == .ONE_TIME_PAYMENT)
         accountReferenceIDTextField.isEnabled = (paymentType == .ON_FILE_PAYMENT)
+        endpointLabel.text = environment.title
     }
 
     // MARK: - Button Actions
@@ -127,6 +139,13 @@ class PayKitViewController: UIViewController {
     func authorizeButtonPress() {
         guard let request = pendingRequest else { return }
         sdk.authorizeCustomerRequest(request)
+    }
+
+    func endpointToggleChanged() {
+        self.environment = (environment == .sandbox) ? .staging : .sandbox
+        sdk.removeObserver(self)
+        sdk = CashAppPay(clientID: environment.clientID, endpoint: environment.endpoint)
+        sdk.addObserver(self)
     }
 }
 
@@ -195,6 +214,15 @@ extension PayKitViewController {
         stackView.distribution = .fill
         stackView.spacing = 10
         return stackView
+    }
+
+    func makeEndpointToggle() -> UIStackView {
+        let toggle = UISwitch(frame: .zero, primaryAction: UIAction { [weak self] _ in
+            self?.endpointToggleChanged()
+        })
+        let stack = UIStackView(arrangedSubviews: [toggle, endpointLabel])
+        stack.spacing = 16
+        return  stack
     }
 
     func makeCreateRequestButton() -> UIButton {
@@ -352,5 +380,45 @@ extension PayKitViewController: UITextFieldDelegate {
     ) -> Bool {
         guard textField == amountTextField else { return true }
         return string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+}
+
+extension PayKitViewController {
+    enum Environment {
+        private static let sandboxClientID = "CAS-CI_PAYKIT_MOBILE_DEMO"
+        private static let sandboxBrandID = "BRAND_9t4pg7c16v4lukc98bm9jxyse"
+        private static let stagingClientID = "CASH_CHECKOUT"
+        private static let stagingBrandID = "BRAND_4wv02dz5v4eg22b3enoffn6rt"
+
+        case sandbox
+        case staging
+
+        var title: String {
+            switch self {
+            case .staging: return "Staging"
+            case .sandbox: return "Sandbox"
+            }
+        }
+
+        var clientID: String {
+            switch self {
+            case .sandbox: return Environment.sandboxClientID
+            case .staging: return Environment.stagingClientID
+            }
+        }
+
+        var brandID: String {
+            switch self {
+            case .sandbox: return Environment.sandboxBrandID
+            case .staging: return Environment.stagingBrandID
+            }
+        }
+
+        var endpoint: CashAppPay.Endpoint {
+            switch self {
+            case .sandbox: return .sandbox
+            case .staging: return .staging
+            }
+        }
     }
 }

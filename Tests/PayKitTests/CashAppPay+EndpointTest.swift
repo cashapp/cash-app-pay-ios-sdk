@@ -19,7 +19,20 @@ import XCTest
 
 class CashAppPay_EndpointTest: XCTestCase {
     func test_endpoint_url() {
+        XCTAssertEqual(CashAppPay.Endpoint.staging.baseURL.absoluteString, "https://api.cashstaging.app/")
         XCTAssertEqual(CashAppPay.Endpoint.sandbox.baseURL.absoluteString, "https://sandbox.api.cash.app/")
         XCTAssertEqual(CashAppPay.Endpoint.production.baseURL.absoluteString, "https://api.cash.app/")
+    }
+
+    func test_endpoint_analytics_endpoint() {
+        XCTAssertEqual(CashAppPay.Endpoint.staging.analyticsEndpoint, .staging)
+        XCTAssertEqual(CashAppPay.Endpoint.production.analyticsEndpoint, .production)
+        XCTAssertEqual(CashAppPay.Endpoint.sandbox.analyticsEndpoint, .production)
+    }
+
+    func test_analytics_field() {
+        XCTAssertEqual(CashAppPay.Endpoint.staging.analyticsField, "staging")
+        XCTAssertEqual(CashAppPay.Endpoint.production.analyticsField, "production")
+        XCTAssertEqual(CashAppPay.Endpoint.sandbox.analyticsField, "sandbox")
     }
 }
