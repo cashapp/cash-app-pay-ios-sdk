@@ -1,3 +1,13 @@
+## PayKit 0.3.2 Release Notes
+
+Pay Kit 0.3.2 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
+
+Pay Kit 0.3.2 includes the following new features and enhancements.
+
+- **Cocoapods**
+
+   `PayKit` and `PayKitUI` support iOS 11 when imported through Cocoapods.
+
 ## PayKit 0.3.1 Release Notes
 
 Pay Kit 0.3.1 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
