@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'CashAppPayKitUI'
-    s.version      = "0.3.1"
+    s.version      = "0.3.2"
     s.summary      = 'UI components for the PayKit iOS SDK'
     s.homepage     = 'https://github.com/cashapp/cash-app-pay-ios-sdk'
     s.license      = 'Apache License, Version 2.0'
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.source       = { :git => 'https://github.com/cashapp/cash-app-pay-ios-sdk.git', :tag => "v#{s.version}" }
     s.module_name = 'PayKitUI'
 
-    ios_deployment_target = '13.0'
+    ios_deployment_target = '11.0'
 
     s.swift_version = ['5.0']
     s.ios.deployment_target = ios_deployment_target
