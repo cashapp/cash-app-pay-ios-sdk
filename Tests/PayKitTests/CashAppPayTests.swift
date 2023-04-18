@@ -1,5 +1,5 @@
 //
-//  PayKitTests.swift
+//  CashAppPayTests.swift
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,13 +23,29 @@ class PayKitTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let stateMachine = StateMachine(networkManager: MockNetworkManager(), analyticsService: MockAnalytics())
-        self.payKit = CashAppPay(stateMachine: stateMachine, endpoint: .production)
+        let networkManager = MockNetworkManager()
+        let stateMachine = StateMachine(networkManager: networkManager, analyticsService: MockAnalytics())
+        self.payKit = CashAppPay(stateMachine: stateMachine, networkManager: networkManager, endpoint: .production)
     }
 
     override func tearDown() {
         self.payKit = nil
         super.tearDown()
+    }
+
+    func test_retrieve_customer_request_calls_network_manager() {
+        let expectation = expectation(description: "Called Retrieve Customer Request")
+
+        let networkManager = MockNetworkManager(retrieveCustomerRequest: { id, _  in
+            self.XCTAssertEqual(id, "ID")
+            expectation.fulfill()
+        })
+
+        let stateMachine = StateMachine(networkManager: networkManager, analyticsService: MockAnalytics())
+        self.payKit = CashAppPay(stateMachine: stateMachine, networkManager: networkManager, endpoint: .production)
+        payKit.retrieveCustomerRequest(id: "ID", completion: { _ in })
+
+        waitForExpectations(timeout: 0.5)
     }
 
     func test_updating_approved_customer_request_triggers_error() throws {

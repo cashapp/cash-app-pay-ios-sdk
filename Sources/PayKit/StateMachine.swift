@@ -108,7 +108,7 @@ class StateMachine {
             analyticsService.track(CustomerRequestEvent.polling(request: customerRequest))
             let pollingTimer = Timer(timeInterval: 1.0, repeats: true, block: { [weak self] _ in
                 guard let self else { return }
-                self.networkManager.retrieveCustomerRequest(customerRequest) { [weak self] (result) in
+                self.networkManager.retrieveCustomerRequest(id: customerRequest.id) { [weak self] (result) in
                     guard let self else { return }
                     switch result {
                     case let .success(customerRequest):

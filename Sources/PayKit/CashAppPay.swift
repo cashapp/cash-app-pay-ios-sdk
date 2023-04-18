@@ -25,6 +25,8 @@ public class CashAppPay {
 
     let stateMachine: StateMachine
 
+    private let networkManager: NetworkManager
+
     public convenience init(clientID: String, endpoint: Endpoint = .production) {
         let networkManager = NetworkManager(clientID: clientID, endpoint: endpoint)
         let analytics = EventStream2(
@@ -41,11 +43,12 @@ public class CashAppPay {
         )
 
         let stateMachine = StateMachine(networkManager: networkManager, analyticsService: analytics)
-        self.init(stateMachine: stateMachine, endpoint: endpoint)
+        self.init(stateMachine: stateMachine, networkManager: networkManager, endpoint: endpoint)
     }
 
-    init(stateMachine: StateMachine, endpoint: Endpoint) {
+    init(stateMachine: StateMachine, networkManager: NetworkManager, endpoint: Endpoint) {
         self.stateMachine = stateMachine
+        self.networkManager = networkManager
         self.endpoint = endpoint
     }
 
@@ -57,6 +60,14 @@ public class CashAppPay {
 
     /// The endpoint that the requests are routed to
     public let endpoint: Endpoint
+
+    /// Fetch an existing CustomerRequest by ID.
+    public func retrieveCustomerRequest(
+        id: String,
+        completion: @escaping (Result<CustomerRequest, Error>) -> Void
+    ) {
+        networkManager.retrieveCustomerRequest(id: id, completionHandler: completion)
+    }
 
     /// Create a customer request. Registered observers are notified of state changes as the request proceeds.
     public func createCustomerRequest(
