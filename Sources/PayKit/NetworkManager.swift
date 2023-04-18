@@ -88,10 +88,10 @@ class NetworkManager {
     }
 
     func retrieveCustomerRequest(
-        _ request: CustomerRequest,
+        id: String,
         completionHandler: @escaping (Result<CustomerRequest, Error>) -> Void
     ) {
-        let url = baseURL.appendingPathComponent(request.id)
+        let url = baseURL.appendingPathComponent(id)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 5.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = requestHeaders

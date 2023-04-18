@@ -147,13 +147,16 @@ class MockAnalytics: AnalyticsService {
 }
 
 class MockNetworkManager: NetworkManager {
-    convenience init() {
-        self.init(clientID: "test_client", endpoint: .sandbox)
-    }
+    var retrieveCustomerRequest: (String, (Result<CustomerRequest, Error>) -> Void) -> Void = { _, _ in }
 
     var createCustomerRequestCount: Int = 0
     var updateCustomerRequestCount: Int = 0
     var retrieveCustomerRequestCount: Int = 0
+
+    convenience init(retrieveCustomerRequest: @escaping (String, (Result<CustomerRequest, Error>) -> Void) -> Void = { _, _ in }) {
+        self.init(clientID: "test_client", endpoint: .sandbox)
+        self.retrieveCustomerRequest = retrieveCustomerRequest
+    }
 
     override func createCustomerRequest(
         params: CreateCustomerRequestParams,
@@ -171,9 +174,10 @@ class MockNetworkManager: NetworkManager {
     }
 
     override func retrieveCustomerRequest(
-        _ request: CustomerRequest,
+        id: String,
         completionHandler: @escaping (Result<CustomerRequest, Error>) -> Void
     ) {
+        retrieveCustomerRequest(id, completionHandler)
         retrieveCustomerRequestCount += 1
     }
 }

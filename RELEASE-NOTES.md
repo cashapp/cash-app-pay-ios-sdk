@@ -1,3 +1,13 @@
+## PayKit 0.3.3 Release Notes
+
+Pay Kit 0.3.3 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
+
+Pay Kit 0.3.3 includes the following new features and enhancements.
+
+- **`retrieveCustomerRequest`**
+
+   Adds a method to retrieve an existing CustomerRequest by ID.
+
 ## PayKit 0.3.2 Release Notes
 
 Pay Kit 0.3.2 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
