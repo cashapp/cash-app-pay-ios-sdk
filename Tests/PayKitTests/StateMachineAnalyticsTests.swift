@@ -175,6 +175,24 @@ class StateMachineAnalyticsTests: XCTestCase {
         waitForExpectations(timeout: 0.5)
     }
 
+    func test_refresh() {
+        let initializationExp = expectation(description: "Initialization Tracked")
+        let exp = expectation(description: "Analytics Tracked")
+        let analytics = MockAnalytics { event in
+            if event is InitializationEvent {
+                initializationExp.fulfill()
+            } else {
+                let event = try XCTUnwrap(event as? CustomerRequestEvent)
+                self.XCTAssertEqual(event.action, "refreshing")
+                exp.fulfill()
+            }
+        }
+        let stateMachine = StateMachine(networkManager: MockNetworkManager(), analyticsService: analytics)
+
+        stateMachine.state = .refreshing(TestValues.customerRequest)
+        waitForExpectations(timeout: 0.5)
+    }
+
     func test_api_error() {
         let initializationExp = expectation(description: "Initialization Tracked")
         let exp = expectation(description: "Analytics Tracked")

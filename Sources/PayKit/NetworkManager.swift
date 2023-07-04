@@ -89,19 +89,21 @@ class NetworkManager {
 
     func retrieveCustomerRequest(
         id: String,
+        retryPolicy: RetryPolicy? = .exponential(maximumNumberOfAttempts: 5),
         completionHandler: @escaping (Result<CustomerRequest, Error>) -> Void
     ) {
         let url = baseURL.appendingPathComponent(id)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 5.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = requestHeaders
-        performRequest(request, completionHandler: completionHandler)
+        performRequest(request, retryPolicy: retryPolicy, completionHandler: completionHandler)
     }
 
     // MARK: - Internal methods
 
     func performRequest(
         _ request: URLRequest,
+        retryPolicy: RetryPolicy? = .exponential(maximumNumberOfAttempts: 5),
         completionHandler: @escaping (Result<CustomerRequest, Error>) -> Void
     ) {
         restService.execute(

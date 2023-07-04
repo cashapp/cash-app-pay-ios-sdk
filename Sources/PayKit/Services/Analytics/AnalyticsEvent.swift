@@ -95,6 +95,7 @@ final class CustomerRequestEvent: AnalyticsEvent {
     private enum PropertyKey: String {
         enum Action: String {
             case create, update, readyToAuthorize = "ready_to_authorize", redirect, polling, declined, approved
+            case refreshing
             case apiError = "api_error", integrationError = "integration_error"
             case unexpectedError = "unexpected_error", networkError = "network_error"
         }
@@ -205,6 +206,10 @@ final class CustomerRequestEvent: AnalyticsEvent {
 
     static func approved(request: CustomerRequest, grants: [CustomerRequest.Grant]) -> CustomerRequestEvent {
         .init(action: .approved, request: request, grants: grants)
+    }
+
+    static func refreshing(request: CustomerRequest) -> CustomerRequestEvent {
+        .init(action: .refreshing, request: request)
     }
 
     static func error(_ error: APIError) -> CustomerRequestEvent {

@@ -19,7 +19,7 @@ import UIKit
 
 public class CashAppPay {
 
-    public static let version = "0.3.2"
+    public static let version = "0.4.0"
 
     public static let RedirectNotification: Notification.Name = Notification.Name("CashAppPayRedirect")
 
@@ -103,8 +103,14 @@ public class CashAppPay {
         switch request.status {
         case .DECLINED:
             stateMachine.state = .integrationError(.terminalStateError)
-        case .PENDING, .PROCESSING, .APPROVED:
+        case .APPROVED:
             stateMachine.state = .redirecting(request)
+        case .PENDING, .PROCESSING:
+            if request.authFlowTriggers?.isExpired() == false {
+                stateMachine.state = .redirecting(request)
+            } else {
+                stateMachine.state = .refreshing(request)
+            }
         }
     }
 }
@@ -126,6 +132,9 @@ public enum CashAppPayState: Equatable {
     case declined(CustomerRequest)
     /// CustomerRequest was approved. Update UI to show payment info or $cashtag.
     case approved(request: CustomerRequest, grants: [CustomerRequest.Grant])
+    /// CustomerRequest is being refreshed as a result of the AuthFlowTriggers expiring.
+    /// Show loading indicator if desired.
+    case refreshing(CustomerRequest)
     /// An error with the Cash App Pay API that can manifest at runtime.
     /// If an `APIError` is received, the integration is degraded and Cash App Pay functionality
     /// should be temporarily removed from the app's UI.

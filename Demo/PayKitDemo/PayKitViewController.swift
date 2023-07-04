@@ -360,6 +360,8 @@ extension PayKitViewController: CashAppPayObserver {
         case .approved(let customerRequest, let grants):
             pendingRequest = customerRequest
             statusTextView.text = "✅ APPROVED! ✅ \n \(grants)"
+        case .refreshing:
+            statusTextView.text = "Expired AuthFlowTriggers. Refreshing..."
         case .apiError(let apiError):
             statusTextView.text = "🚨🚨🚨🚨🚨\n API ERROR \n🚨🚨🚨🚨🚨 \n\n\(apiError)"
         case .integrationError(let integrationError):

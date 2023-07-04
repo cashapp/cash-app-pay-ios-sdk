@@ -139,6 +139,19 @@ class StateMachine {
             analyticsService.track(CustomerRequestEvent.declined(request: customerRequest))
         case .approved(let customerRequest, let grants):
             analyticsService.track(CustomerRequestEvent.approved(request: customerRequest, grants: grants))
+        case .refreshing(let customerRequest):
+            analyticsService.track(CustomerRequestEvent.refreshing(request: customerRequest))
+            networkManager.retrieveCustomerRequest(
+                id: customerRequest.id,
+                retryPolicy: .exponential(delay: 3, maximumNumberOfAttempts: 3)
+            ) { [weak self] result in
+                switch result {
+                case .success(let refreshedCustomerRequest):
+                    self?.state = .redirecting(refreshedCustomerRequest)
+                case .failure(let error):
+                    self?.setErrorState(error)
+                }
+            }
         case .apiError(let error):
             analyticsService.track(CustomerRequestEvent.error(error))
         case .integrationError(let error):
