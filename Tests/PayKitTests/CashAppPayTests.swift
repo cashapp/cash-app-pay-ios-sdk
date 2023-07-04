@@ -36,7 +36,7 @@ class PayKitTests: XCTestCase {
     func test_retrieve_customer_request_calls_network_manager() {
         let expectation = expectation(description: "Called Retrieve Customer Request")
 
-        let networkManager = MockNetworkManager(retrieveCustomerRequest: { id, _  in
+        let networkManager = MockNetworkManager(retrieveCustomerRequest: { id, _, _  in
             self.XCTAssertEqual(id, "ID")
             expectation.fulfill()
         })
@@ -53,7 +53,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .redirecting,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .updatingCustomerRequest:
                 XCTFail("Do not update authorized Request")
@@ -78,7 +79,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .redirecting,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .updatingCustomerRequest:
                 XCTFail("Do not update authorized Request")
@@ -103,7 +105,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .redirecting,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .updatingCustomerRequest:
                 stateExpectation.fulfill()
@@ -124,7 +127,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .redirecting,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .updatingCustomerRequest:
                 stateExpectation.fulfill()
@@ -145,7 +149,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .updatingCustomerRequest,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .redirecting:
                 XCTFail("Do not redirect authorized Request")
@@ -167,7 +172,8 @@ class PayKitTests: XCTestCase {
         let observer = TestObserver { state in
             switch state {
             case .notStarted, .creatingCustomerRequest, .updatingCustomerRequest,
-                    .readyToAuthorize, .polling, .declined, .approved, .apiError, .networkError, .unexpectedError:
+                    .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                    .apiError, .networkError, .unexpectedError:
                 break
             case .redirecting:
                 stateExpectation.fulfill()
@@ -176,7 +182,47 @@ class PayKitTests: XCTestCase {
             }
         }
         payKit.addObserver(observer)
-        payKit.authorizeCustomerRequest(TestValues.fullyPopulatedPendingRequest)
+        payKit.authorizeCustomerRequest(TestValues.validAuthFlowTriggerCustomerRequest)
+        waitForExpectations(timeout: 0.5)
+    }
+
+    func test_authorizing_approved_customer_request_redirects() {
+        func test_authorizing_pending_customer_request_triggers_redirecting() throws {
+            let stateExpectation = expectation(description: "Redirecting")
+            let observer = TestObserver { state in
+                switch state {
+                case .notStarted, .creatingCustomerRequest, .updatingCustomerRequest,
+                        .readyToAuthorize, .polling, .declined, .approved, .refreshing,
+                        .apiError, .networkError, .unexpectedError:
+                    break
+                case .redirecting:
+                    stateExpectation.fulfill()
+                case .integrationError:
+                    XCTFail("Do not redirect authorized Request")
+                }
+            }
+            payKit.addObserver(observer)
+            payKit.authorizeCustomerRequest(TestValues.fullyPopulatedApprovedRequest)
+            waitForExpectations(timeout: 0.5)
+        }
+    }
+
+    func test_authorizeCustomerRequest_withExpiredAuthFlowTriggers_refreshes() throws {
+        let stateExpectation = expectation(description: "Refreshing")
+        let observer = TestObserver { state in
+            switch state {
+            case .notStarted, .creatingCustomerRequest, .updatingCustomerRequest,
+                    .readyToAuthorize, .polling, .declined, .approved, .redirecting,
+                    .apiError, .networkError, .unexpectedError:
+                break
+            case .refreshing:
+                stateExpectation.fulfill()
+            case .integrationError:
+                XCTFail("Do not redirect authorized Request")
+            }
+        }
+        payKit.addObserver(observer)
+        payKit.authorizeCustomerRequest(TestValues.customerRequest)
         waitForExpectations(timeout: 0.5)
     }
 }

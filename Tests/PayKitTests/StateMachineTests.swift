@@ -44,6 +44,13 @@ class StateMachineTests: XCTestCase {
         XCTAssertEqual(mockNetworkManager.retrieveCustomerRequestCount, 1)
     }
 
+    func test_refresh_retrieveCustomerRequest() {
+        let mockNetworkManager = MockNetworkManager()
+        let stateMachine = StateMachine(networkManager: mockNetworkManager, analyticsService: MockAnalytics())
+        stateMachine.state = .refreshing(TestValues.customerRequest)
+        XCTAssertEqual(mockNetworkManager.retrieveCustomerRequestCount, 1)
+    }
+
     // MARK: - Setting State for Errors
     func test_setStateForError() throws {
         let stateMachine = StateMachine(networkManager: MockNetworkManager(), analyticsService: MockAnalytics())
@@ -111,6 +118,31 @@ class StateMachineTests: XCTestCase {
         XCTAssertNil(stateMachine.pollingTimer)
     }
 
+    // MARK: - Refresh
+    func test_whenRefreshSucceeds_thenTransitionsToRedirect() {
+        let refreshedCustomerRequest = TestValues.customerRequest
+        let networkManager = MockNetworkManager { _, retryPolicy, response in
+            self.XCTAssertEqual(retryPolicy, .exponential(delay: 3, maximumNumberOfAttempts: 3))
+            response(.success(refreshedCustomerRequest))
+        }
+
+        let stateMachine = StateMachine(networkManager: networkManager, analyticsService: MockAnalytics())
+        stateMachine.state = .refreshing(TestValues.customerRequest)
+
+        XCTAssertEqual(stateMachine.state, .redirecting(refreshedCustomerRequest))
+    }
+
+    func test_whenRefreshFails_thenTransitionsToError() {
+        let networkManager = MockNetworkManager { _, _, response in
+            response(.failure(TestValues.internalServerError))
+        }
+
+        let stateMachine = StateMachine(networkManager: networkManager, analyticsService: MockAnalytics())
+        stateMachine.state = .refreshing(TestValues.customerRequest)
+
+        XCTAssertEqual(stateMachine.state, .apiError(TestValues.internalServerError))
+    }
+
     // MARK: - Foreground Handling
     func test_foregroundHandling() throws {
         let stateMachine = StateMachine(networkManager: MockNetworkManager(), analyticsService: MockAnalytics())
@@ -147,13 +179,15 @@ class MockAnalytics: AnalyticsService {
 }
 
 class MockNetworkManager: NetworkManager {
-    var retrieveCustomerRequest: (String, (Result<CustomerRequest, Error>) -> Void) -> Void = { _, _ in }
+    typealias Response = (String, RetryPolicy?, (Result<CustomerRequest, Error>) -> Void) -> Void
+
+    var retrieveCustomerRequest: Response = { _, _, _  in }
 
     var createCustomerRequestCount: Int = 0
     var updateCustomerRequestCount: Int = 0
     var retrieveCustomerRequestCount: Int = 0
 
-    convenience init(retrieveCustomerRequest: @escaping (String, (Result<CustomerRequest, Error>) -> Void) -> Void = { _, _ in }) {
+    convenience init(retrieveCustomerRequest: @escaping Response = { _, _, _ in }) {
         self.init(clientID: "test_client", endpoint: .sandbox)
         self.retrieveCustomerRequest = retrieveCustomerRequest
     }
@@ -175,9 +209,10 @@ class MockNetworkManager: NetworkManager {
 
     override func retrieveCustomerRequest(
         id: String,
+        retryPolicy: RetryPolicy?,
         completionHandler: @escaping (Result<CustomerRequest, Error>) -> Void
     ) {
-        retrieveCustomerRequest(id, completionHandler)
+        retrieveCustomerRequest(id, retryPolicy, completionHandler)
         retrieveCustomerRequestCount += 1
     }
 }

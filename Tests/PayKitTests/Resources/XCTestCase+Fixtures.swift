@@ -246,6 +246,48 @@ enum TestValues {
         )
     }
 
+    static var validAuthFlowTriggerCustomerRequest: CustomerRequest {
+       CustomerRequest(
+           id: "GRR_mg3saamyqdm29jj9pqjqkedm",
+           status: .PROCESSING,
+           actions: [PaymentAction.onFilePayment(
+               scopeID: "BRAND_9kx6p0mkuo97jnl025q9ni94t",
+               accountReferenceID: "account4"
+           ),
+           ],
+           authFlowTriggers: CustomerRequest.AuthFlowTriggers(
+               qrCodeImageURL: URL(string: "https://sandbox.api.cash.app/qr/sandbox/v1/GRR_mg3saamyqdm29jj9pqjqkedm-t61pfg?rounded=0&format=png")!,
+               qrCodeSVGURL: URL(string: "https://sandbox.api.cash.app/qr/sandbox/v1/GRR_mg3saamyqdm29jj9pqjqkedm-t61pfg?rounded=0&format=svg")!,
+               mobileURL: URL(string: "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial")!,
+               refreshesAt: .distantFuture
+           ),
+           redirectURL: URL(string: "paykitdemo://callback")!,
+           createdAt: dateFormatter.date(from: "2022-10-20T20:16:18.051Z")!,
+           updatedAt: dateFormatter.date(from: "2022-10-20T21:04:10.701Z")!,
+           expiresAt: dateFormatter.date(from: "2027-10-19T21:03:43.159Z")!,
+           origin: CustomerRequest.Origin(
+               type: .DIRECT,
+               id: nil
+           ),
+           channel: .IN_APP,
+           grants: approvedRequestGrants, // grants for approved request
+           referenceID: "refer_to_me",
+           requesterProfile: CustomerRequest.RequesterProfile(
+               name: "SDK Hacking: The Brand",
+               logoURL: URL(string: "https://franklin-assets.s3.amazonaws.com/merchants/assets/v3/generic/m_category_shopping.png")!
+           ),
+           customerProfile: CustomerRequest.CustomerProfile(
+               id: "CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc",
+               cashtag: "$CASHTAG_C_TOKEN"
+           ),
+           metadata: [
+               "key1": "Valuation",
+               "key2": "ValuWorld",
+               "key3": "Valuminous",
+           ]
+       )
+   }
+
     // Grants
 
     static var approvedRequestGrants: [CustomerRequest.Grant] {

@@ -1,3 +1,15 @@
+## PayKit 0.4.0 Release Notes
+
+Pay Kit 0.4.0 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
+
+Pay Kit 0.4.0 includes the following new features and enhancements.
+
+- **Adds `refreshing` to `CashAppPayState`**
+
+   When calling `authorizeCustomerRequest()` for a CustomerRequest with expired `AuthFlowTriggers` the state machine refreshes the CustomerRequest before redirecting.
+
+   This is a breaking change and clients updating from an older version should show a loading state here.
+
 ## PayKit 0.3.3 Release Notes
 
 Pay Kit 0.3.3 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
