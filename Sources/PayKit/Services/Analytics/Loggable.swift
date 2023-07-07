@@ -85,6 +85,107 @@ extension Date: Loggable {
     }
 }
 
+// MARK: - Redactions
+
+extension Loggable {
+    var redacted: String { "FILTERED" }
+}
+
+struct LoggablePaymentAction: Encodable, Equatable, Loggable {
+    let type: PaymentType
+    let scopeID: String
+    let money: Money?
+    let accountReferenceID: String?
+    let clearing: Bool
+
+    init(paymentAction: PaymentAction) {
+        self.type = paymentAction.type
+        self.scopeID = paymentAction.scopeID
+        self.money = paymentAction.money
+        self.accountReferenceID = paymentAction.accountReferenceID?.redacted
+        self.clearing = paymentAction.clearing
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case type, scopeID = "scopeId", amount, currency, accountReferenceID = "accountReferenceId"
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(scopeID, forKey: .scopeID)
+        switch type {
+        case .ONE_TIME_PAYMENT:
+            if clearing {
+                try container.encode(money?.amount, forKey: .amount)
+                try container.encode(money?.currency, forKey: .currency)
+            } else {
+                try container.encodeIfPresent(money?.amount, forKey: .amount)
+                try container.encodeIfPresent(money?.currency, forKey: .currency)
+            }
+
+        case .ON_FILE_PAYMENT:
+            if clearing {
+                try container.encode(accountReferenceID, forKey: .accountReferenceID)
+            } else {
+                try container.encodeIfPresent(accountReferenceID, forKey: .accountReferenceID)
+            }
+        }
+    }
+
+    // MARK: - Loggable
+
+    private static let encoder: JSONEncoder = .eventStream2Encoder()
+
+    var loggableDescription: LoggableType {
+        guard let data = try? Self.encoder.encode(self),
+                let value = String(data: data, encoding: .utf8) else {
+            return .string("")
+        }
+        return .string(value)
+    }
+}
+
+struct LoggableGrant: Encodable, Equatable, Loggable {
+    let id: String
+    let customerID: String
+    let action: LoggablePaymentAction
+    let status: CustomerRequest.Grant.Status
+    let type: CustomerRequest.Grant.GrantType
+    let channel: Channel
+    let createdAt: Date
+    let updatedAt: Date
+    let expiresAt: Date?
+
+    init(grant: CustomerRequest.Grant) {
+        self.id = grant.id
+        self.customerID = grant.customerID
+        self.action = LoggablePaymentAction(paymentAction: grant.action)
+        self.status = grant.status
+        self.type = grant.type
+        self.channel = grant.channel
+        self.createdAt = grant.createdAt
+        self.updatedAt = grant.updatedAt
+        self.expiresAt = grant.expiresAt
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, customerID = "customerId", action, status, type, channel, createdAt, updatedAt, expiresAt
+    }
+
+    // MARK: - Loggable
+
+    private static let encoder: JSONEncoder = .eventStream2Encoder()
+
+    var loggableDescription: LoggableType {
+        guard let data = try? Self.encoder.encode(self),
+                let value = String(data: data, encoding: .utf8) else {
+            return .string("")
+        }
+        return .string(value)
+    }
+}
+
 // MARK: - Collections
 
 extension Array: Loggable where Element: Loggable {
@@ -112,30 +213,6 @@ extension Dictionary: Loggable where Key: Comparable & Loggable, Value: Loggable
 // MARK: - PayKit Loggable Extensions
 
 extension Money: Loggable {
-    static let encoder: JSONEncoder = .eventStream2Encoder()
-
-    var loggableDescription: LoggableType {
-        guard let data = try? Self.encoder.encode(self),
-                let value = String(data: data, encoding: .utf8) else {
-            return .string("")
-        }
-        return .string(value)
-    }
-}
-
-extension PaymentAction: Loggable {
-    static let encoder: JSONEncoder = .eventStream2Encoder()
-
-    var loggableDescription: LoggableType {
-        guard let data = try? Self.encoder.encode(self),
-                let value = String(data: data, encoding: .utf8) else {
-            return .string("")
-        }
-        return .string(value)
-    }
-}
-
-extension CustomerRequest.Grant: Loggable {
     static let encoder: JSONEncoder = .eventStream2Encoder()
 
     var loggableDescription: LoggableType {
