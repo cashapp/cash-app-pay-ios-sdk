@@ -1,3 +1,13 @@
+## PayKit 0.4.1 Release Notes
+
+Pay Kit 0.4.1 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
+
+Pay Kit 0.4.1 includes the following new features and enhancements.
+
+- **Redacting PII**
+
+   Added redactions for personally identifiable information.
+
 ## PayKit 0.4.0 Release Notes
 
 Pay Kit 0.4.0 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.

@@ -80,18 +80,60 @@ class LoggableTests: XCTestCase {
         XCTAssertEqual(loggable, .string("{\"amount\":100,\"currency\":\"USD\"}"))
     }
 
-    func test_loggable_payment_action() {
-        let loggable = PaymentAction.oneTimePayment(
+    func test_loggable_payment_action_one_time_payment() {
+        let paymentAction = PaymentAction.oneTimePayment(
             scopeID: "test",
             money: Money(amount: 100, currency: .USD)
-        ).loggableDescription
+        )
+        let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
         // swiftlint:disable:next line_length
         XCTAssertEqual(loggable, .string("{\"amount\":100,\"currency\":\"USD\",\"type\":\"ONE_TIME_PAYMENT\",\"scope_id\":\"test\"}"))
     }
 
-    func test_loggable_grant() throws {
-        let loggable = try XCTUnwrap(TestValues.approvedRequestGrants.first).loggableDescription
+    func test_loggable_payment_action_on_file_payment() {
+        let paymentAction = PaymentAction.onFilePayment(
+            scopeID: "test",
+            accountReferenceID: "account4"
+        )
+        let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
         // swiftlint:disable:next line_length
-        XCTAssertEqual(loggable, .string("{\"status\":\"ACTIVE\",\"channel\":\"IN_APP\",\"action\":{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"account4\"},\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"created_at\":1666299823249000,\"expires_at\":1823979823159000,\"type\":\"EXTENDED\",\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"updated_at\":1666299823249000}"))
+        XCTAssertEqual(loggable, .string(#"{"type":"ON_FILE_PAYMENT","scope_id":"test","account_reference_id":"FILTERED"}"#))
+    }
+
+    func test_loggable_grant() throws {
+        let grant = try XCTUnwrap(TestValues.approvedRequestGrants.first)
+        let loggable = LoggableGrant(grant: grant).loggableDescription
+        // swiftlint:disable:next line_length
+        XCTAssertEqual(loggable, .string("{\"status\":\"ACTIVE\",\"channel\":\"IN_APP\",\"action\":{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"},\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"created_at\":1666299823249000,\"expires_at\":1823979823159000,\"type\":\"EXTENDED\",\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"updated_at\":1666299823249000}"))
+    }
+
+    func test_loggable_grant_init() throws {
+        let grant = try XCTUnwrap(TestValues.approvedRequestGrants.first)
+        let loggableGrant = LoggableGrant(grant: grant)
+
+        XCTAssertEqual(grant.id, loggableGrant.id)
+        XCTAssertEqual(grant.customerID, loggableGrant.customerID)
+        XCTAssertEqual(grant.status, loggableGrant.status)
+        XCTAssertEqual(grant.type, loggableGrant.type)
+        XCTAssertEqual(grant.channel, loggableGrant.channel)
+        XCTAssertEqual(grant.createdAt, loggableGrant.createdAt)
+        XCTAssertEqual(grant.updatedAt, loggableGrant.updatedAt)
+        XCTAssertEqual(grant.expiresAt, loggableGrant.expiresAt)
+    }
+
+    func test_loggable_payment_action_init() {
+        let paymentAction = PaymentAction(
+            type: .ONE_TIME_PAYMENT,
+            scopeID: "scopeID",
+            money: Money(amount: 100, currency: .USD),
+            accountReferenceID: "account",
+            clearing: true
+        )
+        let loggablePaymentAction = LoggablePaymentAction(paymentAction: paymentAction)
+
+        XCTAssertEqual(loggablePaymentAction.accountReferenceID, "FILTERED")
+        XCTAssertEqual(paymentAction.scopeID, loggablePaymentAction.scopeID)
+        XCTAssertEqual(paymentAction.clearing, loggablePaymentAction.clearing)
+        XCTAssertEqual(paymentAction.money, loggablePaymentAction.money)
     }
 }
