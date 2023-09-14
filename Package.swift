@@ -5,8 +5,8 @@ let package = Package(
     name: "PayKit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v11),
-        .macOS(.v12),
+        .iOS(.v12),
+        .macOS(.v10_13),
         ],
     products: [
         .library(
