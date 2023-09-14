@@ -1,3 +1,13 @@
+## PayKit 0.5.0 Release Notes
+
+Pay Kit 0.5.0 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
+
+Pay Kit 0.5.0 includes the following new features and enhancements.
+
+- **Dropped Support for iOS 11**
+
+   Increased the minimum supported iOS version to 12.
+
 ## PayKit 0.4.1 Release Notes
 
 Pay Kit 0.4.1 supports iOS and requires Xcode 9 or later. The minimum supported Base SDK is 11.0.
