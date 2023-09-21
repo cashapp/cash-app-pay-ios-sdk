@@ -19,7 +19,7 @@ import UIKit
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = UIColor.systemGroupedBackground
 
         let payKitController = PayKitViewController()
         payKitController.tabBarItem = UITabBarItem(title: "PayKit", image: UIImage(systemName: "briefcase"), tag: 0)

@@ -9,7 +9,7 @@ on:
 jobs:
   pod-lint:
     name: Pod Lint
-    runs-on: macos-12
+    runs-on: macos-13
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3

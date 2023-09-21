@@ -287,6 +287,7 @@ extension PayKitViewController {
         textView.isEditable = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .cyan
+        textView.textColor = .black
         textView.text = "Expect results here"
         return textView
     }
@@ -316,6 +317,7 @@ extension PayKitViewController {
         textField.keyboardType = .numberPad
         textField.borderStyle = .roundedRect
         textField.delegate = self
+        textField.inputAccessoryView = makeToolBar { textField.resignFirstResponder() }
         return textField
     }
 
@@ -324,6 +326,7 @@ extension PayKitViewController {
         textField.placeholder = "Reference ID #"
         textField.keyboardType = .default
         textField.borderStyle = .roundedRect
+        textField.inputAccessoryView = makeToolBar { textField.resignFirstResponder() }
         return textField
     }
 
@@ -332,6 +335,15 @@ extension PayKitViewController {
         label.text = text
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         return label
+    }
+
+    func makeToolBar(onDoneHandler: @escaping () -> Void) -> UIToolbar {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(systemItem: .done, primaryAction: UIAction { _ in onDoneHandler() })
+        toolbar.setItems([flexSpace, doneButton], animated: false)
+        toolbar.sizeToFit()
+        return toolbar
     }
 }
 
