@@ -87,7 +87,7 @@ class LoggableTests: XCTestCase {
         )
         let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
         // swiftlint:disable:next line_length
-        XCTAssertEqual(loggable, .string("{\"amount\":100,\"currency\":\"USD\",\"type\":\"ONE_TIME_PAYMENT\",\"scope_id\":\"test\"}"))
+        XCTAssertEqual(loggable, .string("{\"amount\":100,\"currency\":\"USD\",\"scope_id\":\"test\",\"type\":\"ONE_TIME_PAYMENT\"}"))
     }
 
     func test_loggable_payment_action_on_file_payment() {
@@ -97,14 +97,14 @@ class LoggableTests: XCTestCase {
         )
         let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
         // swiftlint:disable:next line_length
-        XCTAssertEqual(loggable, .string(#"{"type":"ON_FILE_PAYMENT","scope_id":"test","account_reference_id":"FILTERED"}"#))
+        XCTAssertEqual(loggable, .string(#"{"account_reference_id":"FILTERED","scope_id":"test","type":"ON_FILE_PAYMENT"}"#))
     }
 
     func test_loggable_grant() throws {
         let grant = try XCTUnwrap(TestValues.approvedRequestGrants.first)
         let loggable = LoggableGrant(grant: grant).loggableDescription
         // swiftlint:disable:next line_length
-        XCTAssertEqual(loggable, .string("{\"status\":\"ACTIVE\",\"channel\":\"IN_APP\",\"action\":{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"},\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"created_at\":1666299823249000,\"expires_at\":1823979823159000,\"type\":\"EXTENDED\",\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"updated_at\":1666299823249000}"))
+        XCTAssertEqual(loggable, .string("{\"action\":{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"},\"channel\":\"IN_APP\",\"created_at\":1666299823249000,\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"expires_at\":1823979823159000,\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"status\":\"ACTIVE\",\"type\":\"EXTENDED\",\"updated_at\":1666299823249000}"))
     }
 
     func test_loggable_grant_init() throws {

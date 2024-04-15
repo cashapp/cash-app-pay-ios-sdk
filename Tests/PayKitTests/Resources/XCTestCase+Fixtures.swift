@@ -288,7 +288,7 @@ enum TestValues {
        )
    }
 
-    // Grants
+    // MARK: - Grants
 
     static var approvedRequestGrants: [CustomerRequest.Grant] {
         return [CustomerRequest.Grant(
@@ -308,7 +308,7 @@ enum TestValues {
         ]
     }
 
-    // API Error
+    // MARK: - API Error
 
     static  var internalServerError: APIError {
         APIError(
@@ -319,7 +319,7 @@ enum TestValues {
         )
     }
 
-    // Integration Error
+    // MARK: - Integration Error
 
     static var unauthorizedError: IntegrationError {
         IntegrationError(
@@ -339,7 +339,7 @@ enum TestValues {
         )
     }
 
-    // Unexpected Error
+    // MARK: - Unexpected Error
 
     static var idempotencyKeyReusedError: UnexpectedError {
         UnexpectedError(
@@ -348,5 +348,23 @@ enum TestValues {
             detail: "Idempotency key already in use, request body checksum does not match",
             field: nil
         )
+    }
+
+    // MARK: - Network Error
+
+    static var invalidJSONError: NetworkError {
+        NetworkError.invalidJSON(Data())
+    }
+
+    static var nilDataError: NetworkError {
+        NetworkError.nilData(HTTPURLResponse())
+    }
+
+    static var noResponseError: NetworkError {
+        NetworkError.noResponse
+    }
+
+    static func systemError(underlyingError: NSError) -> NetworkError {
+        NetworkError.systemError(underlyingError)
     }
 }

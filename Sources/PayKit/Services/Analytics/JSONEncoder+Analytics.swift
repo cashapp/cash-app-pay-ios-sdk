@@ -23,6 +23,7 @@ extension JSONEncoder {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dateEncodingStrategy = .microsecondsSince1970
+        encoder.outputFormatting = .sortedKeys
         return encoder
     }
 }
