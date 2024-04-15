@@ -44,8 +44,8 @@ class CreateCustomerRequestParamsTests: XCTestCase {
         XCTAssertNotNil(serializedDict["request"])
         XCTAssertNotNil(fixtureDict["request"])
         XCTAssertEqual(
-            try XCTUnwrap(JSONSerialization.data(withJSONObject: serializedDict["request"]!)),
-            try XCTUnwrap(JSONSerialization.data(withJSONObject: fixtureDict["request"]!))
+            try XCTUnwrap(JSONSerialization.data(withJSONObject: serializedDict["request"]!, options: .sortedKeys)),
+            try XCTUnwrap(JSONSerialization.data(withJSONObject: fixtureDict["request"]!, options: .sortedKeys))
         )
     }
 

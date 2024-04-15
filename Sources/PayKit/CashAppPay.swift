@@ -19,7 +19,7 @@ import UIKit
 
 public class CashAppPay {
 
-    public static let version = "0.5.1"
+    public static let version = "0.6.0"
 
     public static let RedirectNotification: Notification.Name = Notification.Name("CashAppPayRedirect")
 
@@ -122,7 +122,7 @@ public enum CashAppPayState: Equatable {
     case creatingCustomerRequest(CreateCustomerRequestParams)
     /// CustomerRequest is being updated. For information only.
     case updatingCustomerRequest(request: CustomerRequest, params: UpdateCustomerRequestParams)
-    /// CustomerRequest has been created, waiting for customer to press "Pay with Cash App Pay" button0.
+    /// CustomerRequest has been created, waiting for customer to press "Pay with Cash App Pay" button.
     case readyToAuthorize(CustomerRequest)
     /// SDK is redirecting to Cash App for authorization. Show loading indicator if desired.
     case redirecting(CustomerRequest)

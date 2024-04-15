@@ -76,7 +76,7 @@ class AnalyticsEventTests: XCTestCase {
         ])
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "create",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "IN_APP",
             "{\"key1\":\"Valuation\",\"key2\":\"ValuWorld\",\"key3\":\"Valuminous\"}",
             "FILTERED",
@@ -95,7 +95,7 @@ class AnalyticsEventTests: XCTestCase {
         ])
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "update",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
@@ -106,7 +106,7 @@ class AnalyticsEventTests: XCTestCase {
             "FILTERED",
             "SDK Hacking: The Brand",
             "PENDING",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":null}\"]",
+            "[\"{\"account_reference_id\":null,\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "1666296978051000",
 
         ])
@@ -117,7 +117,7 @@ class AnalyticsEventTests: XCTestCase {
         XCTAssertEqual(event.fields.keys.sorted(), expectedKeys)
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "ready_to_authorize",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
@@ -137,7 +137,7 @@ class AnalyticsEventTests: XCTestCase {
         XCTAssertEqual(event.fields.keys.sorted(), expectedKeys)
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "redirect",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
@@ -157,7 +157,7 @@ class AnalyticsEventTests: XCTestCase {
         XCTAssertEqual(event.fields.keys.sorted(), expectedKeys)
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "polling",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
@@ -177,7 +177,7 @@ class AnalyticsEventTests: XCTestCase {
         XCTAssertEqual(event.fields.keys.sorted(), expectedKeys)
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "declined",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
@@ -212,8 +212,8 @@ class AnalyticsEventTests: XCTestCase {
         ])
         XCTAssertEqual(sortedFieldValues(event.fields), [
             "approved",
-            "[\"{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"}\"]",
-            "[\"{\"status\":\"ACTIVE\",\"channel\":\"IN_APP\",\"action\":{\"type\":\"ON_FILE_PAYMENT\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"account_reference_id\":\"FILTERED\"},\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"created_at\":1666299823249000,\"expires_at\":1823979823159000,\"type\":\"EXTENDED\",\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"updated_at\":1666299823249000}\"]",
+            "[\"{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"}\"]",
+            "[\"{\"action\":{\"account_reference_id\":\"FILTERED\",\"scope_id\":\"BRAND_9kx6p0mkuo97jnl025q9ni94t\",\"type\":\"ON_FILE_PAYMENT\"},\"channel\":\"IN_APP\",\"created_at\":1666299823249000,\"customer_id\":\"CST_AYVkuLw-sT3OKZ7a_nhNTC_L2ekahLgGrS-EM_QhW4OTrGMbi59X1eCclH0cjaxoLObc\",\"expires_at\":1823979823159000,\"id\":\"GRG_AZYyHv2DwQltw0SiCLTaRb73y40XFe2dWM690WDF9Btqn-uTCYAUROa4ciwCdDnZcG4PuY1m_i3gwHODiO8DSf9zdMmRl1T0SM267vzuldnBs246-duHZhcehhXtmhfU8g\",\"status\":\"ACTIVE\",\"type\":\"EXTENDED\",\"updated_at\":1666299823249000}\"]",
             "https://sandbox.api.cash.app/customer-request/v1/requests/GRR_mg3saamyqdm29jj9pqjqkedm/interstitial",
             "IN_APP",
             "1666296978051000",
