@@ -53,17 +53,15 @@ public final class ObjCWrapper: NSObject {
 
     @objc public func retrieveCustomerRequest(
         id: String,
-        completion: @escaping (CAPCustomerRequest?, Error?) -> Void
+        completion: @escaping (CAPCustomerRequest?, NSError?) -> Void
     ) {
-        cashAppPay.retrieveCustomerRequest(id: id) { [weak self] result in
-            guard let self else { return }
+        cashAppPay.retrieveCustomerRequest(id: id) { result in
             switch result {
             case .success(let customerRequest):
                 let capCustomerRequest = CAPCustomerRequest(customerRequest: customerRequest)
                 completion(capCustomerRequest, nil)
             case .failure(let error):
-                let objcError = self.mapErrorToObjC(error)
-                completion(nil, objcError)
+                completion(nil, error.cashAppPayObjCError)
             }
         }
     }
@@ -88,34 +86,6 @@ public final class ObjCWrapper: NSObject {
         _ request: CAPCustomerRequest
     ) {
         cashAppPay.authorizeCustomerRequest(request.customerRequest)
-    }
-}
-
-// MARK: - Errors
-
-extension ObjCWrapper {
-    func mapErrorToObjC(_ error: Error) -> Error {
-        switch error {
-        case let apiError as APIError:
-            return CAPApiError(apiError: apiError)
-        case let integrationError as IntegrationError:
-            return CAPIntegrationError(integrationError: integrationError)
-        case let unexpectedError as UnexpectedError:
-            return CAPUnexpectedError(unexpectedError: unexpectedError)
-        case let networkError as NetworkError:
-            switch networkError {
-            case .noResponse:
-                return CAPNetworkErrorNoResponse()
-            case .nilData(let response):
-                return CAPNetworkErrorNilData(response: response)
-            case .invalidJSON(let json):
-                return CAPNetworkErrorInvalidJSON(data: json)
-            case .systemError(let error):
-                return error
-            }
-        default:
-            return error
-        }
     }
 }
 

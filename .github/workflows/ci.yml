@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - name: Select Xcode Version (14.2.0)
-        run: sudo xcode-select --switch /Applications/Xcode_14.2.0.app/Contents/Developer
+      - name: Select Xcode Version (15.1.0)
+        run: sudo xcode-select --switch /Applications/Xcode_15.1.0.app/Contents/Developer
       - name: Build
-        run: swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios14.0-simulator"
+        run:  xcodebuild build -scheme PayKit -sdk "`xcrun --sdk iphonesimulator --show-sdk-path`"

@@ -18,6 +18,8 @@ import Foundation
 
 // MARK: - APIError
 
+public let CAPErrorDomain = "com.squareup.cashapppay.error"
+
 @objcMembers public final class CAPApiError: NSError {
 
     // MARK: - Properties
@@ -115,7 +117,7 @@ extension APIError.ErrorCode {
 
     init(integrationError: IntegrationError) {
         self.integrationError = integrationError
-        super.init()
+        super.init(domain: CAPErrorDomain, code: 1)
     }
 
     @available(*, unavailable)
@@ -258,7 +260,7 @@ extension IntegrationError.ErrorCode {
 
     init(unexpectedError: UnexpectedError) {
         self.unexpectedError = unexpectedError
-        super.init()
+        super.init(domain: CAPErrorDomain, code: 1)
     }
 
     @available(*, unavailable)
@@ -276,7 +278,7 @@ extension IntegrationError.ErrorCode {
 
     init(response: HTTPURLResponse) {
         self.response = response
-        super.init(domain: "Missing response body", code: NSURLErrorCannotParseResponse)
+        super.init(domain: CAPErrorDomain, code: NSURLErrorCannotParseResponse)
     }
 
     @available(*, unavailable)
@@ -296,5 +298,33 @@ extension IntegrationError.ErrorCode {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Error Extensions
+
+extension Error {
+    var cashAppPayObjCError: NSError? {
+        switch self {
+        case let apiError as APIError:
+            return CAPApiError(apiError: apiError)
+        case let integrationError as IntegrationError:
+            return CAPIntegrationError(integrationError: integrationError)
+        case let unexpectedError as UnexpectedError:
+            return CAPUnexpectedError(unexpectedError: unexpectedError)
+        case let networkError as NetworkError:
+            switch networkError {
+            case .noResponse:
+                return CAPNetworkErrorNoResponse()
+            case .nilData(let response):
+                return CAPNetworkErrorNilData(response: response)
+            case .invalidJSON(let json):
+                return CAPNetworkErrorInvalidJSON(data: json)
+            case .systemError(let error):
+                return error
+            }
+        default:
+            return nil
+        }
     }
 }
