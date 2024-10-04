@@ -1,3 +1,13 @@
+## PayKit 0.6.2 Release Notes
+
+Pay Kit 0.6.2 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
+
+Pay Kit 0.6.2 includes the following new features and enhancements.
+
+- **Privacy Manifest**
+
+   PayKit and PayKitUI now each contain a Privacy Manifest.
+
 ## PayKit 0.6.1 Release Notes
 
 Pay Kit 0.6.1 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.

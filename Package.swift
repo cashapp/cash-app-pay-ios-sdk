@@ -25,6 +25,9 @@ let package = Package(
     targets: [
         .target(
             name: "PayKit",
+            resources: [
+                .process("PrivacyInfo.xcprivacy")
+            ],
             swiftSettings: [
                 .define("LOGGING", .when(configuration: .debug))
               ]
@@ -36,6 +39,7 @@ let package = Package(
                 .copy("Shared/Assets/Resources/Colors.xcassets"),
                 .copy("swiftgen.yml"),
                 .copy("Shared/Assets/Resources/Images.xcassets"),
+                .process("PrivacyInfo.xcprivacy")
             ], plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]
