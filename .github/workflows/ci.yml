@@ -12,14 +12,14 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Bundle Install
         run: bundle install --gemfile=Gemfile
       - name: Lint PayKit Podspec
         run: bundle exec --gemfile=Gemfile pod lib lint --verbose --fail-fast CashAppPayKit.podspec
       - name: Lint PayKitUI Podspec
         run: bundle exec --gemfile=Gemfile pod lib lint --verbose --fail-fast CashAppPayKitUI.podspec
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: failed_snaphots
@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Select Xcode Version (15.1.0)
         run: sudo xcode-select --switch /Applications/Xcode_15.1.0.app/Contents/Developer
       - name: Build
