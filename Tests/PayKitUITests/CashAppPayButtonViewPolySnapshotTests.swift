@@ -36,12 +36,22 @@ class CashAppPayButtonViewPolySnapshotTests: BaseSnapshotTestCase {
 
     func test_button_disabled() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: true),
+            matching: CashAppPayButtonView(
+                size: .large,
+                isEnabled: false,
+                onClickHandler: {},
+                usePolyChromeAsset: true
+            ),
             as: .image(on: .iPhone8, userInterfaceStyle: .light)
         )
 
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: true),
+            matching: CashAppPayButtonView(
+                size: .large,
+                isEnabled: false,
+                onClickHandler: {},
+                usePolyChromeAsset: true
+            ),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }

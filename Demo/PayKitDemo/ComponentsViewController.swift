@@ -32,7 +32,7 @@ class ComponentsViewController: UITableViewController {
         let enabledText = enabledState ? "Enabled" : "Disabled"
         switch indexPath.row {
         case 0:
-            let smallButton = CashAppPayButton(size: .small,onClickHandler: {})
+            let smallButton = CashAppPayButton(size: .small, onClickHandler: {})
             smallButton.isEnabled = enabledState
             cell = CashAppDemoCell(title: "Small Button Mono \(enabledText)", view: smallButton)
         case 1:
@@ -40,7 +40,7 @@ class ComponentsViewController: UITableViewController {
             largeButton.isEnabled = enabledState
             cell = CashAppDemoCell(title: "Large Button Mono \(enabledText)", view: largeButton)
         case 2:
-            let smallButton = CashAppPayButton(size: .small,onClickHandler: {}, usePolyChoromeAsset: true)
+            let smallButton = CashAppPayButton(size: .small, onClickHandler: {}, usePolyChoromeAsset: true)
             smallButton.isEnabled = enabledState
             cell = CashAppDemoCell(title: "Small Button Poly \(enabledText)", view: smallButton)
         case 3:

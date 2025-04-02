@@ -37,7 +37,12 @@ public struct CashAppPayButtonView: View {
      - isEnabled: True if the button is enabled.
      - onClickHandler: The handler called when the button is tapped.
      */
-    public init(size: SizingCategory = .large, isEnabled: Bool = true, onClickHandler: @escaping () -> Void, usePolyChromeAsset: Bool) {
+    public init(
+        size: SizingCategory = .large,
+        isEnabled: Bool = true,
+        onClickHandler: @escaping () -> Void,
+        usePolyChromeAsset: Bool
+    ) {
         self.viewModel = ViewModel(size: size, isEnabled: isEnabled, usePolyChromeAsset: usePolyChromeAsset)
         self.onClickHandler = onClickHandler
     }
@@ -127,12 +132,12 @@ public struct CashAppPayButtonView: View {
 
     private var buttonBackgroundColor: Color {
         return switch (viewModel.isEnabled, viewModel.usePolyChromeAsset) {
-        case (true, true):
-            Asset.Colors.polyChrome.swiftUIColor
-        case (_, false):
-            Asset.Colors.surfacePrimary.swiftUIColor
-        case (false, true):
-            Asset.Colors.polyChrome.swiftUIColor
+               case (true, true):
+                   Asset.Colors.polyChrome.swiftUIColor
+               case (_, false):
+                   Asset.Colors.surfacePrimary.swiftUIColor
+               case (false, true):
+                   Asset.Colors.polyChrome.swiftUIColor
         }
     }
 

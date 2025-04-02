@@ -47,8 +47,16 @@ public class CashAppPayButton: UIView {
      - size: The size of the button. Defaults to `large`.
      - onClickHandler: The handler called when the button is tapped.
      */
-    public init(size: SizingCategory = .large, onClickHandler: @escaping () -> Void, usePolyChoromeAsset: Bool = false) {
-        self.cashAppButton = CashAppPayButtonView(size: size, onClickHandler: onClickHandler, usePolyChromeAsset: usePolyChoromeAsset)
+    public init(
+        size: SizingCategory = .large,
+        onClickHandler: @escaping () -> Void,
+        usePolyChoromeAsset: Bool = false
+    ) {
+        self.cashAppButton = CashAppPayButtonView(
+            size: size,
+            onClickHandler: onClickHandler,
+            usePolyChromeAsset: usePolyChoromeAsset
+        )
         self.onClickHandler = onClickHandler
         super.init(frame: .zero)
         guard let view = makeView() else { return }

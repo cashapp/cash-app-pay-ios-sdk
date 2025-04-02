@@ -22,7 +22,11 @@ import SwiftUI
 class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: false).frame(height: 100),
+            matching: CashAppPaymentMethodView(
+                size: .small,
+                cashTag: "$jack",
+                usePolyChromeAsset: false
+            ).frame(height: 100),
             as: .image(on: .iPhone8)
         )
     }
