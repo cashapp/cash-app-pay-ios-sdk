@@ -1,5 +1,5 @@
 //
-//  CashAppPayButtonViewSnapshotTests.swift
+//  CashAppPayButtonViewPolySnapshotTests.swift
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,36 +19,36 @@ import SnapshotTesting
 import SwiftUI
 
 @available(iOS 13.0, *)
-class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
+class CashAppPayButtonViewPolySnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: false),
+            matching: CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: true),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_large_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: false),
+            matching: CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: true),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_button_disabled() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: false),
+            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: true),
             as: .image(on: .iPhone8, userInterfaceStyle: .light)
         )
 
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: false),
+            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolyChromeAsset: true),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
 
     func test_dark_mode() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: false),
+            matching: CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: true),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
@@ -56,14 +56,14 @@ class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
     func test_minimum_size() {
         let smallButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: false)
+            CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: true)
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: smallButton, as: .image(on: .iPhone8))
 
         let largeButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: false)
+            CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: true)
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: largeButton, as: .image(on: .iPhone8))

@@ -1,5 +1,5 @@
 //
-//  CashAppPaymentMethodViewSnapshotTests.swift
+//  CashAppPaymentMethodViewPolySnapshotTests.swift
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,24 +19,24 @@ import SnapshotTesting
 import SwiftUI
 
 @available(iOS 13.0, *)
-class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
+class CashAppPaymentMethodViewPolySnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: false).frame(height: 100),
+            matching: CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: true).frame(height: 100),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_large_button() {
         assertSnapshot(
-            matching: CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: false),
+            matching: CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: true),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_dark_mode() {
         assertSnapshot(
-            matching: CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: false),
+            matching: CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: true),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
@@ -48,7 +48,7 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
                 cashTag: "$jack",
                 cashTagFont: Font.caption,
                 cashTagTextColor: .red,
-                usePolyChromeAsset: false
+                usePolyChromeAsset: true
             ),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
@@ -57,7 +57,7 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
     func test_minimum_size() {
         let view = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: false)
+            CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: true)
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: view, as: .image(on: .iPhone8, userInterfaceStyle: .dark))
