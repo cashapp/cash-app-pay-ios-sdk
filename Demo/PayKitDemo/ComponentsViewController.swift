@@ -28,16 +28,41 @@ class ComponentsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
+        let enabledState = indexPath.section % 2 == 0
+        let enabledText = enabledState ? "Enabled" : "Disabled"
         switch indexPath.row {
-        case 0: cell = CashAppDemoCell(title: "Small Button", view: CashAppPayButton(size: .small, onClickHandler: {}))
-        case 1: cell = CashAppDemoCell(title: "Large Button", view: CashAppPayButton(size: .large, onClickHandler: {}))
-        case 2: cell = CashAppDemoCell(
-            title: "Small Payment Method",
+        case 0:
+            let smallButton = CashAppPayButton(size: .small,onClickHandler: {})
+            smallButton.isEnabled = enabledState
+            cell = CashAppDemoCell(title: "Small Button Mono \(enabledText)", view: smallButton)
+        case 1:
+            let largeButton = CashAppPayButton(size: .large, onClickHandler: {})
+            largeButton.isEnabled = enabledState
+            cell = CashAppDemoCell(title: "Large Button Mono \(enabledText)", view: largeButton)
+        case 2:
+            let smallButton = CashAppPayButton(size: .small,onClickHandler: {}, usePolyChoromeAsset: true)
+            smallButton.isEnabled = enabledState
+            cell = CashAppDemoCell(title: "Small Button Poly \(enabledText)", view: smallButton)
+        case 3:
+            let largeButton = CashAppPayButton(size: .large, onClickHandler: {}, usePolyChoromeAsset: true)
+            largeButton.isEnabled = enabledState
+            cell = CashAppDemoCell(title: "Large Button Poly \(enabledText)", view: largeButton)
+        
+        case 4: cell = CashAppDemoCell(
+            title: "Small Payment Method Mono",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack")
         )
-        case 3: cell = CashAppDemoCell(
-            title: "Large Payment Method",
+        case 5: cell = CashAppDemoCell(
+            title: "Large Payment Method Mono",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack")
+        )
+        case 6: cell = CashAppDemoCell(
+            title: "Small Payment Method Poly",
+            view: CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolyChromeAsset: true)
+        )
+        case 7: cell = CashAppDemoCell(
+            title: "Large Payment Method Poly",
+            view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolyChromeAsset: true)
         )
         default:
             cell = UITableViewCell()
@@ -55,7 +80,7 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        8
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

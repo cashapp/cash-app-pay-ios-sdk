@@ -48,8 +48,12 @@ public class CashAppPaymentMethod: UIView {
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to `nil`.
      */
-    public init(size: SizingCategory = .large, cashTag: String = "") {
-        self.paymentMethodView = CashAppPaymentMethodView(size: size, cashTag: cashTag)
+    public init(size: SizingCategory = .large, cashTag: String = "", usePolyChromeAsset: Bool = false) {
+        self.paymentMethodView = CashAppPaymentMethodView(
+            size: size,
+            cashTag: cashTag,
+            usePolyChromeAsset: usePolyChromeAsset
+        )
         super.init(frame: .zero)
         guard let view = makeView() else { return }
         addSubview(view)

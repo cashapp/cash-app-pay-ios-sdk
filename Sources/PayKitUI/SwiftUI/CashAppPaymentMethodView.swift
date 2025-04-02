@@ -23,7 +23,15 @@ public struct CashAppPaymentMethodView: View {
     // MARK: - Public Properties
 
     @ObservedObject public var viewModel: ViewModel
-
+    
+    private var currentAsset: SwiftUI.Image {
+        viewModel.usePolyChromeAsset ? Asset.Images.polyChromeLogo.swiftUIImage : Asset.Images.monoChromeLogoReverse.swiftUIImage
+    }
+    
+    private var currentColor: SwiftUI.Color {
+        viewModel.usePolyChromeAsset ? Asset.Colors.polyChrome.swiftUIColor : Asset.Colors.surfaceSecondary.swiftUIColor
+    }
+    
     // MARK: - Lifecycle
 
     /**
@@ -41,12 +49,15 @@ public struct CashAppPaymentMethodView: View {
         size: SizingCategory = .large,
         cashTag: String,
         cashTagFont: Font = Constants.cashTagFont,
-        cashTagTextColor: Color = Constants.cashTagTextColor) {
+        cashTagTextColor: Color = Constants.cashTagTextColor,
+        usePolyChromeAsset: Bool
+    ) {
             self.viewModel = ViewModel(
                 size: size,
                 cashTag: cashTag,
                 cashTagFont: cashTagFont,
-                cashTagTextColor: cashTagTextColor
+                cashTagTextColor: cashTagTextColor,
+                usePolyChromeAsset: usePolyChromeAsset
             )
     }
 
@@ -54,7 +65,7 @@ public struct CashAppPaymentMethodView: View {
         switch viewModel.size {
         case .small:
             VStack(alignment: .leading, spacing: Constants.verticalTextSpacing) {
-                Asset.Images.darkLogo.swiftUIImage
+                currentAsset
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: Constants.titleWidth, height: Constants.titleHeight)
@@ -76,15 +87,14 @@ public struct CashAppPaymentMethodView: View {
                         trailing: .zero
                     )
                 )
-            }.background(Asset.Colors.surfaceSecondary.swiftUIColor)
+            }.background(currentColor)
                 .cornerRadius(Constants.cornerRadius)
         case .large:
-            HStack {
-                Asset.Images.darkLogo.swiftUIImage
+            HStack(alignment: .center) {
+                currentAsset
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: Constants.titleWidth, height: Constants.titleHeight)
-                    .offset(y: Constants.titleVerticalOffset)
                     .padding(
                         EdgeInsets(
                             top: Constants.verticalPadding,
@@ -96,7 +106,7 @@ public struct CashAppPaymentMethodView: View {
                 Spacer()
                 cashTagText
                     .padding(.trailing, Constants.horizontalPadding)
-            }.background(Asset.Colors.surfaceSecondary.swiftUIColor)
+            }.background(currentColor)
                 .cornerRadius(Constants.cornerRadius)
         }
     }
@@ -113,7 +123,7 @@ public struct CashAppPaymentMethodView: View {
 
         static let titleWidth: CGFloat = 127
         static let titleHeight: CGFloat = 20
-        static let cashTagInset: CGFloat = 32
+        static let cashTagInset: CGFloat = 38
         static let titleVerticalOffset: CGFloat = 2
         static let horizontalPadding: CGFloat = 8
         static let verticalPadding: CGFloat = 12
@@ -131,12 +141,19 @@ extension CashAppPaymentMethodView {
         @Published var cashTag: String
         @Published var cashTagFont: Font
         @Published var cashTagTextColor: Color
-
-        init(size: SizingCategory, cashTag: String, cashTagFont: Font, cashTagTextColor: Color) {
+        @Published var usePolyChromeAsset: Bool
+        init(
+            size: SizingCategory,
+            cashTag: String,
+            cashTagFont: Font,
+            cashTagTextColor: Color,
+            usePolyChromeAsset: Bool
+        ) {
             self.size = size
             self.cashTag = cashTag
             self.cashTagFont = cashTagFont
             self.cashTagTextColor = cashTagTextColor
+            self.usePolyChromeAsset = usePolyChromeAsset
         }
     }
 }
@@ -147,15 +164,15 @@ extension CashAppPaymentMethodView {
 struct CashAppPaymentMethodView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading, spacing: 10) {
-            CashAppPaymentMethodView(size: .large, cashTag: "$jack")
+            CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: false)
                 .padding()
-            CashAppPaymentMethodView(size: .large, cashTag: "")
+            CashAppPaymentMethodView(size: .large, cashTag: "", usePolyChromeAsset: false)
                 .padding()
-            CashAppPaymentMethodView(size: .small, cashTag: "$jack")
+            CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolyChromeAsset: false)
                 .padding()
-            CashAppPaymentMethodView(size: .small, cashTag: "")
+            CashAppPaymentMethodView(size: .small, cashTag: "", usePolyChromeAsset: false)
                 .padding()
-            CashAppPaymentMethodView(size: .large, cashTag: "$jack")
+            CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolyChromeAsset: false)
                 .padding()
         }.background(Color.blue)
     }

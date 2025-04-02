@@ -37,8 +37,8 @@ public struct CashAppPayButtonView: View {
      - isEnabled: True if the button is enabled.
      - onClickHandler: The handler called when the button is tapped.
      */
-    public init(size: SizingCategory = .large, isEnabled: Bool = true, onClickHandler: @escaping () -> Void) {
-        self.viewModel = ViewModel(size: size, isEnabled: isEnabled)
+    public init(size: SizingCategory = .large, isEnabled: Bool = true, onClickHandler: @escaping () -> Void, usePolyChromeAsset: Bool) {
+        self.viewModel = ViewModel(size: size, isEnabled: isEnabled, usePolyChromeAsset: usePolyChromeAsset)
         self.onClickHandler = onClickHandler
     }
 
@@ -51,30 +51,36 @@ public struct CashAppPayButtonView: View {
 
     private var buttonView: some View {
         Button(action: onClickHandler) {
-            Asset.Images.lightLogo.swiftUIImage
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: minImageWidth, height: iconHeight)
-                .padding(
-                    EdgeInsets(
-                        top: buttonInset,
-                        leading: horizontalPadding,
-                        bottom: .zero,
-                        trailing: horizontalPadding
+            ZStack {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .fill(buttonBackgroundColor)
+                currentAsset
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .padding(
+                        EdgeInsets(
+                            top: .zero,
+                            leading: horizontalPadding,
+                            bottom: .zero,
+                            trailing: horizontalPadding
+                        )
                     )
-                )
-                .opacity(tileImageOpacity)
-        }.disabled(!viewModel.isEnabled)
+                    .frame(width: minImageWidth, height: iconHeight)
+            }
+        }
+        .opacity(tileImageOpacity)
+        .disabled(!viewModel.isEnabled)
             .frame(
                 minWidth: minButtonWidth,
                 maxWidth: .infinity,
                 minHeight: fixedHeight,
                 maxHeight: fixedHeight
             )
-            .background(
-                RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                    .fill(buttonBackgroundColor)
-            )
+    }
+
+    private var currentAsset: SwiftUI.Image {
+        viewModel.usePolyChromeAsset ?
+            Asset.Images.polyChromeLogo.swiftUIImage : Asset.Images.monoChromeLogo.swiftUIImage
     }
 
     private var iconHeight: CGFloat {
@@ -120,11 +126,14 @@ public struct CashAppPayButtonView: View {
     }
 
     private var buttonBackgroundColor: Color {
-        if viewModel.isEnabled {
-            return Asset.Colors.surfacePrimary.swiftUIColor
-       } else {
-           return Asset.Colors.surfacePrimaryDisabled.swiftUIColor
-       }
+        return switch (viewModel.isEnabled, viewModel.usePolyChromeAsset) {
+        case (true, true):
+            Asset.Colors.polyChrome.swiftUIColor
+        case (_, false):
+            Asset.Colors.surfacePrimary.swiftUIColor
+        case (false, true):
+            Asset.Colors.polyChrome.swiftUIColor
+        }
     }
 
     private var tileImageOpacity: CGFloat {
@@ -136,32 +145,32 @@ public struct CashAppPayButtonView: View {
     }
 
     private enum Constants {
-        static let cornerRadius: CGFloat = 150
+        static let cornerRadius: CGFloat = 8
 
         static let largeHeight: CGFloat = 48
         static let smallHeight: CGFloat = 30
 
-        static let largeImageWidth: CGFloat = 185
-        static let smallImageWidth: CGFloat = 122
+        static let largeImageWidth: CGFloat = 135
+        static let smallImageWidth: CGFloat = 89
 
-        static let largeButtonWidth: CGFloat = 210
-        static let smallButtonWidth: CGFloat = 145
+        static let largeButtonWidth: CGFloat = 320
+        static let smallButtonWidth: CGFloat = 221
 
-        static let smallHorizontalPadding: CGFloat = 11
-        static let largeHorizontalPadding: CGFloat = 21
+        static let smallHorizontalPadding: CGFloat = 49
+        static let largeHorizontalPadding: CGFloat = 92.685
 
         static let buttonPadding: CGFloat = 10
 
-        static let iconSizeSmall: CGFloat = 16
-        static let iconSizeLarge: CGFloat = 20
+        static let iconSizeSmall: CGFloat = 19
+        static let iconSizeLarge: CGFloat = 24
 
         static let iconTitleSpacing: CGFloat = 4
 
-        static let iconTopPaddingLarge: CGFloat = 6
-        static let iconTopPaddingSmall: CGFloat = 4
+        static let iconTopPaddingLarge: CGFloat = 12
+        static let iconTopPaddingSmall: CGFloat = 8
 
         static let opaque: CGFloat = 1
-        static let disabledOpacity: CGFloat = 0.4
+        static let disabledOpacity: CGFloat = 0.3
     }
 }
 
@@ -172,10 +181,11 @@ extension CashAppPayButtonView {
     public class ViewModel: ObservableObject {
         @Published var size: SizingCategory
         @Published var isEnabled: Bool
-
-        init(size: SizingCategory, isEnabled: Bool) {
+        @Published var usePolyChromeAsset: Bool
+        init(size: SizingCategory, isEnabled: Bool, usePolyChromeAsset: Bool) {
             self.size = size
             self.isEnabled = isEnabled
+            self.usePolyChromeAsset = usePolyChromeAsset
         }
     }
 }
@@ -184,19 +194,19 @@ extension CashAppPayButtonView {
 struct CashButtonView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            CashAppPayButtonView(isEnabled: false, onClickHandler: {})
+            CashAppPayButtonView(isEnabled: false, onClickHandler: {}, usePolyChromeAsset: false)
             HStack {
                 Spacer().frame(width: .infinity)
-                CashAppPayButtonView(size: .large, onClickHandler: {})
+                CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: false)
                 Spacer().frame(width: .infinity)
             }
             HStack {
                 Spacer().frame(width: .infinity)
-                CashAppPayButtonView(size: .small, onClickHandler: {})
+                CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: false)
                 Spacer().frame(width: .infinity)
             }
-            CashAppPayButtonView(size: .large, onClickHandler: {})
-            CashAppPayButtonView(size: .small, onClickHandler: {})
+            CashAppPayButtonView(size: .large, onClickHandler: {}, usePolyChromeAsset: false)
+            CashAppPayButtonView(size: .small, onClickHandler: {}, usePolyChromeAsset: false)
         }.background(Color.blue)
     }
 }
