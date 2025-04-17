@@ -1,3 +1,13 @@
+## Paykit 0.6.3 Release Notes
+
+Pay Kit 0.6.3 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
+
+Pay Kit 0.6.3 includes the following new features and enhancements.
+
+- **PayKitUI Update**
+
+    This is a complete UI Update to button and payment method styles to coincide with Afterpay + Cash App brand convergence UI.  An additional parameter called `usePolychromeAsset` will toggle between the two convergence UI styles and will default to false.  Since this is not a breaking API change, it's recommended to view and select which asset type (`usePolychromeAsset`) to use. See `ComponentsViewController` to view all variations.  
+
 ## PayKit 0.6.2 Release Notes
 
 Pay Kit 0.6.2 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
