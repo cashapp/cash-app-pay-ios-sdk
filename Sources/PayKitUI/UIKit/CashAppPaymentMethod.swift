@@ -47,9 +47,14 @@ public class CashAppPaymentMethod: UIView {
      - size: The size of the view where the `small` is vertically stacked while `large` is horizontally stacked.
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to `nil`.
+     - usePolychromeAsset: Toggle usage of polychrome UI
      */
-    public init(size: SizingCategory = .large, cashTag: String = "") {
-        self.paymentMethodView = CashAppPaymentMethodView(size: size, cashTag: cashTag)
+    public init(size: SizingCategory = .large, cashTag: String = "", usePolychromeAsset: Bool = false) {
+        self.paymentMethodView = CashAppPaymentMethodView(
+            size: size,
+            cashTag: cashTag,
+            usePolychromeAsset: usePolychromeAsset
+        )
         super.init(frame: .zero)
         guard let view = makeView() else { return }
         addSubview(view)

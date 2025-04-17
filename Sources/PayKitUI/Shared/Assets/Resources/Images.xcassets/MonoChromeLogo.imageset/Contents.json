@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "cash-app-pay-logotype-light.svg",
+      "filename" : "MonoChromeDark.svg",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "cash-app-pay-logotype-dark.svg",
+      "filename" : "MonoChromeLight.svg",
       "idiom" : "universal"
     }
   ],

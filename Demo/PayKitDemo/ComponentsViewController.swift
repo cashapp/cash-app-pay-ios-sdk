@@ -29,15 +29,35 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         switch indexPath.row {
-        case 0: cell = CashAppDemoCell(title: "Small Button", view: CashAppPayButton(size: .small, onClickHandler: {}))
+        case 0:
+            let smallButton = CashAppPayButton(size: .small, onClickHandler: {})
+            smallButton.isEnabled = false
+            cell = CashAppDemoCell(title: "Small Button", view: smallButton)
         case 1: cell = CashAppDemoCell(title: "Large Button", view: CashAppPayButton(size: .large, onClickHandler: {}))
-        case 2: cell = CashAppDemoCell(
+        case 2:
+            cell = CashAppDemoCell(
+                title: "Small Button",
+                view: CashAppPayButton(size: .small, onClickHandler: {}, usePolychromeAsset: true)
+            )
+        case 3:
+            let largeButton = CashAppPayButton(size: .large, onClickHandler: {}, usePolychromeAsset: true)
+            largeButton.isEnabled = false
+            cell = CashAppDemoCell(title: "Large Button", view: largeButton)
+        case 4: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack")
         )
-        case 3: cell = CashAppDemoCell(
+        case 5: cell = CashAppDemoCell(
             title: "Large Payment Method",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack")
+        )
+        case 6: cell = CashAppDemoCell(
+            title: "Small Payment Method",
+            view: CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
+        )
+        case 7: cell = CashAppDemoCell(
+            title: "Large Payment Method",
+            view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
         )
         default:
             cell = UITableViewCell()
@@ -55,7 +75,7 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        8
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
