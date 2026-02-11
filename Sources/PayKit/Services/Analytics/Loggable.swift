@@ -123,8 +123,7 @@ struct LoggablePaymentAction: Encodable, Equatable, Loggable {
                 try container.encodeIfPresent(money?.amount, forKey: .amount)
                 try container.encodeIfPresent(money?.currency, forKey: .currency)
             }
-
-        case .ON_FILE_PAYMENT:
+        case .ON_FILE_PAYMENT, .ON_FILE_PAYOUT:
             if clearing {
                 try container.encode(accountReferenceID, forKey: .accountReferenceID)
             } else {

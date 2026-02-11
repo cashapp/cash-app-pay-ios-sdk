@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'CashAppPayKitUI'
-    s.version      = "0.6.3"
+    s.version      = "1.0.0"
     s.summary      = 'UI components for the PayKit iOS SDK'
     s.homepage     = 'https://github.com/cashapp/cash-app-pay-ios-sdk'
     s.license      = 'Apache License, Version 2.0'

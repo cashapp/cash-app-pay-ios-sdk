@@ -1,3 +1,13 @@
+## Paykit 1.0.0 Release Notes
+
+Pay Kit 1.0.0 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
+
+Pay Kit 1.0.0 includes the following new features and enhancements.
+
+- **PayKit Update**
+
+    Addition of a new CustomerRequest payment action, payment type of `ON_FILE_PAYOUT`. This payment type enables merchants to payout customers.
+
 ## Paykit 0.6.3 Release Notes
 
 Pay Kit 0.6.3 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.

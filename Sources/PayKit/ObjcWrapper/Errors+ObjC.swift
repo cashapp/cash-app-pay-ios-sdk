@@ -20,7 +20,7 @@ import Foundation
 
 public let CAPErrorDomain = "com.squareup.cashapppay.error"
 
-@objcMembers public final class CAPApiError: NSError {
+@objcMembers public final class CAPApiError: NSError, @unchecked Sendable {
 
     // MARK: - Properties
 
@@ -90,7 +90,7 @@ extension APIError.ErrorCode {
 
 // MARK: - IntegrationError
 
-@objcMembers public final class CAPIntegrationError: NSError {
+@objcMembers public final class CAPIntegrationError: NSError, @unchecked Sendable {
 
     // MARK: - Properties
 
@@ -232,7 +232,7 @@ extension IntegrationError.ErrorCode {
 
 // MARK: - UnexpectedError
 
-@objcMembers public final class CAPUnexpectedError: NSError {
+@objcMembers public final class CAPUnexpectedError: NSError, @unchecked Sendable {
 
     // MARK: - Properties
 
@@ -271,9 +271,9 @@ extension IntegrationError.ErrorCode {
 
 // MARK: - Network Error
 
-@objc public final class CAPNetworkErrorNoResponse: NSError {}
+@objc public final class CAPNetworkErrorNoResponse: NSError, @unchecked Sendable {}
 
-@objc public final class CAPNetworkErrorNilData: NSError {
+@objc public final class CAPNetworkErrorNilData: NSError, @unchecked Sendable {
     @objc public var response: HTTPURLResponse
 
     init(response: HTTPURLResponse) {
@@ -287,7 +287,7 @@ extension IntegrationError.ErrorCode {
     }
 }
 
-@objc public final class CAPNetworkErrorInvalidJSON: NSError {
+@objc public final class CAPNetworkErrorInvalidJSON: NSError, @unchecked Sendable {
     @objc public var data: Data
 
     init(data: Data) {
