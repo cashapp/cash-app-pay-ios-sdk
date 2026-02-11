@@ -522,6 +522,11 @@ import Foundation
         return CAPPaymentAction(paymentAction: paymentAction)
     }
 
+    public static func onFilePayout(scopeID: String, accountReferenceID: String?) -> CAPPaymentAction {
+        let paymentAction = PaymentAction.onFilePayout(scopeID: scopeID, accountReferenceID: accountReferenceID)
+        return CAPPaymentAction(paymentAction: paymentAction)
+    }
+
     // MARK: - Equatable
 
     public override func isEqual(_ object: Any?) -> Bool {

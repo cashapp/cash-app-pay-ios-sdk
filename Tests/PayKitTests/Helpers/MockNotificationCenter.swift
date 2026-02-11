@@ -17,7 +17,7 @@
 import Foundation
 import UIKit
 
-class MockNotificationCenter: NotificationCenter {
+class MockNotificationCenter: NotificationCenter, @unchecked Sendable {
     var addObserverStub: ((Any, Selector, NSNotification.Name?, Any?) -> Void)
 
     init(addObserverStub: @escaping (Any, Selector, NSNotification.Name?, Any?) -> Void) {

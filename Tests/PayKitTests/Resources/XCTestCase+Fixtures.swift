@@ -17,7 +17,7 @@
 @testable import PayKit
 import XCTest
 
-extension String: Error {}
+extension String: @retroactive Error {}
 
 private extension Bundle {
     static let fixtures: Bundle = {

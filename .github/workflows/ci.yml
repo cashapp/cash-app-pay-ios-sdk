@@ -9,7 +9,7 @@ on:
 jobs:
   pod-lint:
     name: Pod Lint
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -30,7 +30,5 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - name: Select Xcode Version (15.1.0)
-        run: sudo xcode-select --switch /Applications/Xcode_15.1.0.app/Contents/Developer
       - name: Build
         run:  xcodebuild build -scheme PayKit -sdk "`xcrun --sdk iphonesimulator --show-sdk-path`"

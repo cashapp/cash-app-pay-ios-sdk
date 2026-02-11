@@ -100,6 +100,16 @@ class LoggableTests: XCTestCase {
         XCTAssertEqual(loggable, .string(#"{"account_reference_id":"FILTERED","scope_id":"test","type":"ON_FILE_PAYMENT"}"#))
     }
 
+    func test_loggable_payment_action_on_file_payout() {
+        let paymentAction = PaymentAction.onFilePayout(
+            scopeID: "test",
+            accountReferenceID: "account5"
+        )
+        let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
+        // swiftlint:disable:next line_length
+        XCTAssertEqual(loggable, .string(#"{"account_reference_id":"FILTERED","scope_id":"test","type":"ON_FILE_PAYOUT"}"#))
+    }
+
     func test_loggable_grant() throws {
         let grant = try XCTUnwrap(TestValues.approvedRequestGrants.first)
         let loggable = LoggableGrant(grant: grant).loggableDescription

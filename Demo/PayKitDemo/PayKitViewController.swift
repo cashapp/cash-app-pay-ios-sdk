@@ -121,7 +121,7 @@ class PayKitViewController: UIViewController {
         updateRequestButton.isEnabled = (pendingRequest != nil)
         authorizeRequestButton.isEnabled = (pendingRequest != nil)
         amountTextField.isEnabled = (paymentType == .ONE_TIME_PAYMENT)
-        accountReferenceIDTextField.isEnabled = (paymentType == .ON_FILE_PAYMENT)
+        accountReferenceIDTextField.isEnabled = (paymentType != .ONE_TIME_PAYMENT)
         endpointLabel.text = environment.title
     }
 
@@ -176,6 +176,8 @@ extension PayKitViewController {
             action = .oneTimePayment(scopeID: brandID, money: amount)
         case .ON_FILE_PAYMENT:
             action = .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+        case .ON_FILE_PAYOUT:
+            action = .onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
         }
 
         return CreateCustomerRequestParams(
@@ -193,6 +195,8 @@ extension PayKitViewController {
             action = .oneTimePayment(scopeID: brandID, money: amount)
         case .ON_FILE_PAYMENT:
             action = .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+        case .ON_FILE_PAYOUT:
+            action = .onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
         }
 
         return UpdateCustomerRequestParams(
@@ -299,7 +303,11 @@ extension PayKitViewController {
                 handler: handlePaymentTypeControlChanged
             ),
             UIAction(
-                title: "On File",
+                title: "On File Payment",
+                handler: handlePaymentTypeControlChanged
+            ),
+            UIAction(
+                title: "On File Payout",
                 handler: handlePaymentTypeControlChanged
             ),
         ])

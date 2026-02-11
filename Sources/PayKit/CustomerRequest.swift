@@ -208,6 +208,16 @@ public struct PaymentAction: Equatable {
             accountReferenceID: accountReferenceID
         )
     }
+
+    public static func onFilePayout(scopeID: String, accountReferenceID: String?) -> PaymentAction {
+        return PaymentAction(
+            type: .ON_FILE_PAYOUT,
+            scopeID: scopeID,
+            money: nil,
+            accountReferenceID: accountReferenceID
+        )
+    }
+
     enum CodingKeys: String, CodingKey {
         case type, scopeID = "scopeId", amount, currency, accountReferenceID = "accountReferenceId"
     }
@@ -246,7 +256,7 @@ extension PaymentAction: Encodable {
                 try container.encodeIfPresent(money?.currency, forKey: .currency)
             }
 
-        case .ON_FILE_PAYMENT:
+        case .ON_FILE_PAYMENT, .ON_FILE_PAYOUT:
             if clearing {
                 try container.encode(accountReferenceID, forKey: .accountReferenceID)
             } else {
@@ -259,6 +269,7 @@ extension PaymentAction: Encodable {
 public enum PaymentType: String, Codable, CaseIterable, Equatable {
     case ONE_TIME_PAYMENT
     case ON_FILE_PAYMENT
+    case ON_FILE_PAYOUT
 }
 
 // MARK: - Primitives
@@ -345,7 +356,13 @@ extension PaymentAction: CustomDebugStringConvertible {
             return """
 \n ONE_TIME_PAYMENT:
    Scope ID: \(scopeID)
-   Account Reference ID: \(String(describing: money))
+   Account Reference ID: \(String(describing: accountReferenceID))
+"""
+        case .ON_FILE_PAYOUT:
+            return """
+\n ONE_FILE_PAYOUT:
+   Scope ID: \(scopeID)
+   Account Reference ID: \(String(describing: accountReferenceID))
 """
         }
     }

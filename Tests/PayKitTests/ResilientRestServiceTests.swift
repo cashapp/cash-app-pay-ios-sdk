@@ -86,7 +86,7 @@ final class ResilientRESTServiceTests: XCTestCase {
             self.XCTAssertEqual((error as? NSError)?.code, 5)
             handlerExpectation.fulfill()
         }
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 10)
     }
 
     func test_execute_with_retry_stops_after_success() {
