@@ -218,6 +218,15 @@ public struct PaymentAction: Equatable {
         )
     }
 
+    public static func customerProfileSharing(scopeID: String) -> PaymentAction {
+        return PaymentAction(
+            type: .CUSTOMER_PROFILE_SHARING,
+            scopeID: scopeID,
+            money: nil,
+            accountReferenceID: nil
+        )
+    }
+
     enum CodingKeys: String, CodingKey {
         case type, scopeID = "scopeId", amount, currency, accountReferenceID = "accountReferenceId"
     }
@@ -262,6 +271,9 @@ extension PaymentAction: Encodable {
             } else {
                 try container.encodeIfPresent(accountReferenceID, forKey: .accountReferenceID)
             }
+
+        case .CUSTOMER_PROFILE_SHARING:
+            break
         }
     }
 }
@@ -270,6 +282,7 @@ public enum PaymentType: String, Codable, CaseIterable, Equatable {
     case ONE_TIME_PAYMENT
     case ON_FILE_PAYMENT
     case ON_FILE_PAYOUT
+    case CUSTOMER_PROFILE_SHARING
 }
 
 // MARK: - Primitives
@@ -363,6 +376,11 @@ extension PaymentAction: CustomDebugStringConvertible {
 \n ONE_FILE_PAYOUT:
    Scope ID: \(scopeID)
    Account Reference ID: \(String(describing: accountReferenceID))
+"""
+        case .CUSTOMER_PROFILE_SHARING:
+            return """
+\n CUSTOMER_PROFILE_SHARING:
+   Scope ID: \(scopeID)
 """
         }
     }
