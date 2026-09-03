@@ -527,6 +527,11 @@ import Foundation
         return CAPPaymentAction(paymentAction: paymentAction)
     }
 
+    public static func customerProfileSharing(scopeID: String) -> CAPPaymentAction {
+        let paymentAction = PaymentAction.customerProfileSharing(scopeID: scopeID)
+        return CAPPaymentAction(paymentAction: paymentAction)
+    }
+
     // MARK: - Equatable
 
     public override func isEqual(_ object: Any?) -> Bool {

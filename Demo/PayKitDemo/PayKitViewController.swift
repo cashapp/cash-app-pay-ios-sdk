@@ -170,18 +170,23 @@ extension PayKitViewController {
     }
 
     var createParamsFromView: CreateCustomerRequestParams {
-        let action: PaymentAction
+        let actions: [PaymentAction]
         switch paymentType {
         case .ONE_TIME_PAYMENT:
-            action = .oneTimePayment(scopeID: brandID, money: amount)
+            actions = [.oneTimePayment(scopeID: brandID, money: amount)]
         case .ON_FILE_PAYMENT:
-            action = .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+            actions = [.onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)]
         case .ON_FILE_PAYOUT:
-            action = .onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+            actions = [.onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)]
+        case .CUSTOMER_PROFILE_SHARING:
+            actions = [
+                .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text),
+                .customerProfileSharing(scopeID: brandID),
+            ]
         }
 
         return CreateCustomerRequestParams(
-            actions: [action],
+            actions: actions,
             redirectURL: URL(string: "paykitdemo://callback")!,
             referenceID: nil,
             metadata: nil
@@ -189,18 +194,23 @@ extension PayKitViewController {
     }
 
     var updateParamsFromView: UpdateCustomerRequestParams {
-        let action: PaymentAction
+        let actions: [PaymentAction]
         switch paymentType {
         case .ONE_TIME_PAYMENT:
-            action = .oneTimePayment(scopeID: brandID, money: amount)
+            actions = [.oneTimePayment(scopeID: brandID, money: amount)]
         case .ON_FILE_PAYMENT:
-            action = .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+            actions = [.onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)]
         case .ON_FILE_PAYOUT:
-            action = .onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)
+            actions = [.onFilePayout(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text)]
+        case .CUSTOMER_PROFILE_SHARING:
+            actions = [
+                .onFilePayment(scopeID: brandID, accountReferenceID: accountReferenceIDTextField.text),
+                .customerProfileSharing(scopeID: brandID),
+            ]
         }
 
         return UpdateCustomerRequestParams(
-            actions: [action],
+            actions: actions,
             referenceID: nil,
             metadata: nil
         )
@@ -308,6 +318,10 @@ extension PayKitViewController {
             ),
             UIAction(
                 title: "On File Payout",
+                handler: handlePaymentTypeControlChanged
+            ),
+            UIAction(
+                title: "Profile Sharing",
                 handler: handlePaymentTypeControlChanged
             ),
         ])
