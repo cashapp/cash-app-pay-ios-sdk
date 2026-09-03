@@ -129,6 +129,8 @@ struct LoggablePaymentAction: Encodable, Equatable, Loggable {
             } else {
                 try container.encodeIfPresent(accountReferenceID, forKey: .accountReferenceID)
             }
+        case .CUSTOMER_PROFILE_SHARING:
+            break
         }
     }
 

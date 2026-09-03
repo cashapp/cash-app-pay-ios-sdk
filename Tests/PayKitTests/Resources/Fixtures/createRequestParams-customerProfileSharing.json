@@ -1,0 +1,23 @@
+{
+     "request": {
+          "actions": [
+               {
+                    "type": "ON_FILE_PAYMENT",
+                    "scope_id": "BRAND_profile",
+                    "account_reference_id": "account"
+               },
+               {
+                    "type": "CUSTOMER_PROFILE_SHARING",
+                    "scope_id": "BRAND_profile"
+               },
+               {
+                    "type": "ON_FILE_PAYOUT",
+                    "scope_id": "BRAND_profile",
+                    "account_reference_id": "account"
+               }
+          ],
+          "channel": "IN_APP",
+          "redirect_url": "paykitdemo://callback"
+     },
+     "idempotency_key": "e345c3fb-1caa-46fd-b0d3-aa6c7b00ab19"
+}
