@@ -60,5 +60,29 @@ class CreateCustomerRequestParamsTests: XCTestCase {
         XCTAssertEqual(deserializedParams.request, params)
     }
 
+    func test_serializeCreateParams_withCustomerProfileSharingAndPaymentActions() throws {
+        let params = CreateCustomerRequestParams(
+            actions: [
+                .onFilePayment(scopeID: "BRAND_profile", accountReferenceID: "account"),
+                .customerProfileSharing(scopeID: "BRAND_profile"),
+                .onFilePayout(scopeID: "BRAND_profile", accountReferenceID: "account"),
+            ],
+            redirectURL: try XCTUnwrap(URL(string: "paykitdemo://callback")),
+            referenceID: nil,
+            metadata: nil
+        )
+
+        let serializedParams = try jsonEncoder.encode(CreateCustomerRequestParamsWrapper(params))
+        let fixtureParams = try fixtureDataForFilename(customerProfileSharingRequestParamsFilename)
+
+        let serializedDict = try XCTUnwrap(JSONSerialization.jsonObject(with: serializedParams) as? [String: Any])
+        let fixtureDict = try XCTUnwrap(JSONSerialization.jsonObject(with: fixtureParams) as? [String: Any])
+        XCTAssertEqual(
+            try XCTUnwrap(JSONSerialization.data(withJSONObject: serializedDict["request"]!, options: .sortedKeys)),
+            try XCTUnwrap(JSONSerialization.data(withJSONObject: fixtureDict["request"]!, options: .sortedKeys))
+        )
+    }
+
     let createRequestParamsFilename = "createRequestParams-fullyPopulated"
+    let customerProfileSharingRequestParamsFilename = "createRequestParams-customerProfileSharing"
 }

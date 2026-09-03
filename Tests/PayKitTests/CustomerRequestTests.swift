@@ -66,6 +66,15 @@ class CustomerRequestTests: XCTestCase {
         XCTAssertEqual(fixtureDict, serializedDict)
     }
 
+    func test_deserializeCustomerProfileSharingGrant() throws {
+        let json = try fixtureDataForFilename(customerProfileSharingGrantFilename)
+        let grant = try jsonDecoder.decode(CustomerRequest.Grant.self, from: json)
+
+        XCTAssertEqual(grant.action, .customerProfileSharing(scopeID: "BRAND_profile"))
+        XCTAssertEqual(grant.type, .ONE_TIME)
+    }
+
     let pendingRequestFilename = "pendingRequest-fullyPopulated"
     let approvedRequestFilename = "approvedRequest-fullyPopulated"
+    let customerProfileSharingGrantFilename = "customerProfileSharingGrant"
 }

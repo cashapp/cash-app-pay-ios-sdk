@@ -110,6 +110,12 @@ class LoggableTests: XCTestCase {
         XCTAssertEqual(loggable, .string(#"{"account_reference_id":"FILTERED","scope_id":"test","type":"ON_FILE_PAYOUT"}"#))
     }
 
+    func test_loggable_payment_action_customer_profile_sharing() {
+        let paymentAction = PaymentAction.customerProfileSharing(scopeID: "test")
+        let loggable = LoggablePaymentAction(paymentAction: paymentAction).loggableDescription
+        XCTAssertEqual(loggable, .string(#"{"scope_id":"test","type":"CUSTOMER_PROFILE_SHARING"}"#))
+    }
+
     func test_loggable_grant() throws {
         let grant = try XCTUnwrap(TestValues.approvedRequestGrants.first)
         let loggable = LoggableGrant(grant: grant).loggableDescription

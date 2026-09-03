@@ -114,6 +114,12 @@ class AccessModifierTests: XCTestCase {
         XCTAssertNil(onfilePayment.money)
         XCTAssertEqual(onfilePayment.type, .ON_FILE_PAYMENT)
         XCTAssertEqual(onfilePayment.accountReferenceID, "reference")
+
+        let customerProfileSharing = PaymentAction.customerProfileSharing(scopeID: "scope")
+        XCTAssertEqual(customerProfileSharing.scopeID, "scope")
+        XCTAssertNil(customerProfileSharing.money)
+        XCTAssertEqual(customerProfileSharing.type, .CUSTOMER_PROFILE_SHARING)
+        XCTAssertNil(customerProfileSharing.accountReferenceID)
     }
 
     func test_money() {
