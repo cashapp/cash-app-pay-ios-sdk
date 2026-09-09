@@ -26,14 +26,36 @@ protocol RESTService {
 
 final class ResilientRESTService: RESTService {
 
+    typealias RequestExecutor = (
+        URLRequest,
+        @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> Void
+    typealias RetryScheduler = (TimeInterval, @escaping () -> Void) -> Void
+
     // MARK: - Properties
 
-    private var urlSession: URLSession
+    private let requestExecutor: RequestExecutor
+    private let retryScheduler: RetryScheduler
 
     // MARK: - Lifecycle
 
-    init(urlSession: URLSession = .shared) {
-        self.urlSession = urlSession
+    convenience init(urlSession: URLSession = .shared) {
+        self.init(
+            requestExecutor: { request, completion in
+                urlSession.dataTask(with: request, completionHandler: completion).resume()
+            },
+            retryScheduler: { delay, work in
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: work)
+            }
+        )
+    }
+
+    init(
+        requestExecutor: @escaping RequestExecutor,
+        retryScheduler: @escaping RetryScheduler
+    ) {
+        self.requestExecutor = requestExecutor
+        self.retryScheduler = retryScheduler
     }
 
     // MARK: - RESTService
@@ -50,10 +72,9 @@ final class ResilientRESTService: RESTService {
     // MARK: Private
 
     private func performRequest(request: HTTPRequest) {
-        let task = urlSession.dataTask(with: request.urlRequest) { [weak self] data, response, error in
+        requestExecutor(request.urlRequest) { [weak self] data, response, error in
             self?.handleResponse(for: request, data: data, response: response, error: error)
         }
-        task.resume()
     }
 
     private func handleResponse(for request: HTTPRequest, data: Data?, response: URLResponse?, error: Error?) {
@@ -73,7 +94,7 @@ final class ResilientRESTService: RESTService {
             retryPolicy: request.retryPolicy?.decrement(),
             handler: request.handler
         )
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+        retryScheduler(delay) { [weak self] in
             self?.performRequest(request: retryRequest)
         }
     }
