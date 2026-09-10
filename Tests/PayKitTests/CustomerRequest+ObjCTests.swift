@@ -209,6 +209,14 @@ final class CustomerRequest_ObjCTests: XCTestCase {
         XCTAssertNil(paymentAction.money)
     }
 
+    func test_CAPPaymentAction_customerProfileSharing() {
+        let paymentAction = CAPPaymentAction.customerProfileSharing(scopeID: scopeID)
+        XCTAssertEqual(paymentAction.type, "CUSTOMER_PROFILE_SHARING")
+        XCTAssertEqual(paymentAction.scopeID, scopeID)
+        XCTAssertNil(paymentAction.accountReferenceID)
+        XCTAssertNil(paymentAction.money)
+    }
+
     func test_CAPPaymentAction_isEqual() {
         let oneTimePayment = CAPPaymentAction.oneTimePayment(
             scopeID: scopeID,
