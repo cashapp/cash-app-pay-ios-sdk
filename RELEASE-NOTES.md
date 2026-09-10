@@ -1,3 +1,13 @@
+## PayKit 2.0.0 Release Notes
+
+Pay Kit 2.0.0 supports iOS 12 and later.
+
+Pay Kit 2.0.0 includes customer profile sharing and a source compatibility change.
+
+- **Customer profile sharing**
+
+    Adds support for customer profile sharing. This adds `CUSTOMER_PROFILE_SHARING` to the public `PaymentType` enum. Apps with exhaustive switches over `PaymentType` must handle the new case.
+
 ## Paykit 1.0.0 Release Notes
 
 Pay Kit 1.0.0 supports iOS and requires Xcode 11 or later. The minimum supported Base SDK is 12.0.
