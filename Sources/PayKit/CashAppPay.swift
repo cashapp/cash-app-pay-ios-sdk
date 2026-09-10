@@ -19,7 +19,7 @@ import UIKit
 
 public class CashAppPay {
 
-    public static let version = "1.0.0"
+    public static let version = "2.0.0"
 
     public static let RedirectNotification: Notification.Name = Notification.Name("CashAppPayRedirect")
 
