@@ -197,7 +197,7 @@ To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App")
 
 The following is an example of `CashAppPaymentMethod`:
 
-<img width="170" alt="image" src="https://user-images.githubusercontent.com/8743061/216639415-49591e1e-046e-49a0-b480-b6249394254d.png">
+<img width="170" alt="CashAppPaymentMethod showing the Cash App logo and $jack" src="Docs/Images/cash-app-payment-method.png">
 
 You can instatiate the `CashAppPaymentMethod` as follows:
 

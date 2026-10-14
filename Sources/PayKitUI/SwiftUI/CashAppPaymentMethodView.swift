@@ -26,8 +26,8 @@ public struct CashAppPaymentMethodView: View {
 
     private var currentAsset: SwiftUI.Image {
         viewModel.usePolychromeAsset ?
-            Asset.Images.polyChromeLogo.swiftUIImage :
-            Asset.Images.monoChromeLogoReverse.swiftUIImage
+            Asset.Images.cashAppLogoPolychrome.swiftUIImage :
+            Asset.Images.cashAppLogoMonochrome.swiftUIImage
     }
 
     private var currentColor: SwiftUI.Color {
@@ -126,7 +126,7 @@ public struct CashAppPaymentMethodView: View {
         public static let cashTagFont = Font.system(size: 14)
         public static let cashTagTextColor = Asset.Colors.textTernary.swiftUIColor
 
-        static let titleWidth: CGFloat = 127
+        static let titleWidth: CGFloat = 97
         static let titleHeight: CGFloat = 20
         static let cashTagInset: CGFloat = 38
         static let titleVerticalOffset: CGFloat = 2

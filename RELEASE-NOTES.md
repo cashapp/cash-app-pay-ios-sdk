@@ -10,6 +10,10 @@
 
     `PayKitUI` now depends on `PayKit`.
 
+- **`CashAppPaymentMethod` shows the Cash App logo**
+
+    `CashAppPaymentMethod` and `CashAppPaymentMethodView` now show the "Cash App" logo instead of "Cash App Pay". Their API, layout, and colors are unchanged.
+
 ## PayKit 2.0.0 Release Notes
 
 Pay Kit 2.0.0 supports iOS 12 and later.

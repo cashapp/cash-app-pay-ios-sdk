@@ -35,6 +35,8 @@ internal enum Asset {
     internal static let textTernary = ColorAsset(name: "TextTernary")
   }
   internal enum Images {
+    internal static let cashAppLogoMonochrome = ImageAsset(name: "CashAppLogoMonochrome")
+    internal static let cashAppLogoPolychrome = ImageAsset(name: "CashAppLogoPolychrome")
     internal static let cashOutWithBlack = ImageAsset(name: "CashOutWithBlack")
     internal static let cashOutWithWhite = ImageAsset(name: "CashOutWithWhite")
     internal static let checkoutWithBlack = ImageAsset(name: "CheckoutWithBlack")
@@ -43,10 +45,8 @@ internal enum Asset {
     internal static let connectWhite = ImageAsset(name: "ConnectWhite")
     internal static let continueWithBlack = ImageAsset(name: "ContinueWithBlack")
     internal static let continueWithWhite = ImageAsset(name: "ContinueWithWhite")
-    internal static let monoChromeLogoReverse = ImageAsset(name: "MonoChromeLogoReverse")
     internal static let payWithBlack = ImageAsset(name: "PayWithBlack")
     internal static let payWithWhite = ImageAsset(name: "PayWithWhite")
-    internal static let polyChromeLogo = ImageAsset(name: "PolyChromeLogo")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
