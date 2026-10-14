@@ -12,7 +12,9 @@
 
 - **`CashAppPaymentMethod` shows the Cash App logo**
 
-    `CashAppPaymentMethod` and `CashAppPaymentMethodView` now show the "Cash App" logo instead of "Cash App Pay". Their API, layout, and colors are unchanged.
+    `CashAppPaymentMethod` and `CashAppPaymentMethodView` now show the "Cash App" logo instead of "Cash App Pay". Their API and layout are unchanged.
+
+    With `usePolychromeAsset: true`, the view now shows the green Cash App icon on a black background in both light and dark mode. Dark mode previously switched to a green background.
 
 ## PayKit 2.0.0 Release Notes
 

@@ -41,6 +41,13 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
         )
     }
 
+    func test_polychrome_dark_mode() {
+        assertSnapshot(
+            matching: CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: true),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark)
+        )
+    }
+
     func test_text_custom_font() {
         assertSnapshot(
             matching: CashAppPaymentMethodView(

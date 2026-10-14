@@ -47,7 +47,7 @@ public class CashAppPaymentMethod: UIView {
      - size: The size of the view where the `small` is vertically stacked while `large` is horizontally stacked.
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to `nil`.
-     - usePolychromeAsset: Toggle usage of polychrome UI
+     - usePolychromeAsset: Shows the green Cash App icon on a black background in light and dark mode
      */
     public init(size: SizingCategory = .large, cashTag: String = "", usePolychromeAsset: Bool = false) {
         self.paymentMethodView = CashAppPaymentMethodView(

@@ -32,7 +32,7 @@ public struct CashAppPaymentMethodView: View {
 
     private var currentColor: SwiftUI.Color {
         viewModel.usePolychromeAsset ?
-            Asset.Colors.polyChrome.swiftUIColor :
+            .black :
             Asset.Colors.surfaceSecondary.swiftUIColor
     }
 
@@ -48,7 +48,7 @@ public struct CashAppPaymentMethodView: View {
      - cashTag: The Customer ID. Defaults to `nil`.
      - cashTagFont: Cash Tag text font.
      - cashTagTextColor: Cash Tag text color.
-     - usePolychromeAsset: Toggle usage of polychrome UI
+     - usePolychromeAsset: Shows the green Cash App icon on a black background in light and dark mode
      */
     public init(
         size: SizingCategory = .large,

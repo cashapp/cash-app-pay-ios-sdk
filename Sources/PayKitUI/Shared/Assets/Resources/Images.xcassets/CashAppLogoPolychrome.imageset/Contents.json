@@ -1,17 +1,7 @@
 {
   "images": [
     {
-      "filename": "CashAppLogoPolychromeLight.svg",
-      "idiom": "universal"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "filename": "CashAppLogoPolychromeDark.svg",
+      "filename": "CashAppLogoPolychrome.svg",
       "idiom": "universal"
     }
   ],
