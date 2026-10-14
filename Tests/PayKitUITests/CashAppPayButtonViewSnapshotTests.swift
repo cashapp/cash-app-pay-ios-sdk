@@ -22,48 +22,60 @@ import SwiftUI
 class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .small, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .payWith, size: .small, onClickHandler: {}),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_large_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .payWith, size: .large, onClickHandler: {}),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_button_disabled() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .payWith, size: .large, isEnabled: false, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .light)
         )
 
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .payWith, size: .large, isEnabled: false, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
 
     func test_dark_mode() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .payWith, size: .large, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
+    }
+
+    func test_labels_and_styles() {
+        for style in CashAppPayButtonStyle.allCases {
+            for label in CashAppPayButtonLabel.allCases {
+                assertSnapshot(
+                    matching: CashAppPayButtonView(label: label, style: style, onClickHandler: {}),
+                    as: .image(on: .iPhone8),
+                    named: "\(label)-\(style)"
+                )
+            }
+        }
     }
 
     func test_minimum_size() {
         let smallButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .small, onClickHandler: {})
+            CashAppPayButtonView(label: .payWith, size: .small, onClickHandler: {})
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: smallButton, as: .image(on: .iPhone8))
 
         let largeButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .large, onClickHandler: {})
+            CashAppPayButtonView(label: .payWith, size: .large, onClickHandler: {})
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: largeButton, as: .image(on: .iPhone8))

@@ -174,15 +174,22 @@ We want you to use these views as-is, without any modification.
 
 ### `CashAppPayButton` <a name="cash-app-pay-button"></a>
 
-The following is an example of the `CashAppPayButton`:
+The button shows a call to action that matches the customer request. Pick it from the request's actions:
 
-<img width="368" alt="image" src="https://user-images.githubusercontent.com/8743061/216639753-159f2b3e-21be-4113-8a92-fd77e93acd12.png">
+| Actions | Label |
+|---|---|
+| Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.payWith`, "Pay with Cash App" |
+| Only payouts (`ON_FILE_PAYOUT`) | `.cashOutWith`, "Cash out with Cash App" |
+| Anything else, including profile sharing and mixed payments and payouts | `.connect`, "Connect Cash App" |
 
 You can instantiate the button as follows:
 
 ```swift
-let button = CashAppPayButton(size: .small, onClickHandler: {})
+let label = CashAppPayButtonLabel(actions: customerRequest.actions)
+let button = CashAppPayButton(label: label, style: .black, size: .large, onClickHandler: {})
 ```
+
+`style` is `.black` or `.white`.
 
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 

@@ -1,3 +1,13 @@
+## PayKit Next Release Notes (unreleased)
+
+- **Breaking: `CashAppPayButton` call to action**
+
+    `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Connect Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout, and `.connect` otherwise.
+
+    The `usePolychromeAsset` parameter on the button is replaced by `style`, which is `.black` (default) or `.white`. The button no longer changes with the system light or dark mode.
+
+    `PayKitUI` now depends on `PayKit`.
+
 ## PayKit 2.0.0 Release Notes
 
 Pay Kit 2.0.0 supports iOS 12 and later.

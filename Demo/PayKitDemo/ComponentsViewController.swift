@@ -29,20 +29,19 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         switch indexPath.row {
-        case 0:
-            let smallButton = CashAppPayButton(size: .small, onClickHandler: {})
-            smallButton.isEnabled = false
-            cell = CashAppDemoCell(title: "Small Button", view: smallButton)
-        case 1: cell = CashAppDemoCell(title: "Large Button", view: CashAppPayButton(size: .large, onClickHandler: {}))
-        case 2:
-            cell = CashAppDemoCell(
-                title: "Small Button",
-                view: CashAppPayButton(size: .small, onClickHandler: {}, usePolychromeAsset: true)
-            )
+        case 0: cell = CashAppDemoCell(title: "Pay with", view: CashAppPayButton(label: .payWith, onClickHandler: {}))
+        case 1: cell = CashAppDemoCell(
+            title: "Cash out with",
+            view: CashAppPayButton(label: .cashOutWith, onClickHandler: {})
+        )
+        case 2: cell = CashAppDemoCell(
+            title: "Connect (White)",
+            view: CashAppPayButton(label: .connect, style: .white, onClickHandler: {})
+        )
         case 3:
-            let largeButton = CashAppPayButton(size: .large, onClickHandler: {}, usePolychromeAsset: true)
-            largeButton.isEnabled = false
-            cell = CashAppDemoCell(title: "Large Button", view: largeButton)
+            let smallButton = CashAppPayButton(label: .payWith, style: .white, size: .small, onClickHandler: {})
+            smallButton.isEnabled = false
+            cell = CashAppDemoCell(title: "Small Disabled (White)", view: smallButton)
         case 4: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack")

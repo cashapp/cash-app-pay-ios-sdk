@@ -30,21 +30,23 @@ public struct CashAppPayButtonView: View {
     // MARK: - Lifecycle
 
     /**
-     Initializes a button with the Cash App Logo and name.
+     Initializes a button with a Cash App call to action.
 
      - Parameters:
+     - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
+     - style: The color variant of the button. Defaults to `black`.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
      - onClickHandler: The handler called when the button is tapped.
-     - usePolychromeAsset: Toggle usage of polychrome UI
      */
     public init(
+        label: CashAppPayButtonLabel,
+        style: CashAppPayButtonStyle = .black,
         size: SizingCategory = .large,
         isEnabled: Bool = true,
-        onClickHandler: @escaping () -> Void,
-        usePolychromeAsset: Bool = false
+        onClickHandler: @escaping () -> Void
     ) {
-        self.viewModel = ViewModel(size: size, isEnabled: isEnabled, usePolychromeAsset: usePolychromeAsset)
+        self.viewModel = ViewModel(label: label, style: style, size: size, isEnabled: isEnabled)
         self.onClickHandler = onClickHandler
     }
 
@@ -59,47 +61,54 @@ public struct CashAppPayButtonView: View {
         Button(action: onClickHandler) {
             ZStack {
                 RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                    .fill(buttonBackgroundColor)
+                    .fill(backgroundColor)
                 currentAsset
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .padding(
-                        EdgeInsets(
-                            top: .zero,
-                            leading: horizontalPadding,
-                            bottom: .zero,
-                            trailing: horizontalPadding
-                        )
-                    )
-                    .frame(width: minImageWidth, height: iconHeight)
+                    .scaledToFit()
+                    .frame(height: labelHeight)
             }
         }
-        .opacity(tileImageOpacity)
+        .accessibility(label: Text(accessibilityLabel))
+        .opacity(viewModel.isEnabled ? Constants.opaque : Constants.disabledOpacity)
         .disabled(!viewModel.isEnabled)
-            .frame(
-                minWidth: minButtonWidth,
-                maxWidth: .infinity,
-                minHeight: fixedHeight,
-                maxHeight: fixedHeight
-            )
+        .frame(
+            minWidth: minButtonWidth,
+            maxWidth: .infinity,
+            minHeight: fixedHeight,
+            maxHeight: fixedHeight
+        )
     }
 
     private var currentAsset: SwiftUI.Image {
-        viewModel.usePolychromeAsset ?
-            Asset.Images.polyChromeLogo.swiftUIImage : Asset.Images.monoChromeLogo.swiftUIImage
-    }
-
-    private var iconHeight: CGFloat {
-        switch viewModel.size {
-        case .small: return Constants.iconSizeSmall
-        case .large: return Constants.iconSizeLarge
+        switch (viewModel.label, viewModel.style) {
+        case (.payWith, .black): return Asset.Images.payWithBlack.swiftUIImage
+        case (.payWith, .white): return Asset.Images.payWithWhite.swiftUIImage
+        case (.cashOutWith, .black): return Asset.Images.cashOutWithBlack.swiftUIImage
+        case (.cashOutWith, .white): return Asset.Images.cashOutWithWhite.swiftUIImage
+        case (.connect, .black): return Asset.Images.connectBlack.swiftUIImage
+        case (.connect, .white): return Asset.Images.connectWhite.swiftUIImage
         }
     }
 
-    private var horizontalPadding: CGFloat {
+    private var accessibilityLabel: String {
+        switch viewModel.label {
+        case .payWith: return "Pay with Cash App"
+        case .cashOutWith: return "Cash out with Cash App"
+        case .connect: return "Connect Cash App"
+        }
+    }
+
+    private var backgroundColor: Color {
+        switch viewModel.style {
+        case .black: return Constants.black
+        case .white: return .white
+        }
+    }
+
+    private var labelHeight: CGFloat {
         switch viewModel.size {
-        case .small: return Constants.smallHorizontalPadding
-        case .large: return Constants.largeHorizontalPadding
+        case .small: return Constants.labelHeightSmall
+        case .large: return Constants.labelHeightLarge
         }
     }
 
@@ -110,44 +119,10 @@ public struct CashAppPayButtonView: View {
         }
     }
 
-    private var minImageWidth: CGFloat {
-        switch viewModel.size {
-        case .small: return Constants.smallImageWidth
-        case .large: return Constants.largeImageWidth
-        }
-    }
-
     private var fixedHeight: CGFloat {
         switch viewModel.size {
         case .small: return Constants.smallHeight
         case .large: return Constants.largeHeight
-        }
-    }
-
-    private var buttonInset: CGFloat {
-        switch viewModel.size {
-        case .small: return Constants.iconTopPaddingSmall
-        case .large: return Constants.iconTopPaddingLarge
-        }
-    }
-
-    private var buttonBackgroundColor: Color {
-        return
-            switch (viewModel.isEnabled, viewModel.usePolychromeAsset) {
-            case (true, true):
-                Asset.Colors.polyChrome.swiftUIColor
-            case (_, false):
-                Asset.Colors.surfacePrimary.swiftUIColor
-            case (false, true):
-                Asset.Colors.polyChrome.swiftUIColor
-        }
-    }
-
-    private var tileImageOpacity: CGFloat {
-        if viewModel.isEnabled {
-            return Constants.opaque
-        } else {
-            return Constants.disabledOpacity
         }
     }
 
@@ -157,27 +132,18 @@ public struct CashAppPayButtonView: View {
         static let largeHeight: CGFloat = 48
         static let smallHeight: CGFloat = 30
 
-        static let largeImageWidth: CGFloat = 135
-        static let smallImageWidth: CGFloat = 89
-
         static let largeButtonWidth: CGFloat = 320
         static let smallButtonWidth: CGFloat = 221
 
-        static let smallHorizontalPadding: CGFloat = 49
-        static let largeHorizontalPadding: CGFloat = 92.685
+        static let labelHeightLarge: CGFloat = 24
+        static let labelHeightSmall: CGFloat = 16
 
         static let buttonPadding: CGFloat = 10
 
-        static let iconSizeSmall: CGFloat = 19
-        static let iconSizeLarge: CGFloat = 24
+        static let black = Color(red: 16 / 255, green: 16 / 255, blue: 16 / 255)
 
-        static let iconTitleSpacing: CGFloat = 4
-
-        static let iconTopPaddingLarge: CGFloat = 12
-        static let iconTopPaddingSmall: CGFloat = 8
-
-        static let opaque: CGFloat = 1
-        static let disabledOpacity: CGFloat = 0.3
+        static let opaque: Double = 1
+        static let disabledOpacity: Double = 0.3
     }
 }
 
@@ -186,13 +152,15 @@ public struct CashAppPayButtonView: View {
 @available(iOS 13.0, *)
 extension CashAppPayButtonView {
     public class ViewModel: ObservableObject {
+        @Published var label: CashAppPayButtonLabel
+        @Published var style: CashAppPayButtonStyle
         @Published var size: SizingCategory
         @Published var isEnabled: Bool
-        @Published var usePolychromeAsset: Bool
-        init(size: SizingCategory, isEnabled: Bool, usePolychromeAsset: Bool) {
+        init(label: CashAppPayButtonLabel, style: CashAppPayButtonStyle, size: SizingCategory, isEnabled: Bool) {
+            self.label = label
+            self.style = style
             self.size = size
             self.isEnabled = isEnabled
-            self.usePolychromeAsset = usePolychromeAsset
         }
     }
 }
@@ -201,19 +169,13 @@ extension CashAppPayButtonView {
 struct CashButtonView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            CashAppPayButtonView(isEnabled: false, onClickHandler: {}, usePolychromeAsset: false)
-            HStack {
-                Spacer().frame(width: .infinity)
-                CashAppPayButtonView(size: .large, onClickHandler: {}, usePolychromeAsset: false)
-                Spacer().frame(width: .infinity)
+            ForEach(CashAppPayButtonStyle.allCases, id: \.self) { style in
+                ForEach(CashAppPayButtonLabel.allCases, id: \.self) { label in
+                    CashAppPayButtonView(label: label, style: style, onClickHandler: {})
+                }
             }
-            HStack {
-                Spacer().frame(width: .infinity)
-                CashAppPayButtonView(size: .small, onClickHandler: {}, usePolychromeAsset: false)
-                Spacer().frame(width: .infinity)
-            }
-            CashAppPayButtonView(size: .large, onClickHandler: {}, usePolychromeAsset: false)
-            CashAppPayButtonView(size: .small, onClickHandler: {}, usePolychromeAsset: false)
-        }.background(Color.blue)
+            CashAppPayButtonView(label: .payWith, size: .small, onClickHandler: {})
+            CashAppPayButtonView(label: .payWith, isEnabled: false, onClickHandler: {})
+        }.background(Color.gray)
     }
 }

@@ -35,8 +35,13 @@ internal enum Asset {
     internal static let textTernary = ColorAsset(name: "TextTernary")
   }
   internal enum Images {
-    internal static let monoChromeLogo = ImageAsset(name: "MonoChromeLogo")
+    internal static let cashOutWithBlack = ImageAsset(name: "CashOutWithBlack")
+    internal static let cashOutWithWhite = ImageAsset(name: "CashOutWithWhite")
+    internal static let connectBlack = ImageAsset(name: "ConnectBlack")
+    internal static let connectWhite = ImageAsset(name: "ConnectWhite")
     internal static let monoChromeLogoReverse = ImageAsset(name: "MonoChromeLogoReverse")
+    internal static let payWithBlack = ImageAsset(name: "PayWithBlack")
+    internal static let payWithWhite = ImageAsset(name: "PayWithWhite")
     internal static let polyChromeLogo = ImageAsset(name: "PolyChromeLogo")
   }
 }
