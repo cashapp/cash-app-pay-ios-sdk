@@ -4,6 +4,8 @@
 
     `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Connect Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout, and `.connect` otherwise.
 
+    To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
+
     The `usePolychromeAsset` parameter on the button is replaced by `style`, which is `.black` (default) or `.white`. The button no longer changes with the system light or dark mode.
 
     `PayKitUI` now depends on `PayKit`.

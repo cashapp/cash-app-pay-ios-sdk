@@ -37,8 +37,12 @@ internal enum Asset {
   internal enum Images {
     internal static let cashOutWithBlack = ImageAsset(name: "CashOutWithBlack")
     internal static let cashOutWithWhite = ImageAsset(name: "CashOutWithWhite")
+    internal static let checkoutWithBlack = ImageAsset(name: "CheckoutWithBlack")
+    internal static let checkoutWithWhite = ImageAsset(name: "CheckoutWithWhite")
     internal static let connectBlack = ImageAsset(name: "ConnectBlack")
     internal static let connectWhite = ImageAsset(name: "ConnectWhite")
+    internal static let continueWithBlack = ImageAsset(name: "ContinueWithBlack")
+    internal static let continueWithWhite = ImageAsset(name: "ContinueWithWhite")
     internal static let monoChromeLogoReverse = ImageAsset(name: "MonoChromeLogoReverse")
     internal static let payWithBlack = ImageAsset(name: "PayWithBlack")
     internal static let payWithWhite = ImageAsset(name: "PayWithWhite")

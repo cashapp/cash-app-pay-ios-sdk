@@ -191,6 +191,8 @@ let button = CashAppPayButton(label: label, style: .black, size: .large, onClick
 
 `style` is `.black` or `.white`.
 
+To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
+
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 
 The following is an example of `CashAppPaymentMethod`:

@@ -35,8 +35,8 @@ class ComponentsViewController: UITableViewController {
             view: CashAppPayButton(label: .cashOutWith, onClickHandler: {})
         )
         case 2: cell = CashAppDemoCell(
-            title: "Connect (White)",
-            view: CashAppPayButton(label: .connect, style: .white, onClickHandler: {})
+            title: "Checkout with override (White)",
+            view: CashAppPayButton(label: .checkoutWith, style: .white, onClickHandler: {})
         )
         case 3:
             let smallButton = CashAppPayButton(label: .payWith, style: .white, size: .small, onClickHandler: {})

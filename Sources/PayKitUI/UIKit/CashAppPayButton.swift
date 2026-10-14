@@ -57,6 +57,7 @@ public class CashAppPayButton: UIView {
 
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
+       Pass `.checkoutWith` or `.continueWith` to override it.
      - style: The color variant of the button. Defaults to `black`.
      - size: The size of the button. Defaults to `large`.
      - onClickHandler: The handler called when the button is tapped.

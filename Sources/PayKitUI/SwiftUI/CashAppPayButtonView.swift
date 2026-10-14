@@ -34,6 +34,7 @@ public struct CashAppPayButtonView: View {
 
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
+       Pass `.checkoutWith` or `.continueWith` to override it.
      - style: The color variant of the button. Defaults to `black`.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
@@ -87,6 +88,10 @@ public struct CashAppPayButtonView: View {
         case (.cashOutWith, .white): return Asset.Images.cashOutWithWhite.swiftUIImage
         case (.connect, .black): return Asset.Images.connectBlack.swiftUIImage
         case (.connect, .white): return Asset.Images.connectWhite.swiftUIImage
+        case (.checkoutWith, .black): return Asset.Images.checkoutWithBlack.swiftUIImage
+        case (.checkoutWith, .white): return Asset.Images.checkoutWithWhite.swiftUIImage
+        case (.continueWith, .black): return Asset.Images.continueWithBlack.swiftUIImage
+        case (.continueWith, .white): return Asset.Images.continueWithWhite.swiftUIImage
         }
     }
 
@@ -95,6 +100,8 @@ public struct CashAppPayButtonView: View {
         case .payWith: return "Pay with Cash App"
         case .cashOutWith: return "Cash out with Cash App"
         case .connect: return "Connect Cash App"
+        case .checkoutWith: return "Checkout with Cash App"
+        case .continueWith: return "Continue with Cash App"
         }
     }
 
