@@ -34,15 +34,15 @@ class CashAppPayButtonLabelTests: XCTestCase {
         XCTAssertEqual(CashAppPayButtonLabel(actions: [payout]), .cashOutWith)
     }
 
-    func test_profile_sharing_mixed_actions_and_no_actions_use_connect() {
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [profile]), .connect)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile, payout]), .connect)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, profile]), .connect)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout, profile]), .connect)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: []), .connect)
+    func test_profile_sharing_mixed_actions_and_no_actions_use_continue_with() {
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [profile]), .continueWith)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile, payout]), .continueWith)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, profile]), .continueWith)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout, profile]), .continueWith)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: []), .continueWith)
     }
 
-    func test_checkout_with_and_continue_with_are_only_set_explicitly() {
+    func test_checkout_with_is_only_set_explicitly() {
         let requests: [[PaymentAction]] = [
             [], [oneTime], [onFile], [payout], [profile],
             [onFile, payout], [oneTime, profile], [onFile, payout, profile],
@@ -50,7 +50,6 @@ class CashAppPayButtonLabelTests: XCTestCase {
         for actions in requests {
             let label = CashAppPayButtonLabel(actions: actions)
             XCTAssertNotEqual(label, .checkoutWith)
-            XCTAssertNotEqual(label, .continueWith)
         }
     }
 }

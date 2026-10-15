@@ -180,7 +180,7 @@ The button shows a call to action that matches the customer request. Pick it fro
 |---|---|
 | Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.payWith`, "Pay with Cash App" |
 | Only payouts (`ON_FILE_PAYOUT`) | `.cashOutWith`, "Cash out with Cash App" |
-| Anything else, such as a mix of payments and payouts | `.connect`, "Connect Cash App" |
+| Anything else, such as a mix of payments and payouts | `.continueWith`, "Continue with Cash App" |
 
 You can instantiate the button as follows:
 
@@ -191,7 +191,7 @@ let button = CashAppPayButton(label: label, size: .large, onClickHandler: {})
 
 `style` defaults to `.automatic`, which follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
 
-To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
+To override the automatic label, pass any label directly, such as `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.checkoutWith`.
 
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 

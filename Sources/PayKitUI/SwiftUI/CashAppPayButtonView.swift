@@ -88,8 +88,6 @@ public struct CashAppPayButtonView: View {
         case (.payWith, true): return Asset.Images.payWithWhite.swiftUIImage
         case (.cashOutWith, false): return Asset.Images.cashOutWithBlack.swiftUIImage
         case (.cashOutWith, true): return Asset.Images.cashOutWithWhite.swiftUIImage
-        case (.connect, false): return Asset.Images.connectBlack.swiftUIImage
-        case (.connect, true): return Asset.Images.connectWhite.swiftUIImage
         case (.checkoutWith, false): return Asset.Images.checkoutWithBlack.swiftUIImage
         case (.checkoutWith, true): return Asset.Images.checkoutWithWhite.swiftUIImage
         case (.continueWith, false): return Asset.Images.continueWithBlack.swiftUIImage
@@ -109,7 +107,6 @@ public struct CashAppPayButtonView: View {
         switch viewModel.label {
         case .payWith: return "Pay with Cash App"
         case .cashOutWith: return "Cash out with Cash App"
-        case .connect: return "Connect Cash App"
         case .checkoutWith: return "Checkout with Cash App"
         case .continueWith: return "Continue with Cash App"
         }

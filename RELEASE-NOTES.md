@@ -2,9 +2,9 @@
 
 - **Breaking: `CashAppPayButton` call to action**
 
-    `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Connect Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout, and `.connect` otherwise.
+    `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Continue with Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout, and `.continueWith` otherwise, such as for a mix of payments and payouts.
 
-    To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
+    To override the automatic label, pass any label directly, such as `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.checkoutWith`.
 
     The `usePolychromeAsset` parameter on the button is replaced by `style`. The default, `.automatic`, follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
 
