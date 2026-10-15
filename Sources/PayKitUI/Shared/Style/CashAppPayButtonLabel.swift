@@ -26,7 +26,7 @@ public enum CashAppPayButtonLabel: CaseIterable {
     case payWith
     /// "Cash out with Cash App", for payouts.
     case cashOutWith
-    /// "Connect Cash App", for profile sharing and for requests that combine different kinds of actions.
+    /// "Connect Cash App", for requests that combine different kinds of actions.
     case connect
     /// "Checkout with Cash App". `init(actions:)` never returns it; set it explicitly.
     case checkoutWith

@@ -180,7 +180,7 @@ The button shows a call to action that matches the customer request. Pick it fro
 |---|---|
 | Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.payWith`, "Pay with Cash App" |
 | Only payouts (`ON_FILE_PAYOUT`) | `.cashOutWith`, "Cash out with Cash App" |
-| Anything else, including profile sharing and mixed payments and payouts | `.connect`, "Connect Cash App" |
+| Anything else, such as a mix of payments and payouts | `.connect`, "Connect Cash App" |
 
 You can instantiate the button as follows:
 
