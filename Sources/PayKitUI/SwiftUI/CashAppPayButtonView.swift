@@ -35,8 +35,8 @@ public struct CashAppPayButtonView: View {
      Initializes a button with a Cash App call to action.
 
      - Parameters:
-     - label: The call to action shown on the button. Defaults to `cashApp`, which shows the Cash App icon and "Cash App".
-       Pass another label, such as `.pay` or `.checkout`, to show a call to action.
+     - label: The call to action shown on the button. Defaults to `cashApp`, which shows the Cash App icon
+       and "Cash App". Pass another label, such as `.pay` or `.checkout`, to show a call to action.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
