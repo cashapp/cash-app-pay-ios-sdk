@@ -37,6 +37,7 @@ class ComponentsViewController: UITableViewController {
         Row(title: "Cash App (Default)") { CashAppPayButton(onClickHandler: {}) },
         Row(title: "Pay with") { CashAppPayButton(label: .pay, onClickHandler: {}) },
         Row(title: "Cash out with") { CashAppPayButton(label: .cashOut, onClickHandler: {}) },
+        Row(title: "Continue with") { CashAppPayButton(label: .continue, onClickHandler: {}) },
         Row(title: "Checkout with (White)") { CashAppPayButton(label: .checkout, style: .white, onClickHandler: {}) },
         Row(title: "Buy with (Green)") { CashAppPayButton(label: .buy, style: .green, onClickHandler: {}) },
         Row(title: "Small Disabled (White)") {
