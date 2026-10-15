@@ -56,14 +56,14 @@ public class CashAppPayButton: UIView {
      Initializes a button with a Cash App call to action.
 
      - Parameters:
-     - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
-       Pass any label, such as `.buy` or `.checkout`, to override it.
+     - label: The call to action shown on the button. Defaults to `cashApp`, which shows the Cash App icon and "Cash App".
+       Pass another label, such as `.pay` or `.checkout`, to show a call to action.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - onClickHandler: The handler called when the button is tapped.
      */
     public init(
-        label: CashAppPayButtonLabel,
+        label: CashAppPayButtonLabel = .cashApp,
         style: CashAppPayButtonStyle = .automatic,
         size: SizingCategory = .large,
         onClickHandler: @escaping () -> Void

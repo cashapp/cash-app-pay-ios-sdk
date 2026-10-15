@@ -29,49 +29,50 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         switch indexPath.row {
-        case 0: cell = CashAppDemoCell(title: "Pay with", view: CashAppPayButton(label: .pay, onClickHandler: {}))
-        case 1: cell = CashAppDemoCell(
+        case 0: cell = CashAppDemoCell(title: "Cash App (Default)", view: CashAppPayButton(onClickHandler: {}))
+        case 1: cell = CashAppDemoCell(title: "Pay with", view: CashAppPayButton(label: .pay, onClickHandler: {}))
+        case 2: cell = CashAppDemoCell(
             title: "Cash out with",
             view: CashAppPayButton(label: .cashOut, onClickHandler: {})
         )
-        case 2: cell = CashAppDemoCell(
-            title: "Checkout with override (White)",
+        case 3: cell = CashAppDemoCell(
+            title: "Checkout with (White)",
             view: CashAppPayButton(label: .checkout, style: .white, onClickHandler: {})
         )
-        case 3:
-            let smallButton = CashAppPayButton(label: .pay, style: .white, size: .small, onClickHandler: {})
+        case 4: cell = CashAppDemoCell(
+            title: "Buy with (Green)",
+            view: CashAppPayButton(label: .buy, style: .green, onClickHandler: {})
+        )
+        case 5:
+            let smallButton = CashAppPayButton(style: .white, size: .small, onClickHandler: {})
             smallButton.isEnabled = false
             cell = CashAppDemoCell(title: "Small Disabled (White)", view: smallButton)
-        case 4: cell = CashAppDemoCell(
-            title: "Monochrome Black",
-            view: CashAppPayButton(label: .pay, style: .monochromeBlack, onClickHandler: {})
-        )
-        case 5: cell = CashAppDemoCell(
-            title: "Monochrome White",
-            view: CashAppPayButton(label: .pay, style: .monochromeWhite, onClickHandler: {})
-        )
         case 6: cell = CashAppDemoCell(
-            title: "Green",
-            view: CashAppPayButton(label: .pay, style: .green, onClickHandler: {})
+            title: "Monochrome Black",
+            view: CashAppPayButton(style: .monochromeBlack, onClickHandler: {})
         )
         case 7: cell = CashAppDemoCell(
-            title: "Buy with override",
-            view: CashAppPayButton(label: .buy, onClickHandler: {})
+            title: "Monochrome White",
+            view: CashAppPayButton(style: .monochromeWhite, onClickHandler: {})
         )
         case 8: cell = CashAppDemoCell(
+            title: "Green",
+            view: CashAppPayButton(style: .green, onClickHandler: {})
+        )
+        case 9: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack")
         )
-        case 9: cell = CashAppDemoCell(
+        case 10: cell = CashAppDemoCell(
             title: "Large Payment Method",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack"),
             fillsWidth: true
         )
-        case 10: cell = CashAppDemoCell(
+        case 11: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
         )
-        case 11: cell = CashAppDemoCell(
+        case 12: cell = CashAppDemoCell(
             title: "Large Payment Method",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true),
             fillsWidth: true
@@ -92,7 +93,7 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        12
+        13
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

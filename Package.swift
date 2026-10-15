@@ -34,7 +34,6 @@ let package = Package(
         ),
         .target(
             name: "PayKitUI",
-            dependencies: ["PayKit"],
             resources: [
                 .copy("custom-xcassets-template.stencil"),
                 .copy("Shared/Assets/Resources/Colors.xcassets"),

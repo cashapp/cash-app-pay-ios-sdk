@@ -15,39 +15,24 @@
 //
 
 import Foundation
-import PayKit
 
 /// The call to action shown on a `CashAppPayButton`.
 ///
-/// To pick the label for a customer request, use `CashAppPayButtonLabel(actions: customerRequest.actions)`.
-/// To override it, pass a label directly, for example `.checkout` on a checkout screen.
+/// The default, `.cashApp`, shows the Cash App icon and "Cash App". Pass another label to show a call to action,
+/// for example `.checkout` on a checkout screen.
 public enum CashAppPayButtonLabel: CaseIterable {
+    /// "Cash App", with no call to action. This is the default.
+    case cashApp
     /// "Pay with Cash App", for payments.
     case pay
     /// "Buy with Cash App", for buy-now payments, for example a "Buy now" button on a product page.
-    /// `init(actions:)` never returns it; set it explicitly.
     case buy
     /// "Cash out with Cash App", for payouts.
     case cashOut
-    /// "Checkout with Cash App". `init(actions:)` never returns it; set it explicitly.
+    /// "Checkout with Cash App", for checkout screens.
     case checkout
-    /// "Continue with Cash App", for requests that combine different kinds of actions or have none.
+    /// "Continue with Cash App", for requests where the customer authorizes several kinds of actions.
     case `continue`
-
-    /// Returns `.pay` when every action is a payment, `.cashOut` when every action is a payout,
-    /// and `.continue` otherwise.
-    public init(actions: [PaymentAction]) {
-        let types = actions.map(\.type)
-        if types.isEmpty {
-            self = .continue
-        } else if types.allSatisfy({ $0 == .ONE_TIME_PAYMENT || $0 == .ON_FILE_PAYMENT }) {
-            self = .pay
-        } else if types.allSatisfy({ $0 == .ON_FILE_PAYOUT }) {
-            self = .cashOut
-        } else {
-            self = .continue
-        }
-    }
 }
 
 /// The color variant of a `CashAppPayButton`.

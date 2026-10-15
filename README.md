@@ -174,22 +174,26 @@ We want you to use these views as-is, without any modification.
 
 ### `CashAppPayButton` <a name="cash-app-pay-button"></a>
 
-The button shows a call to action that matches the customer request. Pick it from the request's actions:
-
-| Actions | Label |
-|---|---|
-| Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.pay`, "Pay with Cash App" |
-| Only payouts (`ON_FILE_PAYOUT`) | `.cashOut`, "Cash out with Cash App" |
-| Anything else, such as a mix of payments and payouts | `.continue`, "Continue with Cash App" |
-
-You can instantiate the button as follows:
+By default, the button shows the Cash App icon and "Cash App":
 
 ```swift
-let label = CashAppPayButtonLabel(actions: customerRequest.actions)
-let button = CashAppPayButton(label: label, size: .large, onClickHandler: {})
+let button = CashAppPayButton(onClickHandler: {})
 ```
 
-To override the automatic label, pass any label directly, such as `.buy` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkout` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buy` or `.checkout`.
+To show a call to action, pass a `label`:
+
+| Label | Button text |
+|---|---|
+| `.cashApp` (default) | "Cash App" |
+| `.pay` | "Pay with Cash App" |
+| `.buy` | "Buy with Cash App", for example for a "Buy now" button on a product page |
+| `.cashOut` | "Cash out with Cash App" |
+| `.checkout` | "Checkout with Cash App", for example on a checkout screen |
+| `.continue` | "Continue with Cash App" |
+
+```swift
+let button = CashAppPayButton(label: .pay, size: .large, onClickHandler: {})
+```
 
 `style` picks the color variant:
 

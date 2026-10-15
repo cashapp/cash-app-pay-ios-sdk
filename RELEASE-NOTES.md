@@ -1,10 +1,15 @@
 ## PayKit Next Release Notes (unreleased)
 
-- **Breaking: `CashAppPayButton` call to action**
+- **Breaking: `CashAppPayButton` labels and styles**
 
-    `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Continue with Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.pay` when every action is a payment, `.cashOut` when every action is a payout, and `.continue` otherwise, such as for a mix of payments and payouts.
+    `CashAppPayButton` and `CashAppPayButtonView` now show the Cash App icon and "Cash App" by default. Pass the new optional `label` parameter to show a call to action instead:
 
-    To override the automatic label, pass any label directly, such as `.buy` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkout` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buy` or `.checkout`.
+    - `.cashApp`: "Cash App". This is the default.
+    - `.pay`: "Pay with Cash App".
+    - `.buy`: "Buy with Cash App", for example for a "Buy now" button on a product page.
+    - `.cashOut`: "Cash out with Cash App".
+    - `.checkout`: "Checkout with Cash App", for example on a checkout screen.
+    - `.continue`: "Continue with Cash App".
 
     The `usePolychromeAsset` parameter on the button is replaced by `style`, which offers every published color variant:
 
@@ -19,8 +24,6 @@
     Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
 
     To keep the previous monochrome look, pass `style: .monochromeAutomatic`.
-
-    `PayKitUI` now depends on `PayKit`.
 
 - **`CashAppPaymentMethod` shows the Cash App logo**
 

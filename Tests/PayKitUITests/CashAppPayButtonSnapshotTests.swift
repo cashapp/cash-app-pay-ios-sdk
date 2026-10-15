@@ -34,6 +34,13 @@ class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
         )
     }
 
+    func test_default_label() {
+        assertSnapshot(
+            matching: CashAppPayButton(onClickHandler: {}),
+            as: .image(centeredIn: .iPhone8)
+        )
+    }
+
     func test_button_disabled() {
         let lightButton = CashAppPayButton(label: .pay, size: .large, onClickHandler: {})
          lightButton.isEnabled = false

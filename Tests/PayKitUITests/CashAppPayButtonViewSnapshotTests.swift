@@ -59,6 +59,20 @@ class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
         )
     }
 
+    func test_default_label() {
+        assertSnapshot(
+            matching: CashAppPayButtonView(onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .light),
+            named: "light"
+        )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark),
+            named: "dark"
+        )
+    }
+
     func test_monochrome_automatic() {
         assertSnapshot(
             matching: CashAppPayButtonView(label: .pay, style: .monochromeAutomatic, onClickHandler: {}),
