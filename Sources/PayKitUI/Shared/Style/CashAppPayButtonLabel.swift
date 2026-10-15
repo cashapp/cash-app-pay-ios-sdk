@@ -55,4 +55,6 @@ public enum CashAppPayButtonStyle: CaseIterable {
     case black
     /// Black label and green Cash App icon on a white background.
     case white
+    /// Follows the system appearance: `.black` in light mode and `.white` in dark mode.
+    case automatic
 }

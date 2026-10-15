@@ -186,10 +186,10 @@ You can instantiate the button as follows:
 
 ```swift
 let label = CashAppPayButtonLabel(actions: customerRequest.actions)
-let button = CashAppPayButton(label: label, style: .black, size: .large, onClickHandler: {})
+let button = CashAppPayButton(label: label, size: .large, onClickHandler: {})
 ```
 
-`style` is `.black` or `.white`.
+`style` defaults to `.automatic`, which follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
 
 To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
 

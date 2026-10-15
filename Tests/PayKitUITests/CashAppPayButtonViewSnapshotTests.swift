@@ -51,10 +51,16 @@ class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
             matching: CashAppPayButtonView(label: .payWith, size: .large, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(label: .payWith, style: .black, size: .large, onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark),
+            named: "black"
+        )
     }
 
     func test_labels_and_styles() {
-        for style in CashAppPayButtonStyle.allCases {
+        for style in [CashAppPayButtonStyle.black, .white] {
             for label in CashAppPayButtonLabel.allCases {
                 assertSnapshot(
                     matching: CashAppPayButtonView(label: label, style: style, onClickHandler: {}),

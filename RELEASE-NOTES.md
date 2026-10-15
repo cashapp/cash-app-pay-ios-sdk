@@ -6,7 +6,7 @@
 
     To override the automatic label, pass `.checkoutWith` ("Checkout with Cash App") or `.continueWith` ("Continue with Cash App") as `label`. `CashAppPayButtonLabel(actions:)` never returns these two.
 
-    The `usePolychromeAsset` parameter on the button is replaced by `style`, which is `.black` (default) or `.white`. The button no longer changes with the system light or dark mode.
+    The `usePolychromeAsset` parameter on the button is replaced by `style`. The default, `.automatic`, follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
 
     `PayKitUI` now depends on `PayKit`.
 

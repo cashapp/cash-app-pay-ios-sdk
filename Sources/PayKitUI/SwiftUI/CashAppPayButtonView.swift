@@ -23,6 +23,8 @@ public struct CashAppPayButtonView: View {
 
     @ObservedObject public var viewModel: ViewModel
 
+    @Environment(\.colorScheme) private var colorScheme
+
     // MARK: - Private Properties
 
     private let onClickHandler: () -> Void
@@ -35,14 +37,14 @@ public struct CashAppPayButtonView: View {
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
        Pass `.checkoutWith` or `.continueWith` to override it.
-     - style: The color variant of the button. Defaults to `black`.
+     - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
      - onClickHandler: The handler called when the button is tapped.
      */
     public init(
         label: CashAppPayButtonLabel,
-        style: CashAppPayButtonStyle = .black,
+        style: CashAppPayButtonStyle = .automatic,
         size: SizingCategory = .large,
         isEnabled: Bool = true,
         onClickHandler: @escaping () -> Void
@@ -81,17 +83,25 @@ public struct CashAppPayButtonView: View {
     }
 
     private var currentAsset: SwiftUI.Image {
-        switch (viewModel.label, viewModel.style) {
-        case (.payWith, .black): return Asset.Images.payWithBlack.swiftUIImage
-        case (.payWith, .white): return Asset.Images.payWithWhite.swiftUIImage
-        case (.cashOutWith, .black): return Asset.Images.cashOutWithBlack.swiftUIImage
-        case (.cashOutWith, .white): return Asset.Images.cashOutWithWhite.swiftUIImage
-        case (.connect, .black): return Asset.Images.connectBlack.swiftUIImage
-        case (.connect, .white): return Asset.Images.connectWhite.swiftUIImage
-        case (.checkoutWith, .black): return Asset.Images.checkoutWithBlack.swiftUIImage
-        case (.checkoutWith, .white): return Asset.Images.checkoutWithWhite.swiftUIImage
-        case (.continueWith, .black): return Asset.Images.continueWithBlack.swiftUIImage
-        case (.continueWith, .white): return Asset.Images.continueWithWhite.swiftUIImage
+        switch (viewModel.label, isWhite) {
+        case (.payWith, false): return Asset.Images.payWithBlack.swiftUIImage
+        case (.payWith, true): return Asset.Images.payWithWhite.swiftUIImage
+        case (.cashOutWith, false): return Asset.Images.cashOutWithBlack.swiftUIImage
+        case (.cashOutWith, true): return Asset.Images.cashOutWithWhite.swiftUIImage
+        case (.connect, false): return Asset.Images.connectBlack.swiftUIImage
+        case (.connect, true): return Asset.Images.connectWhite.swiftUIImage
+        case (.checkoutWith, false): return Asset.Images.checkoutWithBlack.swiftUIImage
+        case (.checkoutWith, true): return Asset.Images.checkoutWithWhite.swiftUIImage
+        case (.continueWith, false): return Asset.Images.continueWithBlack.swiftUIImage
+        case (.continueWith, true): return Asset.Images.continueWithWhite.swiftUIImage
+        }
+    }
+
+    private var isWhite: Bool {
+        switch viewModel.style {
+        case .black: return false
+        case .white: return true
+        case .automatic: return colorScheme == .dark
         }
     }
 
@@ -106,10 +116,7 @@ public struct CashAppPayButtonView: View {
     }
 
     private var backgroundColor: Color {
-        switch viewModel.style {
-        case .black: return Constants.black
-        case .white: return .white
-        }
+        isWhite ? .white : Constants.black
     }
 
     private var labelHeight: CGFloat {
