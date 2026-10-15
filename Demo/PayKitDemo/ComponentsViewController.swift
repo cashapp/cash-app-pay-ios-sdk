@@ -39,7 +39,7 @@ class ComponentsViewController: UITableViewController {
         Row(title: "Cash out with") { CashAppPayButton(label: .cashOut, onClickHandler: {}) },
         Row(title: "Continue with") { CashAppPayButton(label: .continue, onClickHandler: {}) },
         Row(title: "Checkout with (White)") { CashAppPayButton(label: .checkout, style: .white, onClickHandler: {}) },
-        Row(title: "Buy with (Green)") { CashAppPayButton(label: .buy, style: .green, onClickHandler: {}) },
+        Row(title: "Buy with") { CashAppPayButton(label: .buy, onClickHandler: {}) },
         Row(title: "Small Disabled (White)") {
             let smallButton = CashAppPayButton(style: .white, size: .small, onClickHandler: {})
             smallButton.isEnabled = false
@@ -47,7 +47,12 @@ class ComponentsViewController: UITableViewController {
         },
         Row(title: "Monochrome Black") { CashAppPayButton(style: .monochromeBlack, onClickHandler: {}) },
         Row(title: "Monochrome White") { CashAppPayButton(style: .monochromeWhite, onClickHandler: {}) },
-        Row(title: "Green") { CashAppPayButton(style: .green, onClickHandler: {}) },
+        Row(title: "Cash App (Green)") { CashAppPayButton(style: .green, onClickHandler: {}) },
+        Row(title: "Pay with (Green)") { CashAppPayButton(label: .pay, style: .green, onClickHandler: {}) },
+        Row(title: "Buy with (Green)") { CashAppPayButton(label: .buy, style: .green, onClickHandler: {}) },
+        Row(title: "Cash out with (Green)") { CashAppPayButton(label: .cashOut, style: .green, onClickHandler: {}) },
+        Row(title: "Checkout with (Green)") { CashAppPayButton(label: .checkout, style: .green, onClickHandler: {}) },
+        Row(title: "Continue with (Green)") { CashAppPayButton(label: .continue, style: .green, onClickHandler: {}) },
         Row(title: "Small Payment Method") { CashAppPaymentMethod(size: .small, cashTag: "$jack") },
         Row(title: "Large Payment Method", fillsWidth: true) { CashAppPaymentMethod(size: .large, cashTag: "$jack") },
         Row(title: "Small Payment Method") {
