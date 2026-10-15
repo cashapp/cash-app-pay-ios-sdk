@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
     s.swift_version = ['5.0']
     s.ios.deployment_target = ios_deployment_target
 
-    s.dependency 'CashAppPayKit', '~> 2.0'
+    s.dependency 'CashAppPayKit', s.version.to_s
 
     s.resources = "Sources/PayKitUI/Shared/Assets/Resources/**/**.xcassets"
     s.source_files = 'Sources/PayKitUI/**/**.swift'

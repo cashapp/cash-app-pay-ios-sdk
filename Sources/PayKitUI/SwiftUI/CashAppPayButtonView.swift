@@ -36,7 +36,7 @@ public struct CashAppPayButtonView: View {
 
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
-       Pass `.buy`, `.checkout`, or `.continue` to override it.
+       Pass any label, such as `.buy` or `.checkout`, to override it.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.

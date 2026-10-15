@@ -18,7 +18,7 @@ jobs:
       - name: Lint PayKit Podspec
         run: bundle exec --gemfile=Gemfile pod lib lint --verbose --fail-fast CashAppPayKit.podspec
       - name: Lint PayKitUI Podspec
-        run: bundle exec --gemfile=Gemfile pod lib lint --verbose --fail-fast CashAppPayKitUI.podspec
+        run: bundle exec --gemfile=Gemfile pod lib lint --verbose --fail-fast --include-podspecs=CashAppPayKit.podspec CashAppPayKitUI.podspec
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

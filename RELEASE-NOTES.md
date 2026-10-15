@@ -18,6 +18,8 @@
 
     Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
 
+    To keep the previous monochrome look, pass `style: .monochromeAutomatic`.
+
     `PayKitUI` now depends on `PayKit`.
 
 - **`CashAppPaymentMethod` shows the Cash App logo**
