@@ -18,7 +18,10 @@
 import XCTest
 
 /// Calls written against the 2.0.0 button API must still compile and pick the expected initializer.
+/// Marked deprecated so its intentional calls to the deprecated initializers don't warn,
+/// because `pod lib lint` fails on warnings.
 @available(iOS 13.0, *)
+@available(*, deprecated, message: "Exercises the deprecated usePolychromeAsset initializers")
 class CashAppPayButtonCompatibilityTests: XCTestCase {
 
     // MARK: - UIKit
