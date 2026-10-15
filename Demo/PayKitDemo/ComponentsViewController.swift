@@ -48,7 +48,8 @@ class ComponentsViewController: UITableViewController {
         )
         case 5: cell = CashAppDemoCell(
             title: "Large Payment Method",
-            view: CashAppPaymentMethod(size: .large, cashTag: "$jack")
+            view: CashAppPaymentMethod(size: .large, cashTag: "$jack"),
+            fillsWidth: true
         )
         case 6: cell = CashAppDemoCell(
             title: "Small Payment Method",
@@ -56,7 +57,8 @@ class ComponentsViewController: UITableViewController {
         )
         case 7: cell = CashAppDemoCell(
             title: "Large Payment Method",
-            view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
+            view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true),
+            fillsWidth: true
         )
         default:
             cell = UITableViewCell()
@@ -86,7 +88,8 @@ class ComponentsViewController: UITableViewController {
 
 extension ComponentsViewController {
     final class CashAppDemoCell: UITableViewCell {
-        init(title: String, view: UIView) {
+        /// - Parameter fillsWidth: Stretch `view` to the cell's width, as the large payment method does in an app.
+        init(title: String, view: UIView, fillsWidth: Bool = false) {
             super.init(style: .default, reuseIdentifier: nil)
             let titleLabel = UILabel()
             titleLabel.font = .boldSystemFont(ofSize: 18)
@@ -96,7 +99,7 @@ extension ComponentsViewController {
             let stack = UIStackView(arrangedSubviews: [view])
             stack.axis = .vertical
             stack.distribution = .fillProportionally
-            stack.alignment = .center
+            stack.alignment = fillsWidth ? .fill : .center
             stack.translatesAutoresizingMaskIntoConstraints = false
 
             contentView.addSubview(titleLabel)
