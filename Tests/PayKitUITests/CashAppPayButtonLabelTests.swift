@@ -42,13 +42,14 @@ class CashAppPayButtonLabelTests: XCTestCase {
         XCTAssertEqual(CashAppPayButtonLabel(actions: []), .continueWith)
     }
 
-    func test_checkout_with_is_only_set_explicitly() {
+    func test_buy_with_and_checkout_with_are_only_set_explicitly() {
         let requests: [[PaymentAction]] = [
             [], [oneTime], [onFile], [payout], [profile],
             [onFile, payout], [oneTime, profile], [onFile, payout, profile],
         ]
         for actions in requests {
             let label = CashAppPayButtonLabel(actions: actions)
+            XCTAssertNotEqual(label, .buyWith)
             XCTAssertNotEqual(label, .checkoutWith)
         }
     }

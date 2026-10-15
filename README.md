@@ -189,9 +189,25 @@ let label = CashAppPayButtonLabel(actions: customerRequest.actions)
 let button = CashAppPayButton(label: label, size: .large, onClickHandler: {})
 ```
 
-`style` defaults to `.automatic`, which follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
+To override the automatic label, pass any label directly, such as `.buyWith` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buyWith` or `.checkoutWith`.
 
-To override the automatic label, pass any label directly, such as `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.checkoutWith`.
+`style` picks the color variant:
+
+| Style | Button |
+|---|---|
+| `.automatic` (default) | `.black` in light mode and `.white` in dark mode |
+| `.black` | White label and green Cash App icon on a black background |
+| `.white` | Black label and green Cash App icon on a white background with a thin black outline |
+| `.monochromeAutomatic` | `.monochromeBlack` in light mode and `.monochromeWhite` in dark mode |
+| `.monochromeBlack` | White label and icon on a black background |
+| `.monochromeWhite` | Black label and icon on a white background with a thin black outline |
+| `.green` | Black label and icon on a Cash App green background |
+
+Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
+
+```swift
+let button = CashAppPayButton(label: .buyWith, style: .green, onClickHandler: {})
+```
 
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 

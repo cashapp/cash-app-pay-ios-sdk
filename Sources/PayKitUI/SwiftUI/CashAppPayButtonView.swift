@@ -36,7 +36,7 @@ public struct CashAppPayButtonView: View {
 
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
-       Pass `.checkoutWith` or `.continueWith` to override it.
+       Pass `.buyWith`, `.checkoutWith`, or `.continueWith` to override it.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
@@ -65,10 +65,11 @@ public struct CashAppPayButtonView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: Constants.cornerRadius)
                     .fill(backgroundColor)
-                currentAsset
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: labelHeight)
+                if hasOutline {
+                    RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                        .strokeBorder(Constants.black, lineWidth: Constants.outlineWidth)
+                }
+                labelView
             }
         }
         .accessibility(label: Text(accessibilityLabel))
@@ -82,38 +83,88 @@ public struct CashAppPayButtonView: View {
         )
     }
 
-    private var currentAsset: SwiftUI.Image {
-        switch (viewModel.label, isWhite) {
-        case (.payWith, false): return Asset.Images.payWithBlack.swiftUIImage
-        case (.payWith, true): return Asset.Images.payWithWhite.swiftUIImage
-        case (.cashOutWith, false): return Asset.Images.cashOutWithBlack.swiftUIImage
-        case (.cashOutWith, true): return Asset.Images.cashOutWithWhite.swiftUIImage
-        case (.checkoutWith, false): return Asset.Images.checkoutWithBlack.swiftUIImage
-        case (.checkoutWith, true): return Asset.Images.checkoutWithWhite.swiftUIImage
-        case (.continueWith, false): return Asset.Images.continueWithBlack.swiftUIImage
-        case (.continueWith, true): return Asset.Images.continueWithWhite.swiftUIImage
+    @ViewBuilder
+    private var labelView: some View {
+        if let tint = monochromeTint {
+            monochromeAsset
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(tint)
+                .frame(height: labelHeight)
+        } else {
+            colorAsset
+                .resizable()
+                .scaledToFit()
+                .frame(height: labelHeight)
         }
     }
 
-    private var isWhite: Bool {
+    /// The style after resolving the system appearance for the automatic styles.
+    private var resolvedStyle: CashAppPayButtonStyle {
         switch viewModel.style {
-        case .black: return false
-        case .white: return true
-        case .automatic: return colorScheme == .dark
+        case .automatic: return colorScheme == .dark ? .white : .black
+        case .monochromeAutomatic: return colorScheme == .dark ? .monochromeWhite : .monochromeBlack
+        case .black, .white, .monochromeBlack, .monochromeWhite, .green: return viewModel.style
         }
+    }
+
+    /// The color art: the text and the green icon, drawn for a black or a white background.
+    private var colorAsset: SwiftUI.Image {
+        let isWhite = resolvedStyle == .white
+        switch viewModel.label {
+        case .payWith: return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
+        case .buyWith: return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
+        case .cashOutWith:
+            return (isWhite ? Asset.Images.cashOutWithWhite : Asset.Images.cashOutWithBlack).swiftUIImage
+        case .checkoutWith:
+            return (isWhite ? Asset.Images.checkoutWithWhite : Asset.Images.checkoutWithBlack).swiftUIImage
+        case .continueWith:
+            return (isWhite ? Asset.Images.continueWithWhite : Asset.Images.continueWithBlack).swiftUIImage
+        }
+    }
+
+    /// The single-color template art, tinted with `monochromeTint`.
+    private var monochromeAsset: SwiftUI.Image {
+        switch viewModel.label {
+        case .payWith: return Asset.Images.payWithMono.swiftUIImage
+        case .buyWith: return Asset.Images.buyWithMono.swiftUIImage
+        case .cashOutWith: return Asset.Images.cashOutWithMono.swiftUIImage
+        case .checkoutWith: return Asset.Images.checkoutWithMono.swiftUIImage
+        case .continueWith: return Asset.Images.continueWithMono.swiftUIImage
+        }
+    }
+
+    /// The tint of the monochrome art, or `nil` when the style uses the color art.
+    private var monochromeTint: Color? {
+        switch resolvedStyle {
+        case .monochromeBlack: return .white
+        case .monochromeWhite: return Constants.pureBlack
+        case .green: return Constants.black
+        default: return nil
+        }
+    }
+
+    private var backgroundColor: Color {
+        switch resolvedStyle {
+        case .white, .monochromeWhite: return .white
+        case .green: return Constants.green
+        default: return Constants.black
+        }
+    }
+
+    private var hasOutline: Bool {
+        resolvedStyle == .white || resolvedStyle == .monochromeWhite
     }
 
     private var accessibilityLabel: String {
         switch viewModel.label {
         case .payWith: return "Pay with Cash App"
+        case .buyWith: return "Buy with Cash App"
         case .cashOutWith: return "Cash out with Cash App"
         case .checkoutWith: return "Checkout with Cash App"
         case .continueWith: return "Continue with Cash App"
         }
-    }
-
-    private var backgroundColor: Color {
-        isWhite ? .white : Constants.black
     }
 
     private var labelHeight: CGFloat {
@@ -151,7 +202,11 @@ public struct CashAppPayButtonView: View {
 
         static let buttonPadding: CGFloat = 10
 
+        static let outlineWidth: CGFloat = 1
+
         static let black = Color(red: 16 / 255, green: 16 / 255, blue: 16 / 255)
+        static let pureBlack = Color(red: 0, green: 0, blue: 0)
+        static let green = Color(red: 0, green: 214 / 255, blue: 79 / 255)
 
         static let opaque: Double = 1
         static let disabledOpacity: Double = 0.3

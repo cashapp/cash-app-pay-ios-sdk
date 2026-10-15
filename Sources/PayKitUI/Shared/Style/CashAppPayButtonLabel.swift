@@ -24,6 +24,9 @@ import PayKit
 public enum CashAppPayButtonLabel: CaseIterable {
     /// "Pay with Cash App", for payments.
     case payWith
+    /// "Buy with Cash App", for buy-now payments, for example a "Buy now" button on a product page.
+    /// `init(actions:)` never returns it; set it explicitly.
+    case buyWith
     /// "Cash out with Cash App", for payouts.
     case cashOutWith
     /// "Checkout with Cash App". `init(actions:)` never returns it; set it explicitly.
@@ -51,8 +54,16 @@ public enum CashAppPayButtonLabel: CaseIterable {
 public enum CashAppPayButtonStyle: CaseIterable {
     /// White label and green Cash App icon on a black background.
     case black
-    /// Black label and green Cash App icon on a white background.
+    /// Black label and green Cash App icon on a white background with a thin black outline.
     case white
+    /// White label and white Cash App icon on a black background.
+    case monochromeBlack
+    /// Black label and black Cash App icon on a white background with a thin black outline.
+    case monochromeWhite
+    /// Black label and black Cash App icon on a Cash App green background.
+    case green
     /// Follows the system appearance: `.black` in light mode and `.white` in dark mode.
     case automatic
+    /// Follows the system appearance: `.monochromeBlack` in light mode and `.monochromeWhite` in dark mode.
+    case monochromeAutomatic
 }

@@ -43,19 +43,35 @@ class ComponentsViewController: UITableViewController {
             smallButton.isEnabled = false
             cell = CashAppDemoCell(title: "Small Disabled (White)", view: smallButton)
         case 4: cell = CashAppDemoCell(
+            title: "Monochrome Black",
+            view: CashAppPayButton(label: .payWith, style: .monochromeBlack, onClickHandler: {})
+        )
+        case 5: cell = CashAppDemoCell(
+            title: "Monochrome White",
+            view: CashAppPayButton(label: .payWith, style: .monochromeWhite, onClickHandler: {})
+        )
+        case 6: cell = CashAppDemoCell(
+            title: "Green",
+            view: CashAppPayButton(label: .payWith, style: .green, onClickHandler: {})
+        )
+        case 7: cell = CashAppDemoCell(
+            title: "Buy with override",
+            view: CashAppPayButton(label: .buyWith, onClickHandler: {})
+        )
+        case 8: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack")
         )
-        case 5: cell = CashAppDemoCell(
+        case 9: cell = CashAppDemoCell(
             title: "Large Payment Method",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack"),
             fillsWidth: true
         )
-        case 6: cell = CashAppDemoCell(
+        case 10: cell = CashAppDemoCell(
             title: "Small Payment Method",
             view: CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
         )
-        case 7: cell = CashAppDemoCell(
+        case 11: cell = CashAppDemoCell(
             title: "Large Payment Method",
             view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true),
             fillsWidth: true
@@ -76,7 +92,7 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        12
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -4,9 +4,19 @@
 
     `CashAppPayButton` and `CashAppPayButtonView` now show "Pay with Cash App", "Cash out with Cash App", or "Continue with Cash App" instead of "Cash App Pay". Both now take a required `label`, and use `CashAppPayButtonLabel(actions:)` to pick it from a customer request's actions: `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout, and `.continueWith` otherwise, such as for a mix of payments and payouts.
 
-    To override the automatic label, pass any label directly, such as `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.checkoutWith`.
+    To override the automatic label, pass any label directly, such as `.buyWith` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buyWith` or `.checkoutWith`.
 
-    The `usePolychromeAsset` parameter on the button is replaced by `style`. The default, `.automatic`, follows the system appearance: black in light mode and white in dark mode. Pass `.black` or `.white` for a button that doesn't change with the system appearance.
+    The `usePolychromeAsset` parameter on the button is replaced by `style`, which offers every published color variant:
+
+    - `.black`: white label and green Cash App icon on a black background.
+    - `.white`: black label and green Cash App icon on a white background with a thin black outline.
+    - `.monochromeBlack`: white label and icon on a black background.
+    - `.monochromeWhite`: black label and icon on a white background with a thin black outline.
+    - `.green`: black label and icon on a Cash App green background.
+    - `.automatic`: `.black` in light mode and `.white` in dark mode. This is the default.
+    - `.monochromeAutomatic`: `.monochromeBlack` in light mode and `.monochromeWhite` in dark mode.
+
+    Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
 
     `PayKitUI` now depends on `PayKit`.
 
