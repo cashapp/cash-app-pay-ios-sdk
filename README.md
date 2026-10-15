@@ -213,6 +213,8 @@ Pick a fixed style, such as `.black` or `.green`, for a button that doesn't chan
 let button = CashAppPayButton(label: .buy, style: .green, onClickHandler: {})
 ```
 
+The `usePolychromeAsset` parameter is deprecated. Use `style: .green` instead of `usePolychromeAsset: true`, and `style: .monochromeAutomatic` for the look of `usePolychromeAsset: false`.
+
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 
 The following is an example of `CashAppPaymentMethod`:

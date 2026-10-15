@@ -1,17 +1,19 @@
 ## PayKit Next Release Notes (unreleased)
 
-- **Breaking: `CashAppPayButton` labels and styles**
+- **`CashAppPayButton` labels and styles**
 
-    `CashAppPayButton` and `CashAppPayButtonView` now show the Cash App icon and "Cash App" by default. Pass the new optional `label` parameter to show a call to action instead:
+    `CashAppPayButton` and `CashAppPayButtonView` have a new initializer, `init(label:style:size:onClickHandler:)` (`init(label:style:size:isEnabled:onClickHandler:)` for `CashAppPayButtonView`). Both new parameters are optional.
 
-    - `.cashApp`: "Cash App". This is the default.
+    `label` picks the call to action:
+
+    - `.cashApp`: the Cash App icon and "Cash App". This is the default.
     - `.pay`: "Pay with Cash App".
     - `.buy`: "Buy with Cash App", for example for a "Buy now" button on a product page.
     - `.cashOut`: "Cash out with Cash App".
     - `.checkout`: "Checkout with Cash App", for example on a checkout screen.
     - `.continue`: "Continue with Cash App".
 
-    The `usePolychromeAsset` parameter on the button is replaced by `style`, which offers every published color variant:
+    `style` picks the color variant:
 
     - `.black`: white label and green Cash App icon on a black background.
     - `.white`: black label and green Cash App icon on a white background with a thin black outline.
@@ -23,7 +25,18 @@
 
     Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
 
-    To keep the previous monochrome look, pass `style: .monochromeAutomatic`.
+- **`usePolychromeAsset` on the button is deprecated**
+
+    The initializers that take `usePolychromeAsset` still compile and work, but are deprecated in favor of `style`:
+
+    - `style: .green` replaces `usePolychromeAsset: true`.
+    - `style: .monochromeAutomatic` matches the previous default look (`usePolychromeAsset: false`).
+
+    Existing calls that don't pass `usePolychromeAsset`, such as `CashAppPayButton(size: .small, onClickHandler: {})`, now use the new initializer.
+
+- **New button artwork**
+
+    Every button now shows the new "Cash App" artwork. Because the new initializer defaults to `style: .automatic`, buttons created without `usePolychromeAsset` now show the green Cash App icon on a black background in light mode and on a white background in dark mode. Pass `style: .monochromeAutomatic` to keep the previous monochrome look.
 
 - **`CashAppPaymentMethod` shows the Cash App logo**
 

@@ -53,6 +53,39 @@ public struct CashAppPayButtonView: View {
         self.onClickHandler = onClickHandler
     }
 
+    /**
+     Initializes a button with the Cash App icon and "Cash App".
+
+     - Parameters:
+     - size: The size of the button. Defaults to `large`.
+     - isEnabled: True if the button is enabled.
+     - onClickHandler: The handler called when the button is tapped.
+     - usePolychromeAsset: `true` uses the `green` style. `false` uses the `monochromeAutomatic` style.
+
+     - Note: Deprecated. Use `init(label:style:size:isEnabled:onClickHandler:)` instead: `style: .green` replaces
+       `usePolychromeAsset: true`, and `style: .monochromeAutomatic` matches `usePolychromeAsset: false`.
+     */
+    @available(
+        *,
+        deprecated,
+        message: "Use init(label:style:size:isEnabled:onClickHandler:); style: .green replaces usePolychromeAsset: true"
+    )
+    @_disfavoredOverload
+    public init(
+        size: SizingCategory = .large,
+        isEnabled: Bool = true,
+        onClickHandler: @escaping () -> Void,
+        usePolychromeAsset: Bool = false
+    ) {
+        self.init(
+            label: .cashApp,
+            style: usePolychromeAsset ? .green : .monochromeAutomatic,
+            size: size,
+            isEnabled: isEnabled,
+            onClickHandler: onClickHandler
+        )
+    }
+
     public var body: some View {
         HStack {
             buttonView
