@@ -24,33 +24,33 @@ class CashAppPayButtonLabelTests: XCTestCase {
     private let payout = PaymentAction.onFilePayout(scopeID: "BRAND_1", accountReferenceID: nil)
     private let profile = PaymentAction.customerProfileSharing(scopeID: "BRAND_1")
 
-    func test_payments_use_pay_with() {
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime]), .payWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile]), .payWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, onFile]), .payWith)
+    func test_payments_use_pay() {
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime]), .pay)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile]), .pay)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, onFile]), .pay)
     }
 
-    func test_payouts_use_cash_out_with() {
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout]), .cashOutWith)
+    func test_payouts_use_cash_out() {
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout]), .cashOut)
     }
 
-    func test_profile_sharing_mixed_actions_and_no_actions_use_continue_with() {
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [profile]), .continueWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile, payout]), .continueWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, profile]), .continueWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout, profile]), .continueWith)
-        XCTAssertEqual(CashAppPayButtonLabel(actions: []), .continueWith)
+    func test_profile_sharing_mixed_actions_and_no_actions_use_continue() {
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [profile]), .continue)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [onFile, payout]), .continue)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [oneTime, profile]), .continue)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: [payout, profile]), .continue)
+        XCTAssertEqual(CashAppPayButtonLabel(actions: []), .continue)
     }
 
-    func test_buy_with_and_checkout_with_are_only_set_explicitly() {
+    func test_buy_and_checkout_are_only_set_explicitly() {
         let requests: [[PaymentAction]] = [
             [], [oneTime], [onFile], [payout], [profile],
             [onFile, payout], [oneTime, profile], [onFile, payout, profile],
         ]
         for actions in requests {
             let label = CashAppPayButtonLabel(actions: actions)
-            XCTAssertNotEqual(label, .buyWith)
-            XCTAssertNotEqual(label, .checkoutWith)
+            XCTAssertNotEqual(label, .buy)
+            XCTAssertNotEqual(label, .checkout)
         }
     }
 }

@@ -36,7 +36,7 @@ public struct CashAppPayButtonView: View {
 
      - Parameters:
      - label: The call to action shown on the button. Use `CashAppPayButtonLabel(actions:)` to match a customer request.
-       Pass `.buyWith`, `.checkoutWith`, or `.continueWith` to override it.
+       Pass `.buy`, `.checkout`, or `.continue` to override it.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
@@ -113,13 +113,13 @@ public struct CashAppPayButtonView: View {
     private var colorAsset: SwiftUI.Image {
         let isWhite = resolvedStyle == .white
         switch viewModel.label {
-        case .payWith: return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
-        case .buyWith: return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
-        case .cashOutWith:
+        case .pay: return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
+        case .buy: return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
+        case .cashOut:
             return (isWhite ? Asset.Images.cashOutWithWhite : Asset.Images.cashOutWithBlack).swiftUIImage
-        case .checkoutWith:
+        case .checkout:
             return (isWhite ? Asset.Images.checkoutWithWhite : Asset.Images.checkoutWithBlack).swiftUIImage
-        case .continueWith:
+        case .continue:
             return (isWhite ? Asset.Images.continueWithWhite : Asset.Images.continueWithBlack).swiftUIImage
         }
     }
@@ -127,11 +127,11 @@ public struct CashAppPayButtonView: View {
     /// The single-color template art, tinted with `monochromeTint`.
     private var monochromeAsset: SwiftUI.Image {
         switch viewModel.label {
-        case .payWith: return Asset.Images.payWithMono.swiftUIImage
-        case .buyWith: return Asset.Images.buyWithMono.swiftUIImage
-        case .cashOutWith: return Asset.Images.cashOutWithMono.swiftUIImage
-        case .checkoutWith: return Asset.Images.checkoutWithMono.swiftUIImage
-        case .continueWith: return Asset.Images.continueWithMono.swiftUIImage
+        case .pay: return Asset.Images.payWithMono.swiftUIImage
+        case .buy: return Asset.Images.buyWithMono.swiftUIImage
+        case .cashOut: return Asset.Images.cashOutWithMono.swiftUIImage
+        case .checkout: return Asset.Images.checkoutWithMono.swiftUIImage
+        case .continue: return Asset.Images.continueWithMono.swiftUIImage
         }
     }
 
@@ -159,11 +159,11 @@ public struct CashAppPayButtonView: View {
 
     private var accessibilityLabel: String {
         switch viewModel.label {
-        case .payWith: return "Pay with Cash App"
-        case .buyWith: return "Buy with Cash App"
-        case .cashOutWith: return "Cash out with Cash App"
-        case .checkoutWith: return "Checkout with Cash App"
-        case .continueWith: return "Continue with Cash App"
+        case .pay: return "Pay with Cash App"
+        case .buy: return "Buy with Cash App"
+        case .cashOut: return "Cash out with Cash App"
+        case .checkout: return "Checkout with Cash App"
+        case .continue: return "Continue with Cash App"
         }
     }
 
@@ -240,8 +240,8 @@ struct CashButtonView_Previews: PreviewProvider {
                     CashAppPayButtonView(label: label, style: style, onClickHandler: {})
                 }
             }
-            CashAppPayButtonView(label: .payWith, size: .small, onClickHandler: {})
-            CashAppPayButtonView(label: .payWith, isEnabled: false, onClickHandler: {})
+            CashAppPayButtonView(label: .pay, size: .small, onClickHandler: {})
+            CashAppPayButtonView(label: .pay, isEnabled: false, onClickHandler: {})
         }.background(Color.gray)
     }
 }

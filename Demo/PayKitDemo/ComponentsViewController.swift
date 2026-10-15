@@ -29,34 +29,34 @@ class ComponentsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         switch indexPath.row {
-        case 0: cell = CashAppDemoCell(title: "Pay with", view: CashAppPayButton(label: .payWith, onClickHandler: {}))
+        case 0: cell = CashAppDemoCell(title: "Pay with", view: CashAppPayButton(label: .pay, onClickHandler: {}))
         case 1: cell = CashAppDemoCell(
             title: "Cash out with",
-            view: CashAppPayButton(label: .cashOutWith, onClickHandler: {})
+            view: CashAppPayButton(label: .cashOut, onClickHandler: {})
         )
         case 2: cell = CashAppDemoCell(
             title: "Checkout with override (White)",
-            view: CashAppPayButton(label: .checkoutWith, style: .white, onClickHandler: {})
+            view: CashAppPayButton(label: .checkout, style: .white, onClickHandler: {})
         )
         case 3:
-            let smallButton = CashAppPayButton(label: .payWith, style: .white, size: .small, onClickHandler: {})
+            let smallButton = CashAppPayButton(label: .pay, style: .white, size: .small, onClickHandler: {})
             smallButton.isEnabled = false
             cell = CashAppDemoCell(title: "Small Disabled (White)", view: smallButton)
         case 4: cell = CashAppDemoCell(
             title: "Monochrome Black",
-            view: CashAppPayButton(label: .payWith, style: .monochromeBlack, onClickHandler: {})
+            view: CashAppPayButton(label: .pay, style: .monochromeBlack, onClickHandler: {})
         )
         case 5: cell = CashAppDemoCell(
             title: "Monochrome White",
-            view: CashAppPayButton(label: .payWith, style: .monochromeWhite, onClickHandler: {})
+            view: CashAppPayButton(label: .pay, style: .monochromeWhite, onClickHandler: {})
         )
         case 6: cell = CashAppDemoCell(
             title: "Green",
-            view: CashAppPayButton(label: .payWith, style: .green, onClickHandler: {})
+            view: CashAppPayButton(label: .pay, style: .green, onClickHandler: {})
         )
         case 7: cell = CashAppDemoCell(
             title: "Buy with override",
-            view: CashAppPayButton(label: .buyWith, onClickHandler: {})
+            view: CashAppPayButton(label: .buy, onClickHandler: {})
         )
         case 8: cell = CashAppDemoCell(
             title: "Small Payment Method",

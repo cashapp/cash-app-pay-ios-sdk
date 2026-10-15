@@ -178,9 +178,9 @@ The button shows a call to action that matches the customer request. Pick it fro
 
 | Actions | Label |
 |---|---|
-| Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.payWith`, "Pay with Cash App" |
-| Only payouts (`ON_FILE_PAYOUT`) | `.cashOutWith`, "Cash out with Cash App" |
-| Anything else, such as a mix of payments and payouts | `.continueWith`, "Continue with Cash App" |
+| Only payments (`ONE_TIME_PAYMENT`, `ON_FILE_PAYMENT`) | `.pay`, "Pay with Cash App" |
+| Only payouts (`ON_FILE_PAYOUT`) | `.cashOut`, "Cash out with Cash App" |
+| Anything else, such as a mix of payments and payouts | `.continue`, "Continue with Cash App" |
 
 You can instantiate the button as follows:
 
@@ -189,7 +189,7 @@ let label = CashAppPayButtonLabel(actions: customerRequest.actions)
 let button = CashAppPayButton(label: label, size: .large, onClickHandler: {})
 ```
 
-To override the automatic label, pass any label directly, such as `.buyWith` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkoutWith` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buyWith` or `.checkoutWith`.
+To override the automatic label, pass any label directly, such as `.buy` ("Buy with Cash App") for a "Buy now" button on a product page, or `.checkout` ("Checkout with Cash App") on a checkout screen. `CashAppPayButtonLabel(actions:)` never returns `.buy` or `.checkout`.
 
 `style` picks the color variant:
 
@@ -206,7 +206,7 @@ To override the automatic label, pass any label directly, such as `.buyWith` ("B
 Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
 
 ```swift
-let button = CashAppPayButton(label: .buyWith, style: .green, onClickHandler: {})
+let button = CashAppPayButton(label: .buy, style: .green, onClickHandler: {})
 ```
 
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>

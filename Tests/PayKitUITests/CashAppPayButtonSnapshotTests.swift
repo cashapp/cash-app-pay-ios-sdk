@@ -22,42 +22,42 @@ import XCTest
 class CashAppPayButtonSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPayButton(label: .payWith, size: .small, onClickHandler: {}),
+            matching: CashAppPayButton(label: .pay, size: .small, onClickHandler: {}),
             as: .image(centeredIn: .iPhone8)
         )
     }
 
     func test_large_button() {
         assertSnapshot(
-            matching: CashAppPayButton(label: .payWith, size: .large, onClickHandler: {}),
+            matching: CashAppPayButton(label: .pay, size: .large, onClickHandler: {}),
             as: .image(centeredIn: .iPhone8)
         )
     }
 
     func test_button_disabled() {
-        let lightButton = CashAppPayButton(label: .payWith, size: .large, onClickHandler: {})
+        let lightButton = CashAppPayButton(label: .pay, size: .large, onClickHandler: {})
          lightButton.isEnabled = false
          assertSnapshot(matching: lightButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light))
 
-         let darkButton = CashAppPayButton(label: .payWith, size: .large, onClickHandler: {})
+         let darkButton = CashAppPayButton(label: .pay, size: .large, onClickHandler: {})
          darkButton.isEnabled = false
          assertSnapshot(matching: darkButton, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
     }
 
     func test_dark_mode() {
         assertSnapshot(
-            matching: CashAppPayButton(label: .payWith, onClickHandler: {}),
+            matching: CashAppPayButton(label: .pay, onClickHandler: {}),
             as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark)
         )
     }
 
     func test_button_expands() {
         assertSnapshot(
-            matching: CashAppPayButton(label: .payWith, size: .large, onClickHandler: {}),
+            matching: CashAppPayButton(label: .pay, size: .large, onClickHandler: {}),
             as: .image(filling: .iPhone8, userInterfaceStyle: .dark)
         )
         assertSnapshot(
-            matching: CashAppPayButton(label: .payWith, size: .small, onClickHandler: {}),
+            matching: CashAppPayButton(label: .pay, size: .small, onClickHandler: {}),
             as: .image(filling: .iPhone8, userInterfaceStyle: .dark)
         )
     }

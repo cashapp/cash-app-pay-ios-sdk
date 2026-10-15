@@ -20,32 +20,32 @@ import PayKit
 /// The call to action shown on a `CashAppPayButton`.
 ///
 /// To pick the label for a customer request, use `CashAppPayButtonLabel(actions: customerRequest.actions)`.
-/// To override it, pass a label directly, for example `.checkoutWith` on a checkout screen.
+/// To override it, pass a label directly, for example `.checkout` on a checkout screen.
 public enum CashAppPayButtonLabel: CaseIterable {
     /// "Pay with Cash App", for payments.
-    case payWith
+    case pay
     /// "Buy with Cash App", for buy-now payments, for example a "Buy now" button on a product page.
     /// `init(actions:)` never returns it; set it explicitly.
-    case buyWith
+    case buy
     /// "Cash out with Cash App", for payouts.
-    case cashOutWith
+    case cashOut
     /// "Checkout with Cash App". `init(actions:)` never returns it; set it explicitly.
-    case checkoutWith
+    case checkout
     /// "Continue with Cash App", for requests that combine different kinds of actions or have none.
-    case continueWith
+    case `continue`
 
-    /// Returns `.payWith` when every action is a payment, `.cashOutWith` when every action is a payout,
-    /// and `.continueWith` otherwise.
+    /// Returns `.pay` when every action is a payment, `.cashOut` when every action is a payout,
+    /// and `.continue` otherwise.
     public init(actions: [PaymentAction]) {
         let types = actions.map(\.type)
         if types.isEmpty {
-            self = .continueWith
+            self = .continue
         } else if types.allSatisfy({ $0 == .ONE_TIME_PAYMENT || $0 == .ON_FILE_PAYMENT }) {
-            self = .payWith
+            self = .pay
         } else if types.allSatisfy({ $0 == .ON_FILE_PAYOUT }) {
-            self = .cashOutWith
+            self = .cashOut
         } else {
-            self = .continueWith
+            self = .continue
         }
     }
 }
