@@ -38,9 +38,9 @@ public class CashAppPaymentMethod: UIView {
     }
 
     /// Logo shown on the view
-    public var logo: CashAppPaymentMethodLogo {
-        get { paymentMethodView.viewModel.logo }
-        set { paymentMethodView.viewModel.logo = newValue }
+    public var label: CashAppPaymentMethodLabel {
+        get { paymentMethodView.viewModel.label }
+        set { paymentMethodView.viewModel.label = newValue }
     }
 
     // MARK: - Lifecycle
@@ -56,11 +56,11 @@ public class CashAppPaymentMethod: UIView {
      - usePolychromeAsset: Toggle usage of polychrome UI
      */
     public convenience init(size: SizingCategory = .large, cashTag: String = "", usePolychromeAsset: Bool = false) {
-        self.init(size: size, cashTag: cashTag, usePolychromeAsset: usePolychromeAsset, logo: .cashAppPay)
+        self.init(size: size, cashTag: cashTag, usePolychromeAsset: usePolychromeAsset, label: .cashAppPay)
     }
 
     /**
-     Initializes a view with the given logo on the left and the Cash Tag
+     Initializes a view with the logo for the given label on the left and the Cash Tag
      representing the customer on the right or the bottom.
 
      - Parameters:
@@ -68,20 +68,20 @@ public class CashAppPaymentMethod: UIView {
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to an empty string.
      - usePolychromeAsset: Toggle usage of polychrome UI
-     - logo: The logo shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
-       without `logo`. `cashApp` shows the "Cash App" logo.
+     - label: The label shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
+       without `label`. `cashApp` shows the "Cash App" logo.
      */
     public init(
         size: SizingCategory = .large,
         cashTag: String = "",
         usePolychromeAsset: Bool = false,
-        logo: CashAppPaymentMethodLogo
+        label: CashAppPaymentMethodLabel
     ) {
         self.paymentMethodView = CashAppPaymentMethodView(
             size: size,
             cashTag: cashTag,
             usePolychromeAsset: usePolychromeAsset,
-            logo: logo
+            label: label
         )
         super.init(frame: .zero)
         guard let view = makeView() else { return }

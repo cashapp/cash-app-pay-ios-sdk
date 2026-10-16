@@ -25,7 +25,7 @@ public struct CashAppPaymentMethodView: View {
     @ObservedObject public var viewModel: ViewModel
 
     private var currentAsset: SwiftUI.Image {
-        switch viewModel.logo {
+        switch viewModel.label {
         case .cashAppPay:
             return viewModel.usePolychromeAsset ?
                 Asset.Images.polyChromeLogo.swiftUIImage :
@@ -41,7 +41,7 @@ public struct CashAppPaymentMethodView: View {
         guard viewModel.usePolychromeAsset else {
             return Asset.Colors.surfaceSecondary.swiftUIColor
         }
-        switch viewModel.logo {
+        switch viewModel.label {
         case .cashAppPay:
             return Asset.Colors.polyChrome.swiftUIColor
         case .cashApp:
@@ -50,7 +50,7 @@ public struct CashAppPaymentMethodView: View {
     }
 
     private var titleWidth: CGFloat {
-        switch viewModel.logo {
+        switch viewModel.label {
         case .cashAppPay:
             return Constants.cashAppPayTitleWidth
         case .cashApp:
@@ -85,12 +85,12 @@ public struct CashAppPaymentMethodView: View {
             cashTagFont: cashTagFont,
             cashTagTextColor: cashTagTextColor,
             usePolychromeAsset: usePolychromeAsset,
-            logo: .cashAppPay
+            label: .cashAppPay
         )
     }
 
     /**
-     Initializes a view with the given logo on the left and the Cash Tag representing
+     Initializes a view with the logo for the given label on the left and the Cash Tag representing
      the customer on the right or the bottom.
 
      - Parameters:
@@ -100,8 +100,8 @@ public struct CashAppPaymentMethodView: View {
      - cashTagFont: Cash Tag text font.
      - cashTagTextColor: Cash Tag text color.
      - usePolychromeAsset: Toggle usage of polychrome UI
-     - logo: The logo shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
-       without `logo`. `cashApp` shows the "Cash App" logo.
+     - label: The label shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
+       without `label`. `cashApp` shows the "Cash App" logo.
      */
     public init(
         size: SizingCategory = .large,
@@ -109,7 +109,7 @@ public struct CashAppPaymentMethodView: View {
         cashTagFont: Font = Constants.cashTagFont,
         cashTagTextColor: Color = Constants.cashTagTextColor,
         usePolychromeAsset: Bool = false,
-        logo: CashAppPaymentMethodLogo
+        label: CashAppPaymentMethodLabel
     ) {
         self.viewModel = ViewModel(
             size: size,
@@ -117,7 +117,7 @@ public struct CashAppPaymentMethodView: View {
             cashTagFont: cashTagFont,
             cashTagTextColor: cashTagTextColor,
             usePolychromeAsset: usePolychromeAsset,
-            logo: logo
+            label: label
         )
     }
 
@@ -203,21 +203,21 @@ extension CashAppPaymentMethodView {
         @Published var cashTagFont: Font
         @Published var cashTagTextColor: Color
         @Published var usePolychromeAsset: Bool
-        @Published var logo: CashAppPaymentMethodLogo
+        @Published var label: CashAppPaymentMethodLabel
         init(
             size: SizingCategory,
             cashTag: String,
             cashTagFont: Font,
             cashTagTextColor: Color,
             usePolychromeAsset: Bool,
-            logo: CashAppPaymentMethodLogo
+            label: CashAppPaymentMethodLabel
         ) {
             self.size = size
             self.cashTag = cashTag
             self.cashTagFont = cashTagFont
             self.cashTagTextColor = cashTagTextColor
             self.usePolychromeAsset = usePolychromeAsset
-            self.logo = logo
+            self.label = label
         }
     }
 }
@@ -228,14 +228,14 @@ extension CashAppPaymentMethodView {
 struct CashAppPaymentMethodView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(CashAppPaymentMethodLogo.allCases, id: \.self) { logo in
-                CashAppPaymentMethodView(size: .large, cashTag: "$jack", logo: logo)
+            ForEach(CashAppPaymentMethodLabel.allCases, id: \.self) { label in
+                CashAppPaymentMethodView(size: .large, cashTag: "$jack", label: label)
                     .padding()
-                CashAppPaymentMethodView(size: .large, cashTag: "", logo: logo)
+                CashAppPaymentMethodView(size: .large, cashTag: "", label: label)
                     .padding()
-                CashAppPaymentMethodView(size: .small, cashTag: "$jack", logo: logo)
+                CashAppPaymentMethodView(size: .small, cashTag: "$jack", label: label)
                     .padding()
-                CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: true, logo: logo)
+                CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: true, label: label)
                     .padding()
             }
         }.background(Color.blue)

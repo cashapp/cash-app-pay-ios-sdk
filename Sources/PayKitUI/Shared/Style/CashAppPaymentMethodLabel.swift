@@ -1,5 +1,5 @@
 //
-//  CashAppPaymentMethodLogo.swift
+//  CashAppPaymentMethodLabel.swift
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 import Foundation
 
-/// The logo shown on a `CashAppPaymentMethod`.
+/// The label shown on a `CashAppPaymentMethod`, drawn as a logo.
 ///
 /// The default, `.cashAppPay`, shows the "Cash App Pay" logo. Pass `.cashApp` to show the "Cash App" logo instead.
-public enum CashAppPaymentMethodLogo: CaseIterable {
+public enum CashAppPaymentMethodLabel: CaseIterable {
     /// The "Cash App Pay" logo. This is the default.
     case cashAppPay
     /// The "Cash App" logo.

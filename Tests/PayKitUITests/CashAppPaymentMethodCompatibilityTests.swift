@@ -31,18 +31,18 @@ class CashAppPaymentMethodCompatibilityTests: XCTestCase {
             CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true),
         ]
         for paymentMethod in paymentMethods {
-            XCTAssertEqual(paymentMethod.logo, .cashAppPay)
+            XCTAssertEqual(paymentMethod.label, .cashAppPay)
         }
     }
 
     func test_payment_method_with_logo() {
-        let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", logo: .cashApp)
-        XCTAssertEqual(paymentMethod.logo, .cashApp)
+        let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", label: .cashApp)
+        XCTAssertEqual(paymentMethod.label, .cashApp)
         XCTAssertEqual(paymentMethod.size, .small)
         XCTAssertEqual(paymentMethod.cashTag, "$jack")
 
-        paymentMethod.logo = .cashAppPay
-        XCTAssertEqual(paymentMethod.logo, .cashAppPay)
+        paymentMethod.label = .cashAppPay
+        XCTAssertEqual(paymentMethod.label, .cashAppPay)
     }
 
     // MARK: - SwiftUI
@@ -54,13 +54,13 @@ class CashAppPaymentMethodCompatibilityTests: XCTestCase {
             CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: true),
         ]
         for view in views {
-            XCTAssertEqual(view.viewModel.logo, .cashAppPay)
+            XCTAssertEqual(view.viewModel.label, .cashAppPay)
         }
     }
 
     func test_view_with_logo() {
-        let view = CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolychromeAsset: true, logo: .cashApp)
-        XCTAssertEqual(view.viewModel.logo, .cashApp)
+        let view = CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolychromeAsset: true, label: .cashApp)
+        XCTAssertEqual(view.viewModel.label, .cashApp)
         XCTAssertEqual(view.viewModel.size, .small)
         XCTAssertTrue(view.viewModel.usePolychromeAsset)
     }

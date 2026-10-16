@@ -59,7 +59,7 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
                             size: size,
                             cashTag: "$jack",
                             usePolychromeAsset: usePolychromeAsset,
-                            logo: .cashApp
+                            label: .cashApp
                         ),
                         as: .image(on: .iPhone8, userInterfaceStyle: style),
                         named: "\(size)-\(chrome)-\(appearance)"

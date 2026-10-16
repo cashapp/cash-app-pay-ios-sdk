@@ -64,16 +64,16 @@ class ComponentsViewController: UITableViewController {
             CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
         },
         Row(title: "Small Payment Method (Cash App)") {
-            CashAppPaymentMethod(size: .small, cashTag: "$jack", logo: .cashApp)
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", label: .cashApp)
         },
         Row(title: "Large Payment Method (Cash App)", fillsWidth: true) {
-            CashAppPaymentMethod(size: .large, cashTag: "$jack", logo: .cashApp)
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", label: .cashApp)
         },
         Row(title: "Small Payment Method (Cash App, Polychrome)") {
-            CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true, logo: .cashApp)
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true, label: .cashApp)
         },
         Row(title: "Large Payment Method (Cash App, Polychrome)", fillsWidth: true) {
-            CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true, logo: .cashApp)
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true, label: .cashApp)
         },
     ]
 

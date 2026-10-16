@@ -229,20 +229,20 @@ let paymentMethod = CashAppPaymentMethod(size: .small)
 paymentMethod.cashTag = "$jack"
 ```
 
-By default, the view shows the "Cash App Pay" logo. To show the "Cash App" logo instead, pass `logo: .cashApp`:
+By default, the view shows the "Cash App Pay" logo. To show the "Cash App" logo instead, pass `label: .cashApp`:
 
 <img width="170" alt="CashAppPaymentMethod showing the Cash App logo and $jack" src="Docs/Images/cash-app-payment-method.png">
 
 ```swift
-let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", logo: .cashApp)
+let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", label: .cashApp)
 ```
 
-| Logo | Shows |
+| Label | Shows |
 |---|---|
 | `.cashAppPay` (default) | The "Cash App Pay" logo |
 | `.cashApp` | The "Cash App" logo |
 
-In SwiftUI, pass the same `logo` parameter to `CashAppPaymentMethodView`, for example `CashAppPaymentMethodView(cashTag: "$jack", logo: .cashApp)`.
+In SwiftUI, pass the same `label` parameter to `CashAppPaymentMethodView`, for example `CashAppPaymentMethodView(cashTag: "$jack", label: .cashApp)`.
 
 # Getting Help <a name="getting-help"></a>
 

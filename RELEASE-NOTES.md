@@ -39,11 +39,11 @@
 
     Every button now shows new artwork. Because the new initializer defaults to `style: .automatic`, buttons created without `usePolychromeAsset` now show the green Cash App icon on a black background in light mode and on a white background in dark mode. Pass `style: .monochromeAutomatic` to keep the previous monochrome look.
 
-- **`CashAppPaymentMethod` logo option**
+- **`CashAppPaymentMethod` label option**
 
-    `CashAppPaymentMethod` has a new initializer, `init(size:cashTag:usePolychromeAsset:logo:)`, and a `logo` property. `CashAppPaymentMethodView` has a matching `init(size:cashTag:cashTagFont:cashTagTextColor:usePolychromeAsset:logo:)`.
+    `CashAppPaymentMethod` has a new initializer, `init(size:cashTag:usePolychromeAsset:label:)`, and a `label` property. `CashAppPaymentMethodView` has a matching `init(size:cashTag:cashTagFont:cashTagTextColor:usePolychromeAsset:label:)`.
 
-    `logo` picks the logo shown on the view:
+    `label` picks the logo shown on the view:
 
     - `.cashAppPay`: the "Cash App Pay" logo. This is the default, and matches 2.0.0.
     - `.cashApp`: the "Cash App" logo. With `usePolychromeAsset: true`, it shows the green Cash App icon on a black background in both light and dark mode.
