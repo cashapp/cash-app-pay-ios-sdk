@@ -174,7 +174,7 @@ We want you to use these views as-is, without any modification.
 
 ### `CashAppPayButton` <a name="cash-app-pay-button"></a>
 
-By default, the button shows the Cash App icon and "Cash App":
+By default, the button shows the Cash App icon and "Cash App Pay":
 
 ```swift
 let button = CashAppPayButton(onClickHandler: {})
@@ -184,7 +184,8 @@ To show a call to action, pass a `label`:
 
 | Label | Button text |
 |---|---|
-| `.cashApp` (default) | "Cash App" |
+| `.cashAppPay` (default) | "Cash App Pay" |
+| `.cashApp` | "Cash App" |
 | `.pay` | "Pay with Cash App" |
 | `.buy` | "Buy with Cash App", for example for a "Buy now" button on a product page |
 | `.cashOut` | "Cash out with Cash App" |

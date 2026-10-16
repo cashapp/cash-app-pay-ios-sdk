@@ -34,7 +34,8 @@ class ComponentsViewController: UITableViewController {
     }
 
     private let rows: [Row] = [
-        Row(title: "Cash App (Default)") { CashAppPayButton(onClickHandler: {}) },
+        Row(title: "Cash App Pay (Default)") { CashAppPayButton(onClickHandler: {}) },
+        Row(title: "Cash App") { CashAppPayButton(label: .cashApp, onClickHandler: {}) },
         Row(title: "Pay with") { CashAppPayButton(label: .pay, onClickHandler: {}) },
         Row(title: "Cash out with") { CashAppPayButton(label: .cashOut, onClickHandler: {}) },
         Row(title: "Continue with") { CashAppPayButton(label: .continue, onClickHandler: {}) },
@@ -47,7 +48,8 @@ class ComponentsViewController: UITableViewController {
         },
         Row(title: "Monochrome Black") { CashAppPayButton(style: .monochromeBlack, onClickHandler: {}) },
         Row(title: "Monochrome White") { CashAppPayButton(style: .monochromeWhite, onClickHandler: {}) },
-        Row(title: "Cash App (Green)") { CashAppPayButton(style: .green, onClickHandler: {}) },
+        Row(title: "Cash App Pay (Green)") { CashAppPayButton(style: .green, onClickHandler: {}) },
+        Row(title: "Cash App (Green)") { CashAppPayButton(label: .cashApp, style: .green, onClickHandler: {}) },
         Row(title: "Pay with (Green)") { CashAppPayButton(label: .pay, style: .green, onClickHandler: {}) },
         Row(title: "Buy with (Green)") { CashAppPayButton(label: .buy, style: .green, onClickHandler: {}) },
         Row(title: "Cash out with (Green)") { CashAppPayButton(label: .cashOut, style: .green, onClickHandler: {}) },

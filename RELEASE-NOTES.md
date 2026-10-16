@@ -6,7 +6,8 @@
 
     `label` picks the call to action:
 
-    - `.cashApp`: the Cash App icon and "Cash App". This is the default.
+    - `.cashAppPay`: the Cash App icon and "Cash App Pay". This is the default.
+    - `.cashApp`: the Cash App icon and "Cash App".
     - `.pay`: "Pay with Cash App".
     - `.buy`: "Buy with Cash App", for example for a "Buy now" button on a product page.
     - `.cashOut`: "Cash out with Cash App".
@@ -36,7 +37,7 @@
 
 - **New button artwork**
 
-    Every button now shows the new "Cash App" artwork. Because the new initializer defaults to `style: .automatic`, buttons created without `usePolychromeAsset` now show the green Cash App icon on a black background in light mode and on a white background in dark mode. Pass `style: .monochromeAutomatic` to keep the previous monochrome look.
+    Every button now shows new artwork. Because the new initializer defaults to `style: .automatic`, buttons created without `usePolychromeAsset` now show the green Cash App icon on a black background in light mode and on a white background in dark mode. Pass `style: .monochromeAutomatic` to keep the previous monochrome look.
 
 - **`CashAppPaymentMethod` shows the Cash App logo**
 

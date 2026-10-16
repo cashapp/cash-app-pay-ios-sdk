@@ -35,15 +35,15 @@ public struct CashAppPayButtonView: View {
      Initializes a button with a Cash App call to action.
 
      - Parameters:
-     - label: The call to action shown on the button. Defaults to `cashApp`, which shows the Cash App icon
-       and "Cash App". Pass another label, such as `.pay` or `.checkout`, to show a call to action.
+     - label: The call to action shown on the button. Defaults to `cashAppPay`, which shows the Cash App icon
+       and "Cash App Pay". Pass another label, such as `.pay` or `.checkout`, to show a call to action.
      - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - isEnabled: True if the button is enabled.
      - onClickHandler: The handler called when the button is tapped.
      */
     public init(
-        label: CashAppPayButtonLabel = .cashApp,
+        label: CashAppPayButtonLabel = .cashAppPay,
         style: CashAppPayButtonStyle = .automatic,
         size: SizingCategory = .large,
         isEnabled: Bool = true,
@@ -54,7 +54,7 @@ public struct CashAppPayButtonView: View {
     }
 
     /**
-     Initializes a button with the Cash App icon and "Cash App".
+     Initializes a button with the Cash App icon and "Cash App Pay".
 
      - Parameters:
      - size: The size of the button. Defaults to `large`.
@@ -78,7 +78,7 @@ public struct CashAppPayButtonView: View {
         usePolychromeAsset: Bool = false
     ) {
         self.init(
-            label: .cashApp,
+            label: .cashAppPay,
             style: usePolychromeAsset ? .green : .monochromeAutomatic,
             size: size,
             isEnabled: isEnabled,
@@ -146,6 +146,8 @@ public struct CashAppPayButtonView: View {
     private var colorAsset: SwiftUI.Image {
         let isWhite = resolvedStyle == .white
         switch viewModel.label {
+        case .cashAppPay:
+            return (isWhite ? Asset.Images.cashAppPayWhite : Asset.Images.cashAppPayBlack).swiftUIImage
         case .cashApp: return (isWhite ? Asset.Images.cashAppWhite : Asset.Images.cashAppBlack).swiftUIImage
         case .pay: return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
         case .buy: return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
@@ -161,6 +163,7 @@ public struct CashAppPayButtonView: View {
     /// The single-color template art, tinted with `monochromeTint`.
     private var monochromeAsset: SwiftUI.Image {
         switch viewModel.label {
+        case .cashAppPay: return Asset.Images.cashAppPayMono.swiftUIImage
         case .cashApp: return Asset.Images.cashAppMono.swiftUIImage
         case .pay: return Asset.Images.payWithMono.swiftUIImage
         case .buy: return Asset.Images.buyWithMono.swiftUIImage
@@ -194,6 +197,7 @@ public struct CashAppPayButtonView: View {
 
     private var accessibilityLabel: String {
         switch viewModel.label {
+        case .cashAppPay: return "Cash App Pay"
         case .cashApp: return "Cash App"
         case .pay: return "Pay with Cash App"
         case .buy: return "Buy with Cash App"

@@ -28,14 +28,14 @@ class CashAppPayButtonCompatibilityTests: XCTestCase {
 
     func test_button_usePolychromeAsset_true_uses_green() {
         let button = CashAppPayButton(size: .small, onClickHandler: {}, usePolychromeAsset: true)
-        XCTAssertEqual(button.label, .cashApp)
+        XCTAssertEqual(button.label, .cashAppPay)
         XCTAssertEqual(button.style, .green)
         XCTAssertEqual(button.size, .small)
     }
 
     func test_button_usePolychromeAsset_false_uses_monochromeAutomatic() {
         let button = CashAppPayButton(onClickHandler: {}, usePolychromeAsset: false)
-        XCTAssertEqual(button.label, .cashApp)
+        XCTAssertEqual(button.label, .cashAppPay)
         XCTAssertEqual(button.style, .monochromeAutomatic)
         XCTAssertEqual(button.size, .large)
     }
@@ -48,7 +48,7 @@ class CashAppPayButtonCompatibilityTests: XCTestCase {
             CashAppPayButton(size: .small) {},
         ]
         for button in buttons {
-            XCTAssertEqual(button.label, .cashApp)
+            XCTAssertEqual(button.label, .cashAppPay)
             XCTAssertEqual(button.style, .automatic)
         }
     }
@@ -57,7 +57,7 @@ class CashAppPayButtonCompatibilityTests: XCTestCase {
 
     func test_view_usePolychromeAsset_true_uses_green() {
         let view = CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}, usePolychromeAsset: true)
-        XCTAssertEqual(view.viewModel.label, .cashApp)
+        XCTAssertEqual(view.viewModel.label, .cashAppPay)
         XCTAssertEqual(view.viewModel.style, .green)
         XCTAssertEqual(view.viewModel.size, .large)
         XCTAssertFalse(view.viewModel.isEnabled)
@@ -65,7 +65,7 @@ class CashAppPayButtonCompatibilityTests: XCTestCase {
 
     func test_view_usePolychromeAsset_false_uses_monochromeAutomatic() {
         let view = CashAppPayButtonView(onClickHandler: {}, usePolychromeAsset: false)
-        XCTAssertEqual(view.viewModel.label, .cashApp)
+        XCTAssertEqual(view.viewModel.label, .cashAppPay)
         XCTAssertEqual(view.viewModel.style, .monochromeAutomatic)
         XCTAssertTrue(view.viewModel.isEnabled)
     }
@@ -78,7 +78,7 @@ class CashAppPayButtonCompatibilityTests: XCTestCase {
             CashAppPayButtonView(isEnabled: false) {},
         ]
         for view in views {
-            XCTAssertEqual(view.viewModel.label, .cashApp)
+            XCTAssertEqual(view.viewModel.label, .cashAppPay)
             XCTAssertEqual(view.viewModel.style, .automatic)
         }
     }

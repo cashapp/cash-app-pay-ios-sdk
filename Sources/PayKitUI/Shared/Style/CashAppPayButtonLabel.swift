@@ -18,10 +18,12 @@ import Foundation
 
 /// The call to action shown on a `CashAppPayButton`.
 ///
-/// The default, `.cashApp`, shows the Cash App icon and "Cash App". Pass another label to show a call to action,
-/// for example `.checkout` on a checkout screen.
+/// The default, `.cashAppPay`, shows the Cash App icon and "Cash App Pay". Pass another label to show a call to
+/// action, for example `.checkout` on a checkout screen.
 public enum CashAppPayButtonLabel: CaseIterable {
-    /// "Cash App", with no call to action. This is the default.
+    /// The Cash App icon and "Cash App Pay". This is the default.
+    case cashAppPay
+    /// The Cash App icon and "Cash App", with no call to action.
     case cashApp
     /// "Pay with Cash App", for payments.
     case pay
