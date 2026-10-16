@@ -48,6 +48,18 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
         )
     }
 
+    func test_polychrome_dark_mode_custom_cash_tag_color() {
+        assertSnapshot(
+            matching: CashAppPaymentMethodView(
+                size: .large,
+                cashTag: "$jack",
+                cashTagTextColor: .white,
+                usePolychromeAsset: true
+            ),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark)
+        )
+    }
+
     func test_cash_app_logo() {
         for size in [SizingCategory.small, .large] {
             for usePolychromeAsset in [false, true] {

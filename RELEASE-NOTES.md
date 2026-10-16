@@ -50,6 +50,10 @@
 
     Existing initializers are unchanged and keep showing the "Cash App Pay" logo.
 
+- **`CashAppPaymentMethod` cashtag on green**
+
+    With `usePolychromeAsset: true` in dark mode, the default Cash Tag color on the green background is now near-black, like the logo, instead of white. A custom `cashTagTextColor` or `setCashTagTextColor(_:)` color is used as set.
+
 ## PayKit 2.0.0 Release Notes
 
 Pay Kit 2.0.0 supports iOS 12 and later.

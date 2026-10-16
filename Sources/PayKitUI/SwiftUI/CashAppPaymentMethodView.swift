@@ -24,6 +24,8 @@ public struct CashAppPaymentMethodView: View {
 
     @ObservedObject public var viewModel: ViewModel
 
+    @Environment(\.colorScheme) private var colorScheme
+
     private var currentAsset: SwiftUI.Image {
         switch viewModel.label {
         case .cashAppPay:
@@ -47,6 +49,16 @@ public struct CashAppPaymentMethodView: View {
         case .cashApp:
             return .black
         }
+    }
+
+    /// The default cashtag color, except on the green `cashAppPay` polychrome background in dark mode,
+    /// where it is near-black like the logo's wordmark. A custom cashtag color is always used as set.
+    private var cashTagTextColor: SwiftUI.Color {
+        let isOnGreen = viewModel.usePolychromeAsset && viewModel.label == .cashAppPay && colorScheme == .dark
+        guard isOnGreen, viewModel.cashTagTextColor == Constants.cashTagTextColor else {
+            return viewModel.cashTagTextColor
+        }
+        return Constants.cashTagOnGreenTextColor
     }
 
     private var titleWidth: CGFloat {
@@ -173,13 +185,15 @@ public struct CashAppPaymentMethodView: View {
 
     private var cashTagText: some View {
         Text(viewModel.cashTag)
-            .foregroundColor(viewModel.cashTagTextColor)
+            .foregroundColor(cashTagTextColor)
             .font(viewModel.cashTagFont)
     }
 
     public enum Constants {
         public static let cashTagFont = Font.system(size: 14)
         public static let cashTagTextColor = Asset.Colors.textTernary.swiftUIColor
+
+        static let cashTagOnGreenTextColor = Color(red: 0x10 / 255, green: 0x10 / 255, blue: 0x10 / 255)
 
         static let cashAppPayTitleWidth: CGFloat = 127
         static let cashAppTitleWidth: CGFloat = 97
