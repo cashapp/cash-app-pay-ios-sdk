@@ -174,15 +174,48 @@ We want you to use these views as-is, without any modification.
 
 ### `CashAppPayButton` <a name="cash-app-pay-button"></a>
 
-The following is an example of the `CashAppPayButton`:
-
-<img width="368" alt="image" src="https://user-images.githubusercontent.com/8743061/216639753-159f2b3e-21be-4113-8a92-fd77e93acd12.png">
-
-You can instantiate the button as follows:
+By default, the button shows the Cash App icon and "Cash App Pay":
 
 ```swift
-let button = CashAppPayButton(size: .small, onClickHandler: {})
+let button = CashAppPayButton(onClickHandler: {})
 ```
+
+To show a call to action, pass a `label`:
+
+| Label | Button text |
+|---|---|
+| `.cashAppPay` (default) | "Cash App Pay" |
+| `.cashApp` | "Cash App" |
+| `.pay` | "Pay with Cash App" |
+| `.buy` | "Buy with Cash App", for example for a "Buy now" button on a product page |
+| `.cashOut` | "Cash out with Cash App" |
+| `.checkout` | "Checkout with Cash App", for example on a checkout screen |
+| `.continue` | "Continue with Cash App" |
+| `.connect` | "Connect to Cash App", for linking the customer's Cash App account, such as saving it for future payments |
+
+```swift
+let button = CashAppPayButton(label: .pay, size: .large, onClickHandler: {})
+```
+
+`style` picks the color variant:
+
+| Style | Button |
+|---|---|
+| `.automatic` (default) | `.black` in light mode and `.white` in dark mode |
+| `.black` | White label and green Cash App icon on a black background |
+| `.white` | Black label and green Cash App icon on a white background with a thin black outline |
+| `.monochromeAutomatic` | `.monochromeBlack` in light mode and `.monochromeWhite` in dark mode |
+| `.monochromeBlack` | White label and icon on a black background |
+| `.monochromeWhite` | Black label and icon on a white background with a thin black outline |
+| `.green` | Black label and icon on a Cash App green background |
+
+Pick a fixed style, such as `.black` or `.green`, for a button that doesn't change with the system appearance.
+
+```swift
+let button = CashAppPayButton(label: .buy, style: .green, onClickHandler: {})
+```
+
+The `usePolychromeAsset` parameter is deprecated. Use `style: .green` instead of `usePolychromeAsset: true`, and `style: .monochromeAutomatic` for the look of `usePolychromeAsset: false`.
 
 ### `CashAppPaymentMethod` <a name="cash-app-payment-method"></a>
 
@@ -196,6 +229,21 @@ You can instatiate the `CashAppPaymentMethod` as follows:
 let paymentMethod = CashAppPaymentMethod(size: .small)
 paymentMethod.cashTag = "$jack"
 ```
+
+By default, the view shows the "Cash App Pay" logo. To show the "Cash App" logo instead, pass `label: .cashApp`:
+
+<img width="170" alt="CashAppPaymentMethod showing the Cash App logo and $jack" src="Docs/Images/cash-app-payment-method.png">
+
+```swift
+let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", label: .cashApp)
+```
+
+| Label | Shows |
+|---|---|
+| `.cashAppPay` (default) | The "Cash App Pay" logo |
+| `.cashApp` | The "Cash App" logo |
+
+In SwiftUI, pass the same `label` parameter to `CashAppPaymentMethodView`, for example `CashAppPaymentMethodView(cashTag: "$jack", label: .cashApp)`.
 
 # Getting Help <a name="getting-help"></a>
 

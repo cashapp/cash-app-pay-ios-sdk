@@ -26,42 +26,62 @@ class ComponentsViewController: UITableViewController {
         tableView.backgroundColor = .lightGray
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell
-        switch indexPath.row {
-        case 0:
-            let smallButton = CashAppPayButton(size: .small, onClickHandler: {})
+    private struct Row {
+        let title: String
+        var fillsWidth = false
+        /// Builds a new view for each cell, since a view can only be in one cell at a time.
+        let makeView: () -> UIView
+    }
+
+    private let rows: [Row] = [
+        Row(title: "Cash App Pay (Default)") { CashAppPayButton(onClickHandler: {}) },
+        Row(title: "Cash App") { CashAppPayButton(label: .cashApp, onClickHandler: {}) },
+        Row(title: "Pay with") { CashAppPayButton(label: .pay, onClickHandler: {}) },
+        Row(title: "Cash out with") { CashAppPayButton(label: .cashOut, onClickHandler: {}) },
+        Row(title: "Continue with") { CashAppPayButton(label: .continue, onClickHandler: {}) },
+        Row(title: "Connect to") { CashAppPayButton(label: .connect, onClickHandler: {}) },
+        Row(title: "Checkout with (White)") { CashAppPayButton(label: .checkout, style: .white, onClickHandler: {}) },
+        Row(title: "Buy with") { CashAppPayButton(label: .buy, onClickHandler: {}) },
+        Row(title: "Small Disabled (White)") {
+            let smallButton = CashAppPayButton(style: .white, size: .small, onClickHandler: {})
             smallButton.isEnabled = false
-            cell = CashAppDemoCell(title: "Small Button", view: smallButton)
-        case 1: cell = CashAppDemoCell(title: "Large Button", view: CashAppPayButton(size: .large, onClickHandler: {}))
-        case 2:
-            cell = CashAppDemoCell(
-                title: "Small Button",
-                view: CashAppPayButton(size: .small, onClickHandler: {}, usePolychromeAsset: true)
-            )
-        case 3:
-            let largeButton = CashAppPayButton(size: .large, onClickHandler: {}, usePolychromeAsset: true)
-            largeButton.isEnabled = false
-            cell = CashAppDemoCell(title: "Large Button", view: largeButton)
-        case 4: cell = CashAppDemoCell(
-            title: "Small Payment Method",
-            view: CashAppPaymentMethod(size: .small, cashTag: "$jack")
-        )
-        case 5: cell = CashAppDemoCell(
-            title: "Large Payment Method",
-            view: CashAppPaymentMethod(size: .large, cashTag: "$jack")
-        )
-        case 6: cell = CashAppDemoCell(
-            title: "Small Payment Method",
-            view: CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
-        )
-        case 7: cell = CashAppDemoCell(
-            title: "Large Payment Method",
-            view: CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
-        )
-        default:
-            cell = UITableViewCell()
-        }
+            return smallButton
+        },
+        Row(title: "Monochrome Black") { CashAppPayButton(style: .monochromeBlack, onClickHandler: {}) },
+        Row(title: "Monochrome White") { CashAppPayButton(style: .monochromeWhite, onClickHandler: {}) },
+        Row(title: "Cash App Pay (Green)") { CashAppPayButton(style: .green, onClickHandler: {}) },
+        Row(title: "Cash App (Green)") { CashAppPayButton(label: .cashApp, style: .green, onClickHandler: {}) },
+        Row(title: "Pay with (Green)") { CashAppPayButton(label: .pay, style: .green, onClickHandler: {}) },
+        Row(title: "Buy with (Green)") { CashAppPayButton(label: .buy, style: .green, onClickHandler: {}) },
+        Row(title: "Cash out with (Green)") { CashAppPayButton(label: .cashOut, style: .green, onClickHandler: {}) },
+        Row(title: "Checkout with (Green)") { CashAppPayButton(label: .checkout, style: .green, onClickHandler: {}) },
+        Row(title: "Continue with (Green)") { CashAppPayButton(label: .continue, style: .green, onClickHandler: {}) },
+        Row(title: "Connect to (Green)") { CashAppPayButton(label: .connect, style: .green, onClickHandler: {}) },
+        Row(title: "Small Payment Method") { CashAppPaymentMethod(size: .small, cashTag: "$jack") },
+        Row(title: "Large Payment Method", fillsWidth: true) { CashAppPaymentMethod(size: .large, cashTag: "$jack") },
+        Row(title: "Small Payment Method (Polychrome)") {
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
+        },
+        Row(title: "Large Payment Method (Polychrome)", fillsWidth: true) {
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
+        },
+        Row(title: "Small Payment Method (Cash App)") {
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", label: .cashApp)
+        },
+        Row(title: "Large Payment Method (Cash App)", fillsWidth: true) {
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", label: .cashApp)
+        },
+        Row(title: "Small Payment Method (Cash App, Polychrome)") {
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true, label: .cashApp)
+        },
+        Row(title: "Large Payment Method (Cash App, Polychrome)", fillsWidth: true) {
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true, label: .cashApp)
+        },
+    ]
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = rows[indexPath.row]
+        let cell = CashAppDemoCell(title: row.title, view: row.makeView(), fillsWidth: row.fillsWidth)
         cell.overrideUserInterfaceStyle = (indexPath.section == 0) ? .light : .dark
         cell.backgroundColor = .lightGray
         cell.selectionStyle = .none
@@ -75,7 +95,7 @@ class ComponentsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        rows.count
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,7 +107,8 @@ class ComponentsViewController: UITableViewController {
 
 extension ComponentsViewController {
     final class CashAppDemoCell: UITableViewCell {
-        init(title: String, view: UIView) {
+        /// - Parameter fillsWidth: Stretch `view` to the cell's width, as the large payment method does in an app.
+        init(title: String, view: UIView, fillsWidth: Bool = false) {
             super.init(style: .default, reuseIdentifier: nil)
             let titleLabel = UILabel()
             titleLabel.font = .boldSystemFont(ofSize: 18)
@@ -97,7 +118,7 @@ extension ComponentsViewController {
             let stack = UIStackView(arrangedSubviews: [view])
             stack.axis = .vertical
             stack.distribution = .fillProportionally
-            stack.alignment = .center
+            stack.alignment = fillsWidth ? .fill : .center
             stack.translatesAutoresizingMaskIntoConstraints = false
 
             contentView.addSubview(titleLabel)
