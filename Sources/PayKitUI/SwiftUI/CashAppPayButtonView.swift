@@ -157,6 +157,8 @@ public struct CashAppPayButtonView: View {
             return (isWhite ? Asset.Images.checkoutWithWhite : Asset.Images.checkoutWithBlack).swiftUIImage
         case .continue:
             return (isWhite ? Asset.Images.continueWithWhite : Asset.Images.continueWithBlack).swiftUIImage
+        case .connect:
+            return (isWhite ? Asset.Images.connectToWhite : Asset.Images.connectToBlack).swiftUIImage
         }
     }
 
@@ -170,6 +172,7 @@ public struct CashAppPayButtonView: View {
         case .cashOut: return Asset.Images.cashOutWithMono.swiftUIImage
         case .checkout: return Asset.Images.checkoutWithMono.swiftUIImage
         case .continue: return Asset.Images.continueWithMono.swiftUIImage
+        case .connect: return Asset.Images.connectToMono.swiftUIImage
         }
     }
 
@@ -204,6 +207,7 @@ public struct CashAppPayButtonView: View {
         case .cashOut: return "Cash out with Cash App"
         case .checkout: return "Checkout with Cash App"
         case .continue: return "Continue with Cash App"
+        case .connect: return "Connect to Cash App"
         }
     }
 

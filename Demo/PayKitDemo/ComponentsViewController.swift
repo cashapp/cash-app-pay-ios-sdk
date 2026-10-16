@@ -39,6 +39,7 @@ class ComponentsViewController: UITableViewController {
         Row(title: "Pay with") { CashAppPayButton(label: .pay, onClickHandler: {}) },
         Row(title: "Cash out with") { CashAppPayButton(label: .cashOut, onClickHandler: {}) },
         Row(title: "Continue with") { CashAppPayButton(label: .continue, onClickHandler: {}) },
+        Row(title: "Connect to") { CashAppPayButton(label: .connect, onClickHandler: {}) },
         Row(title: "Checkout with (White)") { CashAppPayButton(label: .checkout, style: .white, onClickHandler: {}) },
         Row(title: "Buy with") { CashAppPayButton(label: .buy, onClickHandler: {}) },
         Row(title: "Small Disabled (White)") {
@@ -55,6 +56,7 @@ class ComponentsViewController: UITableViewController {
         Row(title: "Cash out with (Green)") { CashAppPayButton(label: .cashOut, style: .green, onClickHandler: {}) },
         Row(title: "Checkout with (Green)") { CashAppPayButton(label: .checkout, style: .green, onClickHandler: {}) },
         Row(title: "Continue with (Green)") { CashAppPayButton(label: .continue, style: .green, onClickHandler: {}) },
+        Row(title: "Connect to (Green)") { CashAppPayButton(label: .connect, style: .green, onClickHandler: {}) },
         Row(title: "Small Payment Method") { CashAppPaymentMethod(size: .small, cashTag: "$jack") },
         Row(title: "Large Payment Method", fillsWidth: true) { CashAppPaymentMethod(size: .large, cashTag: "$jack") },
         Row(title: "Small Payment Method (Polychrome)") {

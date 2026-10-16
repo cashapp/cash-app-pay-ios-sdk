@@ -35,6 +35,8 @@ public enum CashAppPayButtonLabel: CaseIterable {
     case checkout
     /// "Continue with Cash App", for requests where the customer authorizes several kinds of actions.
     case `continue`
+    /// "Connect to Cash App", for linking the customer's Cash App account, such as saving it for future payments.
+    case connect
 }
 
 /// The color variant of a `CashAppPayButton`.

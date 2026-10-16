@@ -13,6 +13,7 @@
     - `.cashOut`: "Cash out with Cash App".
     - `.checkout`: "Checkout with Cash App", for example on a checkout screen.
     - `.continue`: "Continue with Cash App".
+    - `.connect`: "Connect to Cash App", for linking the customer's Cash App account, such as saving it for future payments.
 
     `style` picks the color variant:
 
