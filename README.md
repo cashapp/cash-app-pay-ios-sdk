@@ -220,7 +220,7 @@ The `usePolychromeAsset` parameter is deprecated. Use `style: .green` instead of
 
 The following is an example of `CashAppPaymentMethod`:
 
-<img width="170" alt="CashAppPaymentMethod showing the Cash App logo and $jack" src="Docs/Images/cash-app-payment-method.png">
+<img width="170" alt="image" src="https://user-images.githubusercontent.com/8743061/216639415-49591e1e-046e-49a0-b480-b6249394254d.png">
 
 You can instatiate the `CashAppPaymentMethod` as follows:
 
@@ -228,6 +228,21 @@ You can instatiate the `CashAppPaymentMethod` as follows:
 let paymentMethod = CashAppPaymentMethod(size: .small)
 paymentMethod.cashTag = "$jack"
 ```
+
+By default, the view shows the "Cash App Pay" logo. To show the "Cash App" logo instead, pass `logo: .cashApp`:
+
+<img width="170" alt="CashAppPaymentMethod showing the Cash App logo and $jack" src="Docs/Images/cash-app-payment-method.png">
+
+```swift
+let paymentMethod = CashAppPaymentMethod(size: .small, cashTag: "$jack", logo: .cashApp)
+```
+
+| Logo | Shows |
+|---|---|
+| `.cashAppPay` (default) | The "Cash App Pay" logo |
+| `.cashApp` | The "Cash App" logo |
+
+In SwiftUI, pass the same `logo` parameter to `CashAppPaymentMethodView`, for example `CashAppPaymentMethodView(cashTag: "$jack", logo: .cashApp)`.
 
 # Getting Help <a name="getting-help"></a>
 

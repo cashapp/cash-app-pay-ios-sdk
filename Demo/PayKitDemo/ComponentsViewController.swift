@@ -57,11 +57,23 @@ class ComponentsViewController: UITableViewController {
         Row(title: "Continue with (Green)") { CashAppPayButton(label: .continue, style: .green, onClickHandler: {}) },
         Row(title: "Small Payment Method") { CashAppPaymentMethod(size: .small, cashTag: "$jack") },
         Row(title: "Large Payment Method", fillsWidth: true) { CashAppPaymentMethod(size: .large, cashTag: "$jack") },
-        Row(title: "Small Payment Method") {
+        Row(title: "Small Payment Method (Polychrome)") {
             CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true)
         },
-        Row(title: "Large Payment Method", fillsWidth: true) {
+        Row(title: "Large Payment Method (Polychrome)", fillsWidth: true) {
             CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true)
+        },
+        Row(title: "Small Payment Method (Cash App)") {
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", logo: .cashApp)
+        },
+        Row(title: "Large Payment Method (Cash App)", fillsWidth: true) {
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", logo: .cashApp)
+        },
+        Row(title: "Small Payment Method (Cash App, Polychrome)") {
+            CashAppPaymentMethod(size: .small, cashTag: "$jack", usePolychromeAsset: true, logo: .cashApp)
+        },
+        Row(title: "Large Payment Method (Cash App, Polychrome)", fillsWidth: true) {
+            CashAppPaymentMethod(size: .large, cashTag: "$jack", usePolychromeAsset: true, logo: .cashApp)
         },
     ]
 

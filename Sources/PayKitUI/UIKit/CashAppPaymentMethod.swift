@@ -37,23 +37,51 @@ public class CashAppPaymentMethod: UIView {
         set { paymentMethodView.viewModel.cashTag = newValue }
     }
 
+    /// Logo shown on the view
+    public var logo: CashAppPaymentMethodLogo {
+        get { paymentMethodView.viewModel.logo }
+        set { paymentMethodView.viewModel.logo = newValue }
+    }
+
     // MARK: - Lifecycle
 
     /**
-     Initializes a view with the Cash App logo on the left and the Cash Tag
+     Initializes a view with the Cash App Pay logo on the left and the Cash Tag
      representing the customer on the right or the bottom.
 
      - Parameters:
      - size: The size of the view where the `small` is vertically stacked while `large` is horizontally stacked.
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to `nil`.
-     - usePolychromeAsset: Shows the green Cash App icon on a black background in light and dark mode
+     - usePolychromeAsset: Toggle usage of polychrome UI
      */
-    public init(size: SizingCategory = .large, cashTag: String = "", usePolychromeAsset: Bool = false) {
+    public convenience init(size: SizingCategory = .large, cashTag: String = "", usePolychromeAsset: Bool = false) {
+        self.init(size: size, cashTag: cashTag, usePolychromeAsset: usePolychromeAsset, logo: .cashAppPay)
+    }
+
+    /**
+     Initializes a view with the given logo on the left and the Cash Tag
+     representing the customer on the right or the bottom.
+
+     - Parameters:
+     - size: The size of the view where the `small` is vertically stacked while `large` is horizontally stacked.
+     Defaults to `large`.
+     - cashTag: The Customer ID. Defaults to an empty string.
+     - usePolychromeAsset: Toggle usage of polychrome UI
+     - logo: The logo shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
+       without `logo`. `cashApp` shows the "Cash App" logo.
+     */
+    public init(
+        size: SizingCategory = .large,
+        cashTag: String = "",
+        usePolychromeAsset: Bool = false,
+        logo: CashAppPaymentMethodLogo
+    ) {
         self.paymentMethodView = CashAppPaymentMethodView(
             size: size,
             cashTag: cashTag,
-            usePolychromeAsset: usePolychromeAsset
+            usePolychromeAsset: usePolychromeAsset,
+            logo: logo
         )
         super.init(frame: .zero)
         guard let view = makeView() else { return }

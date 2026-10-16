@@ -25,21 +25,43 @@ public struct CashAppPaymentMethodView: View {
     @ObservedObject public var viewModel: ViewModel
 
     private var currentAsset: SwiftUI.Image {
-        viewModel.usePolychromeAsset ?
-            Asset.Images.cashAppLogoPolychrome.swiftUIImage :
-            Asset.Images.cashAppLogoMonochrome.swiftUIImage
+        switch viewModel.logo {
+        case .cashAppPay:
+            return viewModel.usePolychromeAsset ?
+                Asset.Images.polyChromeLogo.swiftUIImage :
+                Asset.Images.monoChromeLogoReverse.swiftUIImage
+        case .cashApp:
+            return viewModel.usePolychromeAsset ?
+                Asset.Images.cashAppLogoPolychrome.swiftUIImage :
+                Asset.Images.cashAppLogoMonochrome.swiftUIImage
+        }
     }
 
     private var currentColor: SwiftUI.Color {
-        viewModel.usePolychromeAsset ?
-            .black :
-            Asset.Colors.surfaceSecondary.swiftUIColor
+        guard viewModel.usePolychromeAsset else {
+            return Asset.Colors.surfaceSecondary.swiftUIColor
+        }
+        switch viewModel.logo {
+        case .cashAppPay:
+            return Asset.Colors.polyChrome.swiftUIColor
+        case .cashApp:
+            return .black
+        }
+    }
+
+    private var titleWidth: CGFloat {
+        switch viewModel.logo {
+        case .cashAppPay:
+            return Constants.cashAppPayTitleWidth
+        case .cashApp:
+            return Constants.cashAppTitleWidth
+        }
     }
 
     // MARK: - Lifecycle
 
     /**
-     Initializes a view with the Cash App logo on the left and the Cash Tag representing
+     Initializes a view with the Cash App Pay logo on the left and the Cash Tag representing
      the customer on the right or the bottom.
 
      - Parameters:
@@ -48,7 +70,7 @@ public struct CashAppPaymentMethodView: View {
      - cashTag: The Customer ID. Defaults to `nil`.
      - cashTagFont: Cash Tag text font.
      - cashTagTextColor: Cash Tag text color.
-     - usePolychromeAsset: Shows the green Cash App icon on a black background in light and dark mode
+     - usePolychromeAsset: Toggle usage of polychrome UI
      */
     public init(
         size: SizingCategory = .large,
@@ -57,13 +79,46 @@ public struct CashAppPaymentMethodView: View {
         cashTagTextColor: Color = Constants.cashTagTextColor,
         usePolychromeAsset: Bool = false
     ) {
-            self.viewModel = ViewModel(
-                size: size,
-                cashTag: cashTag,
-                cashTagFont: cashTagFont,
-                cashTagTextColor: cashTagTextColor,
-                usePolychromeAsset: usePolychromeAsset
-            )
+        self.init(
+            size: size,
+            cashTag: cashTag,
+            cashTagFont: cashTagFont,
+            cashTagTextColor: cashTagTextColor,
+            usePolychromeAsset: usePolychromeAsset,
+            logo: .cashAppPay
+        )
+    }
+
+    /**
+     Initializes a view with the given logo on the left and the Cash Tag representing
+     the customer on the right or the bottom.
+
+     - Parameters:
+     - size: The size of the view where the `small` is vertically stacked while `large` is horizontally stacked.
+     Defaults to `large`.
+     - cashTag: The Customer ID.
+     - cashTagFont: Cash Tag text font.
+     - cashTagTextColor: Cash Tag text color.
+     - usePolychromeAsset: Toggle usage of polychrome UI
+     - logo: The logo shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
+       without `logo`. `cashApp` shows the "Cash App" logo.
+     */
+    public init(
+        size: SizingCategory = .large,
+        cashTag: String,
+        cashTagFont: Font = Constants.cashTagFont,
+        cashTagTextColor: Color = Constants.cashTagTextColor,
+        usePolychromeAsset: Bool = false,
+        logo: CashAppPaymentMethodLogo
+    ) {
+        self.viewModel = ViewModel(
+            size: size,
+            cashTag: cashTag,
+            cashTagFont: cashTagFont,
+            cashTagTextColor: cashTagTextColor,
+            usePolychromeAsset: usePolychromeAsset,
+            logo: logo
+        )
     }
 
     public var body: some View {
@@ -73,7 +128,7 @@ public struct CashAppPaymentMethodView: View {
                 currentAsset
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: Constants.titleWidth, height: Constants.titleHeight)
+                    .frame(width: titleWidth, height: Constants.titleHeight)
                     .offset(y: Constants.titleVerticalOffset)
                     .padding(
                         EdgeInsets(
@@ -99,7 +154,7 @@ public struct CashAppPaymentMethodView: View {
                 currentAsset
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: Constants.titleWidth, height: Constants.titleHeight)
+                    .frame(width: titleWidth, height: Constants.titleHeight)
                     .padding(
                         EdgeInsets(
                             top: Constants.verticalPadding,
@@ -126,7 +181,8 @@ public struct CashAppPaymentMethodView: View {
         public static let cashTagFont = Font.system(size: 14)
         public static let cashTagTextColor = Asset.Colors.textTernary.swiftUIColor
 
-        static let titleWidth: CGFloat = 97
+        static let cashAppPayTitleWidth: CGFloat = 127
+        static let cashAppTitleWidth: CGFloat = 97
         static let titleHeight: CGFloat = 20
         static let cashTagInset: CGFloat = 38
         static let titleVerticalOffset: CGFloat = 2
@@ -147,18 +203,21 @@ extension CashAppPaymentMethodView {
         @Published var cashTagFont: Font
         @Published var cashTagTextColor: Color
         @Published var usePolychromeAsset: Bool
+        @Published var logo: CashAppPaymentMethodLogo
         init(
             size: SizingCategory,
             cashTag: String,
             cashTagFont: Font,
             cashTagTextColor: Color,
-            usePolychromeAsset: Bool
+            usePolychromeAsset: Bool,
+            logo: CashAppPaymentMethodLogo
         ) {
             self.size = size
             self.cashTag = cashTag
             self.cashTagFont = cashTagFont
             self.cashTagTextColor = cashTagTextColor
             self.usePolychromeAsset = usePolychromeAsset
+            self.logo = logo
         }
     }
 }
@@ -169,16 +228,16 @@ extension CashAppPaymentMethodView {
 struct CashAppPaymentMethodView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading, spacing: 10) {
-            CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: false)
-                .padding()
-            CashAppPaymentMethodView(size: .large, cashTag: "", usePolychromeAsset: false)
-                .padding()
-            CashAppPaymentMethodView(size: .small, cashTag: "$jack", usePolychromeAsset: false)
-                .padding()
-            CashAppPaymentMethodView(size: .small, cashTag: "", usePolychromeAsset: false)
-                .padding()
-            CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: false)
-                .padding()
+            ForEach(CashAppPaymentMethodLogo.allCases, id: \.self) { logo in
+                CashAppPaymentMethodView(size: .large, cashTag: "$jack", logo: logo)
+                    .padding()
+                CashAppPaymentMethodView(size: .large, cashTag: "", logo: logo)
+                    .padding()
+                CashAppPaymentMethodView(size: .small, cashTag: "$jack", logo: logo)
+                    .padding()
+                CashAppPaymentMethodView(size: .large, cashTag: "$jack", usePolychromeAsset: true, logo: logo)
+                    .padding()
+            }
         }.background(Color.blue)
     }
 }

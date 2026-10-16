@@ -26,6 +26,7 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal enum Colors {
     internal static let buttonTextPrimary = ColorAsset(name: "ButtonTextPrimary")
+    internal static let polyChrome = ColorAsset(name: "PolyChrome")
     internal static let surfacePrimaryDisabled = ColorAsset(name: "SurfacePrimaryDisabled")
     internal static let surfaceSecondary = ColorAsset(name: "SurfaceSecondary")
     internal static let textPrimary = ColorAsset(name: "TextPrimary")
@@ -53,9 +54,11 @@ internal enum Asset {
     internal static let continueWithBlack = ImageAsset(name: "ContinueWithBlack")
     internal static let continueWithMono = ImageAsset(name: "ContinueWithMono")
     internal static let continueWithWhite = ImageAsset(name: "ContinueWithWhite")
+    internal static let monoChromeLogoReverse = ImageAsset(name: "MonoChromeLogoReverse")
     internal static let payWithBlack = ImageAsset(name: "PayWithBlack")
     internal static let payWithMono = ImageAsset(name: "PayWithMono")
     internal static let payWithWhite = ImageAsset(name: "PayWithWhite")
+    internal static let polyChromeLogo = ImageAsset(name: "PolyChromeLogo")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

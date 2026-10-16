@@ -48,6 +48,27 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
         )
     }
 
+    func test_cash_app_logo() {
+        for size in [SizingCategory.small, .large] {
+            for usePolychromeAsset in [false, true] {
+                for style in [UIUserInterfaceStyle.light, .dark] {
+                    let chrome = usePolychromeAsset ? "polychrome" : "monochrome"
+                    let appearance = style == .dark ? "dark" : "light"
+                    assertSnapshot(
+                        matching: CashAppPaymentMethodView(
+                            size: size,
+                            cashTag: "$jack",
+                            usePolychromeAsset: usePolychromeAsset,
+                            logo: .cashApp
+                        ),
+                        as: .image(on: .iPhone8, userInterfaceStyle: style),
+                        named: "\(size)-\(chrome)-\(appearance)"
+                    )
+                }
+            }
+        }
+    }
+
     func test_text_custom_font() {
         assertSnapshot(
             matching: CashAppPaymentMethodView(
