@@ -49,14 +49,20 @@ class CashAppPaymentMethodViewSnapshotTests: BaseSnapshotTestCase {
     }
 
     func test_polychrome_dark_mode_custom_cash_tag_color() {
+        // Sized to the view, so a wrong cashtag color is a large enough share of the image to fail the comparison.
         assertSnapshot(
             matching: CashAppPaymentMethodView(
                 size: .large,
                 cashTag: "$jack",
-                cashTagTextColor: .white,
+                cashTagTextColor: CashAppPaymentMethodView.Constants.cashTagTextColor,
                 usePolychromeAsset: true
-            ),
-            as: .image(on: .iPhone8, userInterfaceStyle: .dark)
+            )
+            .environment(\.colorScheme, .dark),
+            as: .image(
+                precision: 0.99,
+                layout: .fixed(width: 200, height: 44),
+                traits: UITraitCollection(userInterfaceStyle: .dark)
+            )
         )
     }
 

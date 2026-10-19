@@ -55,6 +55,8 @@
 
     With `usePolychromeAsset: true` in dark mode, the default Cash Tag color on the green background is now near-black, like the logo, instead of white. A custom `cashTagTextColor` or `setCashTagTextColor(_:)` color is used as set.
 
+    `CashAppPaymentMethodView`'s `cashTagTextColor` parameter is now optional and defaults to `nil`, which selects the default color. Existing code compiles unchanged. Passing `CashAppPaymentMethodView.Constants.cashTagTextColor` now uses that color as set, including on the green background.
+
 ## PayKit 2.0.0 Release Notes
 
 Pay Kit 2.0.0 supports iOS 12 and later.

@@ -51,14 +51,15 @@ public struct CashAppPaymentMethodView: View {
         }
     }
 
-    /// The default cashtag color, except on the green `cashAppPay` polychrome background in dark mode,
-    /// where it is near-black like the logo's wordmark. A custom cashtag color is always used as set.
+    /// A custom cashtag color is always used as set. Without one, the cashtag uses `Constants.cashTagTextColor`,
+    /// except on the green `cashAppPay` polychrome background in dark mode, where it is near-black like the logo's
+    /// wordmark.
     private var cashTagTextColor: SwiftUI.Color {
-        let isOnGreen = viewModel.usePolychromeAsset && viewModel.label == .cashAppPay && colorScheme == .dark
-        guard isOnGreen, viewModel.cashTagTextColor == Constants.cashTagTextColor else {
-            return viewModel.cashTagTextColor
+        if let color = viewModel.cashTagTextColor {
+            return color
         }
-        return Constants.cashTagOnGreenTextColor
+        let isOnGreen = viewModel.usePolychromeAsset && viewModel.label == .cashAppPay && colorScheme == .dark
+        return isOnGreen ? Constants.cashTagOnGreenTextColor : Constants.cashTagTextColor
     }
 
     private var titleWidth: CGFloat {
@@ -81,14 +82,15 @@ public struct CashAppPaymentMethodView: View {
      Defaults to `large`.
      - cashTag: The Customer ID. Defaults to `nil`.
      - cashTagFont: Cash Tag text font.
-     - cashTagTextColor: Cash Tag text color.
+     - cashTagTextColor: Cash Tag text color. Defaults to `nil`, which uses `Constants.cashTagTextColor`, or near-black
+       on the green `cashAppPay` polychrome background in dark mode.
      - usePolychromeAsset: Toggle usage of polychrome UI
      */
     public init(
         size: SizingCategory = .large,
         cashTag: String,
         cashTagFont: Font = Constants.cashTagFont,
-        cashTagTextColor: Color = Constants.cashTagTextColor,
+        cashTagTextColor: Color? = nil,
         usePolychromeAsset: Bool = false
     ) {
         self.init(
@@ -110,7 +112,8 @@ public struct CashAppPaymentMethodView: View {
      Defaults to `large`.
      - cashTag: The Customer ID.
      - cashTagFont: Cash Tag text font.
-     - cashTagTextColor: Cash Tag text color.
+     - cashTagTextColor: Cash Tag text color. Defaults to `nil`, which uses `Constants.cashTagTextColor`, or near-black
+       on the green `cashAppPay` polychrome background in dark mode.
      - usePolychromeAsset: Toggle usage of polychrome UI
      - label: The label shown on the view. `cashAppPay` shows the "Cash App Pay" logo, the same as the initializer
        without `label`. `cashApp` shows the "Cash App" logo.
@@ -119,7 +122,7 @@ public struct CashAppPaymentMethodView: View {
         size: SizingCategory = .large,
         cashTag: String,
         cashTagFont: Font = Constants.cashTagFont,
-        cashTagTextColor: Color = Constants.cashTagTextColor,
+        cashTagTextColor: Color? = nil,
         usePolychromeAsset: Bool = false,
         label: CashAppPaymentMethodLabel
     ) {
@@ -215,14 +218,14 @@ extension CashAppPaymentMethodView {
         @Published var size: SizingCategory
         @Published var cashTag: String
         @Published var cashTagFont: Font
-        @Published var cashTagTextColor: Color
+        @Published var cashTagTextColor: Color?
         @Published var usePolychromeAsset: Bool
         @Published var label: CashAppPaymentMethodLabel
         init(
             size: SizingCategory,
             cashTag: String,
             cashTagFont: Font,
-            cashTagTextColor: Color,
+            cashTagTextColor: Color?,
             usePolychromeAsset: Bool,
             label: CashAppPaymentMethodLabel
         ) {
