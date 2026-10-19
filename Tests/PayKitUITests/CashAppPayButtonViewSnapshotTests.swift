@@ -22,48 +22,95 @@ import SwiftUI
 class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
     func test_small_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .small, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .pay, size: .small, onClickHandler: {}),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_large_button() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .pay, size: .large, onClickHandler: {}),
             as: .image(on: .iPhone8)
         )
     }
 
     func test_button_disabled() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .pay, size: .large, isEnabled: false, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .light)
         )
 
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, isEnabled: false, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .pay, size: .large, isEnabled: false, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
     }
 
     func test_dark_mode() {
         assertSnapshot(
-            matching: CashAppPayButtonView(size: .large, onClickHandler: {}),
+            matching: CashAppPayButtonView(label: .pay, size: .large, onClickHandler: {}),
             as: .image(on: .iPhone8, userInterfaceStyle: .dark)
         )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(label: .pay, style: .black, size: .large, onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark),
+            named: "black"
+        )
+    }
+
+    func test_default_label() {
+        assertSnapshot(
+            matching: CashAppPayButtonView(onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .light),
+            named: "light"
+        )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark),
+            named: "dark"
+        )
+    }
+
+    func test_monochrome_automatic() {
+        assertSnapshot(
+            matching: CashAppPayButtonView(label: .pay, style: .monochromeAutomatic, onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .light),
+            named: "light"
+        )
+
+        assertSnapshot(
+            matching: CashAppPayButtonView(label: .pay, style: .monochromeAutomatic, onClickHandler: {}),
+            as: .image(on: .iPhone8, userInterfaceStyle: .dark),
+            named: "dark"
+        )
+    }
+
+    func test_labels_and_styles() {
+        let styles: [CashAppPayButtonStyle] = [.black, .white, .monochromeBlack, .monochromeWhite, .green]
+        for style in styles {
+            for label in CashAppPayButtonLabel.allCases {
+                assertSnapshot(
+                    matching: CashAppPayButtonView(label: label, style: style, onClickHandler: {}),
+                    as: .image(on: .iPhone8),
+                    named: "\(label)-\(style)"
+                )
+            }
+        }
     }
 
     func test_minimum_size() {
         let smallButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .small, onClickHandler: {})
+            CashAppPayButtonView(label: .pay, size: .small, onClickHandler: {})
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: smallButton, as: .image(on: .iPhone8))
 
         let largeButton = HStack {
             Spacer().frame(idealWidth: .infinity)
-            CashAppPayButtonView(size: .large, onClickHandler: {})
+            CashAppPayButtonView(label: .pay, size: .large, onClickHandler: {})
             Spacer().frame(idealWidth: .infinity)
         }
         assertSnapshot(matching: largeButton, as: .image(on: .iPhone8))

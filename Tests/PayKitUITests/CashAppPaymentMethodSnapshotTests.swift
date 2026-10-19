@@ -37,6 +37,27 @@ class CashAppPaymentMethodSnapshotTests: BaseSnapshotTestCase {
         assertSnapshot(matching: paymentMethod, as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark))
     }
 
+    func test_cash_app_logo() {
+        let paymentMethod = CashAppPaymentMethod(size: .large, cashTag: "$jack", label: .cashApp)
+        assertSnapshot(
+            matching: paymentMethod,
+            as: .image(centeredIn: .iPhone8, userInterfaceStyle: .light),
+            named: "light"
+        )
+        assertSnapshot(
+            matching: paymentMethod,
+            as: .image(centeredIn: .iPhone8, userInterfaceStyle: .dark),
+            named: "dark"
+        )
+    }
+
+    func test_cash_app_logo_set_after_init() {
+        let paymentMethod = CashAppPaymentMethod(size: .small, usePolychromeAsset: true)
+        paymentMethod.cashTag = "$jack"
+        paymentMethod.label = .cashApp
+        assertSnapshot(matching: paymentMethod, as: .image(centeredIn: .iPhone8))
+    }
+
     func test_text_custom_font() {
         let paymentMethod = CashAppPaymentMethod(size: .large)
         paymentMethod.cashTag = "$jack"

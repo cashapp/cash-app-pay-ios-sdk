@@ -21,6 +21,18 @@ public class CashAppPayButton: UIView {
 
     // MARK: - Public Properties
 
+    /// Call to action shown on the button
+    public var label: CashAppPayButtonLabel {
+        get { cashAppButton.viewModel.label }
+        set { cashAppButton.viewModel.label = newValue }
+    }
+
+    /// Color variant of the button
+    public var style: CashAppPayButtonStyle {
+        get { cashAppButton.viewModel.style }
+        set { cashAppButton.viewModel.style = newValue }
+    }
+
     /// View size of the view
     public var size: SizingCategory {
         get { cashAppButton.viewModel.size }
@@ -41,22 +53,26 @@ public class CashAppPayButton: UIView {
     // MARK: - Life Cycle
 
     /**
-     Initializes a button with the Cash App Logo and name.
+     Initializes a button with a Cash App call to action.
 
      - Parameters:
+     - label: The call to action shown on the button. Defaults to `cashAppPay`, which shows the Cash App icon
+       and "Cash App Pay". Pass another label, such as `.pay` or `.checkout`, to show a call to action.
+     - style: The color variant of the button. Defaults to `automatic`, which follows the system appearance.
      - size: The size of the button. Defaults to `large`.
      - onClickHandler: The handler called when the button is tapped.
-     - usePolychromeAsset: Toggle usage of polychrome UI
      */
     public init(
+        label: CashAppPayButtonLabel = .cashAppPay,
+        style: CashAppPayButtonStyle = .automatic,
         size: SizingCategory = .large,
-        onClickHandler: @escaping () -> Void,
-        usePolychromeAsset: Bool = false
+        onClickHandler: @escaping () -> Void
     ) {
         self.cashAppButton = CashAppPayButtonView(
+            label: label,
+            style: style,
             size: size,
-            onClickHandler: onClickHandler,
-            usePolychromeAsset: usePolychromeAsset
+            onClickHandler: onClickHandler
         )
         self.onClickHandler = onClickHandler
         super.init(frame: .zero)
@@ -68,6 +84,36 @@ public class CashAppPayButton: UIView {
             view.topAnchor.constraint(equalTo: topAnchor),
             view.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+
+    /**
+     Initializes a button with the Cash App icon and "Cash App Pay".
+
+     - Parameters:
+     - size: The size of the button. Defaults to `large`.
+     - onClickHandler: The handler called when the button is tapped.
+     - usePolychromeAsset: `true` uses the `green` style. `false` uses the `monochromeAutomatic` style.
+
+     - Note: Deprecated. Use `init(label:style:size:onClickHandler:)` instead: `style: .green` replaces
+       `usePolychromeAsset: true`, and `style: .monochromeAutomatic` matches `usePolychromeAsset: false`.
+     */
+    @available(
+        *,
+        deprecated,
+        message: "Use init(label:style:size:onClickHandler:); style: .green replaces usePolychromeAsset: true"
+    )
+    @_disfavoredOverload
+    public convenience init(
+        size: SizingCategory = .large,
+        onClickHandler: @escaping () -> Void,
+        usePolychromeAsset: Bool = false
+    ) {
+        self.init(
+            label: .cashAppPay,
+            style: usePolychromeAsset ? .green : .monochromeAutomatic,
+            size: size,
+            onClickHandler: onClickHandler
+        )
     }
 
     @available(*, unavailable)
