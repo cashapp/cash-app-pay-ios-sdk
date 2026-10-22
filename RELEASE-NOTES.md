@@ -1,4 +1,8 @@
-## PayKit Next Release Notes (unreleased)
+## PayKit 2.1.0 Release Notes
+
+Pay Kit 2.1.0 supports iOS 12 and later.
+
+Pay Kit 2.1.0 adds call-to-action labels and color styles to `CashAppPayButton`, a label option for `CashAppPaymentMethod`, and new button artwork. Existing code compiles without changes.
 
 - **`CashAppPayButton` labels and styles**
 
