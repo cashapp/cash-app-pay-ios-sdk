@@ -1,3 +1,9 @@
+## PayKit Next Release Notes (unreleased)
+
+- **Spanish call-to-action labels**
+
+    `CashAppPayButton` and `CashAppPayButtonView` show the call-to-action labels and their VoiceOver labels in Spanish when the app runs in Spanish, for example "Pagar con Cash App" for `.pay` and "Finalizar compra con Cash App" for `.checkout`. The button follows the SwiftUI locale environment, whose default is the app's language, so the app must include a Spanish localization; `.environment(\.locale, …)` overrides it. `.cashAppPay` and `.cashApp` are unchanged. Existing code compiles without changes.
+
 ## PayKit 2.1.0 Release Notes
 
 Pay Kit 2.1.0 supports iOS 12 and later.

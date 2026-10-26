@@ -24,6 +24,7 @@ public struct CashAppPayButtonView: View {
     @ObservedObject public var viewModel: ViewModel
 
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.locale) private var locale
 
     // MARK: - Private Properties
 
@@ -142,37 +143,59 @@ public struct CashAppPayButtonView: View {
         }
     }
 
+    /// True when the environment locale's language is Spanish, in any region. The call-to-action labels are then
+    /// shown in Spanish. The `cashAppPay` and `cashApp` labels are brand names and look the same in every language.
+    private var isSpanish: Bool {
+        locale.languageCode == "es"
+    }
+
     /// The color art: the text and the green icon, drawn for a black or a white background.
     private var colorAsset: SwiftUI.Image {
         let isWhite = resolvedStyle == .white
-        switch viewModel.label {
-        case .cashAppPay:
+        switch (viewModel.label, isSpanish) {
+        case (.cashAppPay, _):
             return (isWhite ? Asset.Images.cashAppPayWhite : Asset.Images.cashAppPayBlack).swiftUIImage
-        case .cashApp: return (isWhite ? Asset.Images.cashAppWhite : Asset.Images.cashAppBlack).swiftUIImage
-        case .pay: return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
-        case .buy: return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
-        case .cashOut:
+        case (.cashApp, _): return (isWhite ? Asset.Images.cashAppWhite : Asset.Images.cashAppBlack).swiftUIImage
+        case (.pay, false): return (isWhite ? Asset.Images.payWithWhite : Asset.Images.payWithBlack).swiftUIImage
+        case (.pay, true): return (isWhite ? Asset.Images.payWithWhiteEs : Asset.Images.payWithBlackEs).swiftUIImage
+        case (.buy, false): return (isWhite ? Asset.Images.buyWithWhite : Asset.Images.buyWithBlack).swiftUIImage
+        case (.buy, true): return (isWhite ? Asset.Images.buyWithWhiteEs : Asset.Images.buyWithBlackEs).swiftUIImage
+        case (.cashOut, false):
             return (isWhite ? Asset.Images.cashOutWithWhite : Asset.Images.cashOutWithBlack).swiftUIImage
-        case .checkout:
+        case (.cashOut, true):
+            return (isWhite ? Asset.Images.cashOutWithWhiteEs : Asset.Images.cashOutWithBlackEs).swiftUIImage
+        case (.checkout, false):
             return (isWhite ? Asset.Images.checkoutWithWhite : Asset.Images.checkoutWithBlack).swiftUIImage
-        case .continue:
+        case (.checkout, true):
+            return (isWhite ? Asset.Images.checkoutWithWhiteEs : Asset.Images.checkoutWithBlackEs).swiftUIImage
+        case (.continue, false):
             return (isWhite ? Asset.Images.continueWithWhite : Asset.Images.continueWithBlack).swiftUIImage
-        case .connect:
+        case (.continue, true):
+            return (isWhite ? Asset.Images.continueWithWhiteEs : Asset.Images.continueWithBlackEs).swiftUIImage
+        case (.connect, false):
             return (isWhite ? Asset.Images.connectToWhite : Asset.Images.connectToBlack).swiftUIImage
+        case (.connect, true):
+            return (isWhite ? Asset.Images.connectToWhiteEs : Asset.Images.connectToBlackEs).swiftUIImage
         }
     }
 
     /// The single-color template art, tinted with `monochromeTint`.
     private var monochromeAsset: SwiftUI.Image {
-        switch viewModel.label {
-        case .cashAppPay: return Asset.Images.cashAppPayMono.swiftUIImage
-        case .cashApp: return Asset.Images.cashAppMono.swiftUIImage
-        case .pay: return Asset.Images.payWithMono.swiftUIImage
-        case .buy: return Asset.Images.buyWithMono.swiftUIImage
-        case .cashOut: return Asset.Images.cashOutWithMono.swiftUIImage
-        case .checkout: return Asset.Images.checkoutWithMono.swiftUIImage
-        case .continue: return Asset.Images.continueWithMono.swiftUIImage
-        case .connect: return Asset.Images.connectToMono.swiftUIImage
+        switch (viewModel.label, isSpanish) {
+        case (.cashAppPay, _): return Asset.Images.cashAppPayMono.swiftUIImage
+        case (.cashApp, _): return Asset.Images.cashAppMono.swiftUIImage
+        case (.pay, false): return Asset.Images.payWithMono.swiftUIImage
+        case (.pay, true): return Asset.Images.payWithMonoEs.swiftUIImage
+        case (.buy, false): return Asset.Images.buyWithMono.swiftUIImage
+        case (.buy, true): return Asset.Images.buyWithMonoEs.swiftUIImage
+        case (.cashOut, false): return Asset.Images.cashOutWithMono.swiftUIImage
+        case (.cashOut, true): return Asset.Images.cashOutWithMonoEs.swiftUIImage
+        case (.checkout, false): return Asset.Images.checkoutWithMono.swiftUIImage
+        case (.checkout, true): return Asset.Images.checkoutWithMonoEs.swiftUIImage
+        case (.continue, false): return Asset.Images.continueWithMono.swiftUIImage
+        case (.continue, true): return Asset.Images.continueWithMonoEs.swiftUIImage
+        case (.connect, false): return Asset.Images.connectToMono.swiftUIImage
+        case (.connect, true): return Asset.Images.connectToMonoEs.swiftUIImage
         }
     }
 
@@ -199,15 +222,21 @@ public struct CashAppPayButtonView: View {
     }
 
     private var accessibilityLabel: String {
-        switch viewModel.label {
-        case .cashAppPay: return "Cash App Pay"
-        case .cashApp: return "Cash App"
-        case .pay: return "Pay with Cash App"
-        case .buy: return "Buy with Cash App"
-        case .cashOut: return "Cash out with Cash App"
-        case .checkout: return "Checkout with Cash App"
-        case .continue: return "Continue with Cash App"
-        case .connect: return "Connect to Cash App"
+        switch (viewModel.label, isSpanish) {
+        case (.cashAppPay, _): return "Cash App Pay"
+        case (.cashApp, _): return "Cash App"
+        case (.pay, false): return "Pay with Cash App"
+        case (.pay, true): return "Pagar con Cash App"
+        case (.buy, false): return "Buy with Cash App"
+        case (.buy, true): return "Comprar con Cash App"
+        case (.cashOut, false): return "Cash out with Cash App"
+        case (.cashOut, true): return "Retirar con Cash App"
+        case (.checkout, false): return "Checkout with Cash App"
+        case (.checkout, true): return "Finalizar compra con Cash App"
+        case (.continue, false): return "Continue with Cash App"
+        case (.continue, true): return "Continuar con Cash App"
+        case (.connect, false): return "Connect to Cash App"
+        case (.connect, true): return "Conectar con Cash App"
         }
     }
 
