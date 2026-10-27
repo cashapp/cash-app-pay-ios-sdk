@@ -100,6 +100,21 @@ class CashAppPayButtonViewSnapshotTests: BaseSnapshotTestCase {
         }
     }
 
+    func test_spanish_labels() {
+        let labels: [CashAppPayButtonLabel] = [.pay, .buy, .cashOut, .checkout, .continue, .connect]
+        let styles: [CashAppPayButtonStyle] = [.black, .white, .monochromeBlack, .monochromeWhite, .green]
+        for style in styles {
+            for label in labels {
+                assertSnapshot(
+                    matching: CashAppPayButtonView(label: label, style: style, onClickHandler: {})
+                        .environment(\.locale, Locale(identifier: "es")),
+                    as: .image(on: .iPhone8),
+                    named: "\(label)-\(style)"
+                )
+            }
+        }
+    }
+
     func test_minimum_size() {
         let smallButton = HStack {
             Spacer().frame(idealWidth: .infinity)
