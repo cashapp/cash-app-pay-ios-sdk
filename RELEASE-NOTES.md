@@ -1,4 +1,8 @@
-## PayKit Next Release Notes (unreleased)
+## PayKit 2.2.0 Release Notes
+
+Pay Kit 2.2.0 supports iOS 12 and later.
+
+Pay Kit 2.2.0 adds Spanish call-to-action button labels. Existing code compiles without changes.
 
 - **Spanish call-to-action labels**
 
